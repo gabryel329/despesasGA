@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\BuscarCentroCustoController;
+use App\Http\Controllers\BuscarGastosController;
 use App\Http\Controllers\CentroCustoController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\ReembolsoController;
 use App\Http\Controllers\UsuarioController;
-use App\Models\CentroCusto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +52,11 @@ Route::post('/Buscar/pesquisarCentroCusto', [BuscarCentroCustoController::class,
 Route::get('/Buscar/mostrarCentroCusto/{id}', [BuscarCentroCustoController::class, 'show'])->name('mostrarcentrocusto.show');
 Route::get('/Buscar/editarCentroCusto/{id}',[BuscarCentroCustoController::class, 'edit'])->name('editarcentrocusto.edit');
 Route::put('/Buscar/{id}',[BuscarCentroCustoController::class, 'update'])->name('atualizarcentrocusto.update');
+
+#ROTA BUSCAR GASTOS
+Route::get('/Buscar/buscarGastos', [BuscarGastosController::class, 'index'])->name('buscargastos.index');
+Route::delete('/Buscar/deletarGastos/{id}',[BuscarGastosController::class, 'destroy'])->name('buscargastos.destroy');
+Route::post('/Buscar/pesquisarGastos', [BuscarGastosController::class, 'search'])->name('pesquisargastos.search');
+Route::get('/Buscar/mostrarGastos/{id}', [BuscarGastosController::class, 'show'])->name('mostrargastos.show');
+Route::get('/Buscar/editarGastos/{id}',[BuscarGastosController::class, 'edit'])->name('editargastos.edit');
+Route::put('/Buscar/{id}',[BuscarGastosController::class, 'update'])->name('atualizargastos.update');

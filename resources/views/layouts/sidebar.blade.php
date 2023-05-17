@@ -22,7 +22,7 @@
                 <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Reembolso</a></li>
                 <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Reembolso <br>(Cartao Coporativo)</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarCentroCusto"><i class="icon fa fa-circle-o"></i> Centro de Custo</a></li>
-                <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Tipo de Gastos</a></li>
+                <li><a class="treeview-item" href="/Buscar/buscarGastos"><i class="icon fa fa-circle-o"></i> Tipo de Gastos</a></li>
             </ul>
         </li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
