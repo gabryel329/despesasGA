@@ -4,12 +4,12 @@
     <div class="app-content">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-edit"></i>Lista de Centro de Custo</h1>
+                <h1><i class="fa fa-edit"></i>Lista de Usuarios</h1>
             </div>
             <ul class="app-breadcrumb breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
                 <li class="breadcrumb-item">Administrativo</li>
-                <li class="breadcrumb-item"><a href="#">Centro Custo</a></li>
+                <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
             </ul>
         </div>
         @if(session('alert-warning'))
@@ -22,10 +22,10 @@
                 <div class="tile">
                     <div class="tile-title-w-btn">
                         <h3 class="title">Filtro</h3>
-                        <p><a class="btn btn-primary icon-btn" href="/centrocusto" target="_blank"><i class="fa fa-file"></i>Novo</a></p>
+                        <p><a class="btn btn-primary icon-btn" href="/usuario" target="_blank"><i class="fa fa-file"></i>Novo</a></p>
                     </div>
                     <div class="tile-body">
-                        <form action="{{ route('pesquisarcentrocusto.search') }}" method="post">
+                        <form action="{{ route('pesquisarusuarios.search') }}" method="post">
                             @csrf
                             <input id="search" class="form-control input-md" type="text" name="search" placeholder="Nome ou CPF">
                         </form>
@@ -43,13 +43,7 @@
                                     Nome
                                 </th>
                                 <th>
-                                    Cidade
-                                </th>
-                                <th>
-                                    Estado
-                                </th>
-                                <th>
-                                    Observacao
+                                    E-mail
                                 </th>
                                 <th>
                                     Excluir
@@ -60,14 +54,12 @@
                             </tr>
                         </thead>
                         <tbody style="text-align: center">
-                            @forelse($centrocustos as $centrocusto)
+                            @forelse($usuarios as $usuario)
                                 <tr>
-                                    <td>{{ $centrocusto->nome }}</td>
-                                    <td>{{ $centrocusto->cidade }}</td>
-                                    <td>{{ $centrocusto->estado }}</td>
-                                    <td>{{ $centrocusto->observacao }}</td>
+                                    <td>{{ $usuario->name }}</td>
+                                    <td>{{ $usuario->email }}</td>
                                     <td>
-                                        <form action="{{ route('buscarcentrocusto.destroy', $centrocusto->id) }}" method="post"
+                                        <form action="{{ route('buscarusuarios.destroy', $usuario->id) }}" method="post"
                                             class="ms-2">
                                             @csrf
                                             @method('DELETE')
@@ -82,12 +74,12 @@
                                     <td>
                                         <div>
                                             <button type="button" class="btn btn-sm">
-                                                <a href="{{ route('mostrarcentrocusto.show', $centrocusto->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <a href="{{ route('mostrarusuarios.show', $usuario->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             </button>
                                         </div>
                                     </td>
                                 @empty
-                                    <p class="alert-warning" style="font-size:22px;"center>Nenhum Centro Custo
+                                    <p class="alert-warning" style="font-size:22px;"center>Nenhum Usuario
                                         Cadastrado
                                     </p>
                             @endforelse

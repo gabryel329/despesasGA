@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuscarCentroCustoController;
 use App\Http\Controllers\BuscarGastosController;
 use App\Http\Controllers\BuscarReembolsoController;
+use App\Http\Controllers\BuscarUsuarioController;
 use App\Http\Controllers\CentroCustoController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\ReembolsoController;
@@ -69,3 +70,11 @@ Route::post('/Buscar/pesquisarReembolsos', [BuscarReembolsoController::class, 's
 Route::get('/Buscar/mostrarReembolsos/{id}', [BuscarReembolsoController::class, 'show'])->name('mostrarreembolsos.show');
 Route::get('/Buscar/editarReembolsos/{id}',[BuscarReembolsoController::class, 'edit'])->name('editarreembolsos.edit');
 Route::put('/Buscar/{id}',[BuscarReembolsoController::class, 'update'])->name('atualizarreembolsos.update');
+
+#ROTA BUSCAR REEMBOLSO
+Route::get('/Buscar/buscarUsuarios', [BuscarUsuarioController::class, 'index'])->name('buscarusuarios.index');
+Route::delete('/Buscar/deletarUsuarios/{id}',[BuscarUsuarioController::class, 'destroy'])->name('buscarusuarios.destroy');
+Route::post('/Buscar/pesquisarUsuarios', [BuscarUsuarioController::class, 'search'])->name('pesquisarusuarios.search');
+Route::get('/Buscar/mostrarUsuarios/{id}', [BuscarUsuarioController::class, 'show'])->name('mostrarusuarios.show');
+Route::get('/Buscar/editarUsuarios/{id}',[BuscarUsuarioController::class, 'edit'])->name('editarusuarios.edit');
+Route::put('/Buscar/{id}',[BuscarUsuarioController::class, 'update'])->name('atualizarusuarios.update');

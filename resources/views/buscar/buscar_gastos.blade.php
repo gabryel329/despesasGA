@@ -18,15 +18,19 @@
         </div>
     @endif
         <div class="row">
-            <div class="card-body">
-
-                <form action="{{ route('pesquisargastos.search') }}" method="post">
-                    @csrf
-                    <div class="col-md-6">
-                        <span class="input-group-addon">Filtro</span>
-                        <input id="search" class="form-control input-md" type="text" name="search" placeholder="Nome ou CPF">
+            <div class="col-md-6">
+                <div class="tile">
+                    <div class="tile-title-w-btn">
+                        <h3 class="title">Filtro</h3>
+                        <p><a class="btn btn-primary icon-btn" href="/gastos" target="_blank"><i class="fa fa-file"></i>Novo</a></p>
                     </div>
-                </form>
+                    <div class="tile-body">
+                        <form action="{{ route('pesquisargastos.search') }}" method="post">
+                            @csrf
+                            <input id="search" class="form-control input-md" type="text" name="search" placeholder="Nome ou CPF">
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">

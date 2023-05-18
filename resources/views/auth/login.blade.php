@@ -16,7 +16,7 @@
     </section>
     <section class="login-content">
       <div class="logo">
-        <h1>Despesas GA</h1>
+        <h1><img src="{{ asset('images/logo.png') }}" alt="Logo"></h1>
       </div>
       <div class="login-box">
         <form class="login-form" method="POST" action="{{ route('login') }}">

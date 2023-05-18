@@ -17,18 +17,22 @@
             {{ session('alert-warning') }}
         </div>
     @endif
-        <div class="row">
-            <div class="card-body">
-
-                <form action="{{ route('pesquisarreembolsos.search') }}" method="post">
-                    @csrf
-                    <div class="col-md-6">
-                        <span class="input-group-addon">Filtro</span>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tile">
+                <div class="tile-title-w-btn">
+                    <h3 class="title">Filtro</h3>
+                    <p><a class="btn btn-primary icon-btn" href="/reembolso" target="_blank"><i class="fa fa-file"></i>Novo</a></p>
+                </div>
+                <div class="tile-body">
+                    <form action="{{ route('pesquisarreembolsos.search') }}" method="post">
+                        @csrf
                         <input id="search" class="form-control input-md" type="text" name="search" placeholder="Nome ou CPF">
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
         <div class="row">
             <div class="card-body">
                 <div class="table-responsive-md">
