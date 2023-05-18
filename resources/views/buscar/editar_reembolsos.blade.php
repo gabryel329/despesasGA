@@ -2,12 +2,12 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-laptop"></i> Cadastro</h1>
+            <h1><i class="fa fa-laptop"></i> Editar</h1>
             <p>Reembolso</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-            <li class="breadcrumb-item">Cadastros</li>
+            <li class="breadcrumb-item">Editar</li>
             <li class="breadcrumb-item"><a href="#">Reembolso</a></li>
         </ul>
     </div>
@@ -21,8 +21,9 @@
             <div class="tile">
                 <h3 class="tile-title">Reembolso</h3>
                 <div class="tile-body">
-                    <form method="POST" name="formusuario" action="{{ route('reembolso.store') }}" class="form-horizontal" enctype="multipart/form-data">
+                    <form action="{{ route('atualizarreembolsos.update', ['id'=>$reembolsos->id]) }}" method="POST" >
                         @csrf
+                        @method('put')
                         <div class="col-md-11 control-label">
                             <p class="help-block">
                                 <h11>*</h11> Campo Obrigatório
@@ -33,22 +34,20 @@
                                 <div class="col-md-6">
                                     <span class="input-group-addon" for="valor">Valor <h11>*</h11></span>
                                     <input id="valor" name="valor" placeholder="" class="form-control input-md"
-                                        required="" type="text" required onblur="formatarValor(this)">
+                                         type="text" onblur="formatarValor(this)" value="{{$reembolsos->valor}}">
                                 </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Data <h11>*</h11></span>
                                     <input id="data" name="data" placeholder="" class="form-control input-md"
-                                        required="" type="date">
+                                         type="date" value="{{$reembolsos->data}}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <Label class="form-check-label">Tipo de Gasto<h11>*</h11></Label>
                                     <select class="form-control" id="gasto_id" name="gasto_id">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        <option selected >{{$reembolsos->gasto_id}}
                                         </option>
-                                        {{-- <option>Aberta</option>
-                                        <option>Quitada</option> --}}
                                         @foreach ($gastos as $gasto)
                                             <option value="{{$gasto->nome}}">{{$gasto->nome}}</option>
                                         @endforeach
@@ -57,7 +56,7 @@
                                 <div class="col-md-6">
                                     <Label class="form-check-label">Responsavel<h11>*</h11></Label>
                                     <select class="form-control" id="usuario_id" name="usuario_id">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        <option selected>{{$reembolsos->usuario_id}}
                                         </option>
                                         {{-- <option>Aberta</option>
                                         <option>Quitada</option> --}}
@@ -71,7 +70,7 @@
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Centro de Custo<h11>*</h11></Label>
                                     <select class="form-control" id="centrocusto_id" name="centrocusto_id">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        <option selected>{{$reembolsos->centrocusto_id}}
                                         </option>
                                         @foreach ($centrocustos as $centrocusto)
                                             <option value="{{$centrocusto->nome}}">{{$centrocusto->nome}}</option>
@@ -83,7 +82,7 @@
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Tipo<h11>*</h11></Label>
                                     <select class="form-control" id="tipo" name="tipo">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        <option selected>{{$reembolsos->tipo}}
                                         </option>
                                         <option value="Implantacão">Implantacão</option>
                                         <option value="Treinamento">Treinamento</option>
@@ -96,7 +95,7 @@
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Status<h11>*</h11></Label>
                                     <select class="form-control" id="status" name="status">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        <option selected>{{$reembolsos->status}}
                                         </option>
                                         <option value="Em Aberto">Em Aberto</option>
                                         <option value="Reembolsada">Reembolsada</option>
@@ -105,7 +104,7 @@
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Cartão Corporativo<h11>*</h11></Label>
                                     <select class="form-control" id="corporativo" name="corporativo">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        <option selected >{{$reembolsos->corporativo}}
                                         </option>
                                         <option value="Sim">Sim</option>
                                         <option value="Não">Não</option>
@@ -115,8 +114,8 @@
                             <div class="row">
                                 <div class="col-md-6" id="forma_pagamento2">
                                     <label class="control-label">Forma de Pagamento<h11>*</h11></label>
-                                    <select onchange="adicionarcampo3(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                    <select onchange="adicionarcampo3(this.value)" class="form-control" id="" name="forma_pgt" >
+                                        <option selected >{{$reembolsos->forma_pgt}}
                                         </option>
                                         <option>Pix</option>
                                         <option>Dinheiro</option>
@@ -126,9 +125,8 @@
                                 </div>
                                 <div class="col-md-6" id="parcelas3" hidden>
                                     <label class="control-label">Parcelas<h11>*</h11></label>
-                                    <select class="form-control" id="parcelas" name="parcelas" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
-                                        </option>
+                                    <select class="form-control" id="" name="parcelas" >
+                                        <option selected>{{$reembolsos->parcelas}}
                                         <option>A vista</option>
                                         <option>x2</option>
                                         <option>x3</option>
@@ -150,15 +148,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Observação</label>
-                                <textarea class="form-control" id="observacao" name="observacao" rows="3"></textarea>
+                                <input class="form-control" id="observacao" name="observacao" rows="3" value="{{$reembolsos->observacao}}">
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <button id="Cadastrar" data-toggle="modal" data-target="#exampleModal"
-                                        name="Cadastrar" class="btn btn-success" type="Submit">Cadastrar</button>
-                                    <button id="cancelar" name="cancelar" class="btn btn-danger"
-                                        type="Reset">Cancelar</button>
+                                <div class="col-md-8">
+                                    <input type="submit" name="submit" class="btn btn-success" value="Atualizar">
+                                    <a class="btn btn-danger" type="button" href="{{ route('mostrarreembolsos.show', $reembolsos->id) }}">Cancelar</a>
                                 </div>
                             </div>
                         </div>

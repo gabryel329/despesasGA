@@ -49,10 +49,18 @@ class ReembolsoController extends Controller
         $reembolso->centrocusto_id = $request->get('centrocusto_id');
         $reembolso->gasto_id = $request->get('gasto_id');
 
-        // Salva o arquivo
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('arquivos');
-            $reembolso->image = $path;
+        //image Upload
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+
+            $requestImage = $request->image;
+
+            $extension = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+            $requestImage->move(public_path('img/arquivos/'), $imageName);
+
+            $reembolso->image = $imageName;
         }
 
         $reembolso->save();
