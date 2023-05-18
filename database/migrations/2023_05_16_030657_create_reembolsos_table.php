@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('valor', 50)->nullable();
             $table->date('data')->nullable();
             $table->string('gasto_id')->nullable();
-            $table->integer('centrocusto_id')->nullable();
+            $table->string('centrocusto_id')->nullable();
             $table->string('observacao', 100)->nullable();
-            $table->integer('usuario_id')->nullable();
+            $table->string('usuario_id')->nullable();
             $table->string('forma_pgt', 25)->nullable();
             $table->string('parcelas', 15)->nullable();
             $table->string('image')->nullable();

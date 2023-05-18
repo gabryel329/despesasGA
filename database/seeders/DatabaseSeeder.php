@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 		$super->name = 'Admin';
 		$super->email = 'admin@melhorvisao.com';
 		$super->password = bcrypt('12345678');
+        $super->admin = 'Sim';
 		$super->save();
     }
 }

@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <span class="input-group-addon">Senha<h11>*</h11></span>
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" value="{{ $usuarios->password }}" name="password" required autocomplete="new-password">
 
@@ -61,6 +61,11 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                                    <div class="col-md-6">
+                                        <span class="input-group-addon">Acesso Admin<h11>*</h11></span>
+                                        <input class="form-control" id="admin" name="admin" rows="3" value="{{ $usuarios->admin }}">
+                                    </div>
                                 </div>
                             </div>
                             <br>

@@ -69,6 +69,17 @@
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="input-group-addon">Acesso Admin<h11>*</h11></span>
+                                    <select class="form-control" id="admin" name="admin">
+                                        <option disabled required selected style="font-size:18px;color: black;">Escolha
+                                        </option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Nao">Nao</option>
+                                    </select>
+                                </div>
+                            </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">

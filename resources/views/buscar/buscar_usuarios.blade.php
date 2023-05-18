@@ -46,6 +46,9 @@
                                     E-mail
                                 </th>
                                 <th>
+                                    Admin
+                                </th>
+                                <th>
                                     Excluir
                                 </th>
                                 <th>
@@ -58,6 +61,7 @@
                                 <tr>
                                     <td>{{ $usuario->name }}</td>
                                     <td>{{ $usuario->email }}</td>
+                                    <td>{{ $usuario->admin }}</td>
                                     <td>
                                         <form action="{{ route('buscarusuarios.destroy', $usuario->id) }}" method="post"
                                             class="ms-2">

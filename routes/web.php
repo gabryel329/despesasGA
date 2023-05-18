@@ -48,7 +48,7 @@ Route::get('/reembolso', [ReembolsoController::class, 'index'])->name('reembolso
 Route::post('/reembolso', [ReembolsoController::class, 'store'])->name('reembolso.store');
 
 #ROTA BUSCAR CENTRO CUSTO
-Route::get('/Buscar/buscarCentroCusto', [BuscarCentroCustoController::class, 'index'])->name('buscarcentrocusto.index');
+Route::get('/Buscar/buscarCentroCusto', [BuscarCentroCustoController::class, 'index'])->name('buscarcentrocusto.index')->middleware('admin');
 Route::delete('/Buscar/deletarCentroCusto/{id}',[BuscarCentroCustoController::class, 'destroy'])->name('buscarcentrocusto.destroy');
 Route::post('/Buscar/pesquisarCentroCusto', [BuscarCentroCustoController::class, 'search'])->name('pesquisarcentrocusto.search');
 Route::get('/Buscar/mostrarCentroCusto/{id}', [BuscarCentroCustoController::class, 'show'])->name('mostrarcentrocusto.show');
@@ -56,7 +56,7 @@ Route::get('/Buscar/editarCentroCusto/{id}',[BuscarCentroCustoController::class,
 Route::put('/Buscar/{id}',[BuscarCentroCustoController::class, 'update'])->name('atualizarcentrocusto.update');
 
 #ROTA BUSCAR GASTOS
-Route::get('/Buscar/buscarGastos', [BuscarGastosController::class, 'index'])->name('buscargastos.index');
+Route::get('/Buscar/buscarGastos', [BuscarGastosController::class, 'index'])->name('buscargastos.index')->middleware('admin');
 Route::delete('/Buscar/deletarGastos/{id}',[BuscarGastosController::class, 'destroy'])->name('buscargastos.destroy');
 Route::post('/Buscar/pesquisarGastos', [BuscarGastosController::class, 'search'])->name('pesquisargastos.search');
 Route::get('/Buscar/mostrarGastos/{id}', [BuscarGastosController::class, 'show'])->name('mostrargastos.show');
@@ -65,14 +65,14 @@ Route::put('/Buscar/{id}',[BuscarGastosController::class, 'update'])->name('atua
 
 #ROTA BUSCAR REEMBOLSO
 Route::get('/Buscar/buscarReembolsos', [BuscarReembolsoController::class, 'index'])->name('buscarreembolsos.index');
-Route::delete('/Buscar/deletarReembolsos/{id}',[BuscarReembolsoController::class, 'destroy'])->name('buscarreembolsos.destroy');
+Route::delete('/Buscar/deletarReembolsos/{id}',[BuscarReembolsoController::class, 'destroy'])->name('buscarreembolsos.destroy')->middleware('admin');
 Route::post('/Buscar/pesquisarReembolsos', [BuscarReembolsoController::class, 'search'])->name('pesquisarreembolsos.search');
 Route::get('/Buscar/mostrarReembolsos/{id}', [BuscarReembolsoController::class, 'show'])->name('mostrarreembolsos.show');
-Route::get('/Buscar/editarReembolsos/{id}',[BuscarReembolsoController::class, 'edit'])->name('editarreembolsos.edit');
-Route::put('/Buscar/{id}',[BuscarReembolsoController::class, 'update'])->name('atualizarreembolsos.update');
+Route::get('/Buscar/editarReembolsos/{id}',[BuscarReembolsoController::class, 'edit'])->name('editarreembolsos.edit')->middleware('admin');
+Route::put('/Buscar/{id}',[BuscarReembolsoController::class, 'update'])->name('atualizarreembolsos.update')->middleware('admin');
 
 #ROTA BUSCAR REEMBOLSO
-Route::get('/Buscar/buscarUsuarios', [BuscarUsuarioController::class, 'index'])->name('buscarusuarios.index');
+Route::get('/Buscar/buscarUsuarios', [BuscarUsuarioController::class, 'index'])->name('buscarusuarios.index')->middleware('admin');
 Route::delete('/Buscar/deletarUsuarios/{id}',[BuscarUsuarioController::class, 'destroy'])->name('buscarusuarios.destroy');
 Route::post('/Buscar/pesquisarUsuarios', [BuscarUsuarioController::class, 'search'])->name('pesquisarusuarios.search');
 Route::get('/Buscar/mostrarUsuarios/{id}', [BuscarUsuarioController::class, 'show'])->name('mostrarusuarios.show');

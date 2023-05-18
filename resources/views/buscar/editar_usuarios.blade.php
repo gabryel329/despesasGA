@@ -33,7 +33,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <span class="input-group-addon">Nome <h11>*</h11></span>
-                                    <input id="name" type="text" class="form-control input-md @error('name') is-invalid @enderror" name="name" value="{{ $usuarios->name }}" required autocomplete="name" autofocus>
+                                    <input id="name" type="text" class="form-control input-md @error('name') is-invalid @enderror" name="name" value="{{ $usuarios->name }}" autocomplete="name" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <span class="input-group-addon">E-mail<h11>*</h11></span>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $usuarios->email }}" required autocomplete="email">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $usuarios->email }}" autocomplete="email">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Senha<h11>*</h11></span>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
                                     <p style="font-size: smaller;">(Minimo 8 caracteres)</p>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -67,7 +67,18 @@
                                 </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Confime a Senha<h11>*</h11></span>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="input-group-addon">Acesso Admin<h11>*</h11></span>
+                                    <select class="form-control" id="admin" name="admin">
+                                        <option selected>{{ $usuarios->admin }}
+                                        </option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Nao">Nao</option>
+                                    </select>
                                 </div>
                             </div>
                             <br>

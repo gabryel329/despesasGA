@@ -69,6 +69,7 @@ class BuscarUsuarioController extends Controller
         $data=[
             'name' => $request->name,
             'email' => $request->email,
+            'admin' => $request->admin,
             'password' => Hash::make($request->password),
         ];
 

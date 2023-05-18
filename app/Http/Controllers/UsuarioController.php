@@ -43,6 +43,7 @@ class UsuarioController extends Controller
     $user = new User;
     $user->name = $validatedData['name'];
     $user->email = $validatedData['email'];
+    $user->admin = $request->get('admin');
     $user->password = Hash::make($validatedData['password']);
     $user->save();
 
