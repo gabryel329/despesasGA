@@ -31,9 +31,9 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span class="input-group-addon">Nome <h11>*</h11> <p style="font-size: smaller;">(Apenas letras MAIUSCULAS)</p></span>
+                                    <span class="input-group-addon">Nome <h11>*</h11></span>
                                     <input id="nome" name="nome" placeholder="" class="form-control input-md"
-                                    pattern="^[A-Z]+$" required type="text">
+                                    required type="text">
                                 </div>
                             </div>
                             <div class="form-group">

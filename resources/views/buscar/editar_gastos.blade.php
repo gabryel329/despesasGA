@@ -27,9 +27,9 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span class="input-group-addon">Nome<p style="font-size: smaller;">(Apenas letras MAIUSCULAS)</p></span>
+                                    <span class="input-group-addon">Nome</span>
                                     <input id="nome" name="nome" placeholder="" class="form-control input-md"
-                                    pattern="^[A-Z]+$" required type="text" value="{{ $gastos->nome }}">
+                                    required type="text" value="{{ $gastos->nome }}">
                                 </div>
                             </div>
                             <div class="form-group">

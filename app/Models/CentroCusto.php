@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class CentroCusto extends Model
 {
+    public function setNomeAttribute($value)
+    {
+        $this->attributes['nome'] = strtoupper($value);
+    }
+
     use HasFactory;
     protected $fillable = [
         'nome',
