@@ -39,6 +39,7 @@
                                         required="" type="date" value="{{ $reembolsos->data }}">
                                 </div>
                             </div>
+                            <br>
                             <div class="row">
                                 <div class="col-md-6">
                                     <h6 class="form-check-label">Tipo de Gasto</h6>
@@ -50,12 +51,14 @@
                                     <input class="form-control" id="usuario_id" name="usuario_id" value="{{ $reembolsos->usuario_id }}">
                                 </div>
                             </div>
+                            <br>
                             <div class="row">
                                 <div class="col-md-12">
                                     <h6 class="form-check-label">Centro de Custo</h6>
                                     <input class="form-control" id="centrocusto_id" name="centrocusto_id" value="{{ $reembolsos->centrocusto_id }}">
                                 </div>
                             </div>
+                            <br>
                             <div class="row">
                                 <div class="col-md-4">
                                     <h6 class="form-check-label">Tipo</h6>
@@ -70,6 +73,7 @@
                                     <input class="form-control" id="corporativo" name="corporativo" value="{{ $reembolsos->corporativo }}">
                                 </div>
                             </div>
+                            <br>
                             <div class="row">
                                 <div class="col-md-6" id="forma_pagamento2">
                                     <h6 class="control-label">Forma de Pagamento</h6>
@@ -107,6 +111,7 @@
                                         </div>
                                 </div>
                             </div>
+                            <br>
                             <div class="row">
                                 <div class="col-md-12">
                                     <h6 for="exampleFormControlTextarea1">Observação</h6>
