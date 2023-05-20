@@ -82,10 +82,10 @@
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-12">
                                     <h6 >Comprovante</h6>
                                         <button type="button" class="btn btn-md" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                            <a>Visualizar<i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a>Visualizar<i class="app-menu__icon fa fa-eye" aria-hidden="true"></i></a>
                                         </button>
                                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-lg" role="document">
@@ -106,7 +106,9 @@
                                             </div>
                                         </div>
                                 </div>
-                                <div class="col-md-10">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <h6 for="exampleFormControlTextarea1">Observação</h6>
                                     <input class="form-control" id="observacao" name="observacao" rows="3"value="{{ $reembolsos->observacao }}">
                                 </div>
