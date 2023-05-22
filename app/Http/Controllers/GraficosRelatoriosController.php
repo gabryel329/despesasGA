@@ -44,6 +44,10 @@ class GraficosRelatoriosController extends Controller
         $reembolsados = DB::select("SELECT count(r.id) as reembolsado FROM reembolsos r
                     INNER JOIN users u ON u.name = r.usuario_id
                     WHERE r.status = 'Reembolsada' and u.name = ?", [$userName]);
+
+        $glosados = DB::select("SELECT count(r.id) as glosado FROM reembolsos r
+                    INNER JOIN users u ON u.name = r.usuario_id
+                    WHERE r.status = 'Glosada' and u.name = ?", [$userName]);
         //Fim Grafico ABERTOSREEMBOLSADOS
 
         //GRAFICO DE VALORES POR USUARIO
@@ -71,10 +75,9 @@ class GraficosRelatoriosController extends Controller
                     INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
                 WHERE
                     u.name = '".$userName."'GROUP BY m.month, mes ORDER BY m.month");
-     
-      
+   
         return view('/home', compact('users','reembolsos', 'emAbertos', 'reembolsadas', 'abertos', 'reembolsados',
-        'data'));
+        'data','glosados'));
     }
 
     /**

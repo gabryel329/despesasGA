@@ -84,21 +84,21 @@
                                     <select class="form-control" id="tipo" name="tipo">
                                         <option selected>{{$reembolsos->tipo}}
                                         </option>
-                                        <option value="Implantacão">Implantação</option>
+                                        <option value="Implantacao">Implantação</option>
                                         <option value="Treinamento">Treinamento</option>
                                         <option value="Visita">Visita</option>
                                         <option value="Suporte">Suporte</option>
-                                        <option value="Apresentacão do Sistema">Apresentacão do Sistema</option>
-                                        <option value="Reunião">Reunião</option>
+                                        <option value="Apresentacao do Sistema">Apresentação do Sistema</option>
+                                        <option value="Reuniao">Reunião</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Tipo de Movimento<h11>*</h11></Label>
-                                    <select class="form-control" id="movimento" name="movimento" required>
-                                        <option disabled selected style="font-size:18px;color: black;">{{$reembolsos->movimento}}
+                                    <select class="form-control" id="movimento" name="movimento">
+                                        <option  selected style="font-size:18px;color: black;" value="{{$reembolsos->movimento}}">{{$reembolsos->movimento}}
                                         </option>
                                         <option value="Entrada">Entrada</option>
-                                        <option value="Saida">Saída</option>
+                                        <option value="Saida">Saida</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -107,7 +107,7 @@
                                         <option selected >{{$reembolsos->corporativo}}
                                         </option>
                                         <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
+                                        <option value="Nao">Nao</option>
                                     </select>
                                 </div>
                             </div>
@@ -146,12 +146,13 @@
                                     <input class="form-control" type="file" name="image">
                                 </div>
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Tipo de Movimento<h11>*</h11></Label>
-                                    <select class="form-control" id="movimento" name="movimento" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                    <Label class="form-check-label">Status<h11>*</h11></Label>
+                                    <select class="form-control" id="status" name="status" required>
+                                        <option  value="{{$reembolsos->status}}" style="font-size:18px;color: black;">{{$reembolsos->status}}
                                         </option>
-                                        <option value="Entrada">Entrada</option>
-                                        <option value="Saida">Saida</option>
+                                        <option value="Em Aberto">Em Aberto</option>
+                                        <option value="Reembolsada">Reembolsada</option>
+                                        <option value="Glosada">Glosada</option>
                                     </select>
                                 </div>
                             </div>

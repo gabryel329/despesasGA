@@ -103,17 +103,23 @@
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-          ['Em Abertos: ',   @forelse ( $abertos as $aberto )
-                                      {{$aberto->aberto}}
-                                  @empty
-                                      0
-                                  @endforelse],
+            ['Em Abertos: ',   @forelse ( $abertos as $aberto )
+                                        {{$aberto->aberto}}
+                                    @empty
+                                        0
+                                    @endforelse],
 
-          ['Reembolsados: ',   @forelse ( $reembolsados as $reembolsado )
-                                      {{$reembolsado->reembolsado}}
-                                  @empty
-                                      0
-                                  @endforelse],
+            ['Reembolsados: ',   @forelse ( $reembolsados as $reembolsado )
+                                        {{$reembolsado->reembolsado}}
+                                    @empty
+                                        0
+                                    @endforelse],
+
+            ['Glosadas: ',   @forelse ( $glosados as $glosado )
+                                        {{$glosado->glosado}}
+                                    @empty
+                                        0
+                                    @endforelse],
         ]);
 
     // Set chart options
@@ -153,7 +159,7 @@
               colors: ['#007BFF']
           };
 
-          var formatter = new google.visualization.NumberFormat({ 
+          var formatter = new google.visualization.NumberFormat({
             prefix: 'R$',
             groupingSymbol: '.',
             decimalSymbol: ',',

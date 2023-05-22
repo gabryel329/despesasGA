@@ -95,7 +95,8 @@ class BuscarReembolsoController extends Controller
             'observacao' => $request->observacao,
             'movimento' => $request->movimento
         ];
-
+      
+   
         Reembolso::where('id', $id)->update($data);
         return redirect()->route('mostrarreembolsos.show', ['id' => $id])->with('success', 'Editado com sucesso!');
     }
