@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuscarAdministrativaController;
 use App\Http\Controllers\BuscarCentroCustoController;
 use App\Http\Controllers\BuscarGastosController;
 use App\Http\Controllers\BuscarReembolsoController;
@@ -78,3 +79,7 @@ Route::post('/Buscar/pesquisarUsuarios', [BuscarUsuarioController::class, 'searc
 Route::get('/Buscar/mostrarUsuarios/{id}', [BuscarUsuarioController::class, 'show'])->name('mostrarusuarios.show');
 Route::get('/Buscar/editarUsuarios/{id}',[BuscarUsuarioController::class, 'edit'])->name('editarusuarios.edit');
 Route::put('/Buscar/atualizarUsuarios/{id}',[BuscarUsuarioController::class, 'update'])->name('atualizarusuarios.update');
+
+#ROTA BUSCAR ADMINISTRATIVA
+
+Route::get('/Buscar/buscarAdministrativa', [BuscarAdministrativaController::class, 'index'])->name('buscaradministrativo.index')->middleware('admin');
