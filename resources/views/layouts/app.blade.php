@@ -26,6 +26,19 @@
     <link href="{{ url('css/main.css') }}" rel="stylesheet">
     <link href="{{ url('css/self.css') }}" rel="stylesheet">
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                })
+                .catch(function(error) {
+                    console.log('Falha ao registrar o Service Worker:', error);
+                });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     @stack('css')
   </head>
 
@@ -59,5 +72,14 @@
         @stack('scripts')
 
     </body>
-
+    <script type="text/javascript">
+        var $rows = $('#tabela tr');
+        $('#search').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>
 </html>

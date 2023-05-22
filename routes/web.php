@@ -7,6 +7,7 @@ use App\Http\Controllers\BuscarReembolsoController;
 use App\Http\Controllers\BuscarUsuarioController;
 use App\Http\Controllers\CentroCustoController;
 use App\Http\Controllers\GastosController;
+use App\Http\Controllers\GraficosRelatoriosController;
 use App\Http\Controllers\ReembolsoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
@@ -83,3 +84,7 @@ Route::put('/Buscar/atualizarUsuarios/{id}',[BuscarUsuarioController::class, 'up
 #ROTA BUSCAR ADMINISTRATIVA
 
 Route::get('/Buscar/buscarAdministrativa', [BuscarAdministrativaController::class, 'index'])->name('buscaradministrativo.index')->middleware('admin');
+
+#ROTA GRAFICOS E RELATORIOS
+
+Route::get('/home', [GraficosRelatoriosController::class, 'index'])->name('graficosrelatorios.index');

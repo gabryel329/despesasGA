@@ -61,7 +61,7 @@
                                     Status
                                 </th>
                                 <th>
-                                    Observacao
+                                    Observação
                                 </th>
                                 {{-- <th>
                                     Comprovante

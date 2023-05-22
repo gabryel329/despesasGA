@@ -31,46 +31,46 @@
                                 <div class="col-md-6">
                                     <span class="input-group-addon" for="valor"><h6>Valor</h6></span>
                                     <input id="valor" name="valor" placeholder="" class="form-control input-md"
-                                        required="" type="text" required onblur="formatarValor(this)" value="{{ $reembolsos->valor }}">
+                                        required="" type="text" required onblur="formatarValor(this)" value="{{ $reembolsos->valor }}" disabled style="font-size:18px;color: black;">
                                 </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon"><h6>Data</h6></span>
                                     <input id="data" name="data" placeholder="" class="form-control input-md"
-                                        required="" type="date" value="{{ $reembolsos->data }}">
+                                        required="" type="date" value="{{ $reembolsos->data }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h6 class="form-check-label">Tipo de Gasto</h6>
-                                    <input class="form-control" id="gasto_id" name="gasto_id" value="{{ $reembolsos->gasto_id }}">
+                                    <h6 class="form-check-label">Nutureza Operação</h6>
+                                    <input class="form-control" id="gasto_id" name="gasto_id" value="{{ $reembolsos->gasto_id }}" disabled style="font-size:18px;color: black;">
 
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="form-check-label">Responsavel</h6>
-                                    <input class="form-control" id="usuario_id" name="usuario_id" value="{{ $reembolsos->usuario_id }}">
+                                    <input class="form-control" id="usuario_id" name="usuario_id" value="{{ $reembolsos->usuario_id }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-12">
                                     <h6 class="form-check-label">Centro de Custo</h6>
-                                    <input class="form-control" id="centrocusto_id" name="centrocusto_id" value="{{ $reembolsos->centrocusto_id }}">
+                                    <input class="form-control" id="centrocusto_id" name="centrocusto_id" value="{{ $reembolsos->centrocusto_id }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-4">
                                     <h6 class="form-check-label">Tipo</h6>
-                                    <input class="form-control" id="tipo" name="tipo" value="{{ $reembolsos->tipo }}">
+                                    <input class="form-control" id="tipo" name="tipo" value="{{ $reembolsos->tipo }}" disabled style="font-size:18px;color: black;">
                                 </div>
                                 <div class="col-md-4">
                                     <h6 class="form-check-label">Status</h6>
-                                    <input class="form-control" id="status" name="status" value="{{ $reembolsos->status }}">
+                                    <input class="form-control" id="status" name="status" value="{{ $reembolsos->status }}" disabled style="font-size:18px;color: black;">
                                 </div>
                                 <div class="col-md-4">
                                     <h6 class="form-check-label">Cartão Corporativo</h6>
-                                    <input class="form-control" id="corporativo" name="corporativo" value="{{ $reembolsos->corporativo }}">
+                                    <input class="form-control" id="corporativo" name="corporativo" value="{{ $reembolsos->corporativo }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             {{-- <br>
@@ -115,13 +115,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h6 for="exampleFormControlTextarea1">Observação</h6>
-                                    <input class="form-control" id="observacao" name="observacao" rows="3"value="{{ $reembolsos->observacao }}">
+                                    <input class="form-control" id="observacao" name="observacao" rows="3"value="{{ $reembolsos->observacao }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <a class="btn btn-success" type="button" href="{{ route('editarreembolsos.edit', $reembolsos->id) }}">Editar</a>
+                                    <a class="btn btn-success" type="button" href="{{ route('editarreembolsos.edit', $reembolsos->id) }}" >Editar</a>
                                 </div>
                             </div>
                         </div>

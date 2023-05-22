@@ -19,19 +19,19 @@
     <div class="row">
         <div class="col-md-6" style="display: inline-block; margin: auto;">
             <div class="tile">
-                <h3 class="tile-title">Tipos de Gastos</h3>
+                <h3 class="tile-title">Natureza Operação</h3>
                 <div class="tile-body">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span class="input-group-addon">Nome<p style="font-size: smaller;">(Apenas letras MAIUSCULAS)</p></span>
+                                    <span class="input-group-addon">Nome</span>
                                     <input id="nome" name="nome" placeholder="" class="form-control input-md"
-                                    pattern="^[A-Z]+$" required type="text" value="{{ $gastos->nome }}">
+                                     required type="text" value="{{ $gastos->nome }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Observação</label>
-                                <input class="form-control" id="observacao" name="observacao" rows="3" value="{{ $gastos->observacao }}">
+                                <input class="form-control" id="observacao" name="observacao" rows="3" value="{{ $gastos->observacao }}" disabled style="font-size:18px;color: black;">
                             </div>
                             <br>
                             <div class="row">

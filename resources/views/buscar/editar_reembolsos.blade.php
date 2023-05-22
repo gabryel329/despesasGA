@@ -44,7 +44,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Tipo de Gasto<h11>*</h11></Label>
+                                    <Label class="form-check-label">Nutureza Operação<h11>*</h11></Label>
                                     <select class="form-control" id="gasto_id" name="gasto_id">
                                         <option selected >{{$reembolsos->gasto_id}}
                                         </option>
@@ -84,7 +84,7 @@
                                     <select class="form-control" id="tipo" name="tipo">
                                         <option selected>{{$reembolsos->tipo}}
                                         </option>
-                                        <option value="Implantacão">Implantacão</option>
+                                        <option value="Implantacão">Implantação</option>
                                         <option value="Treinamento">Treinamento</option>
                                         <option value="Visita">Visita</option>
                                         <option value="Suporte">Suporte</option>
@@ -99,6 +99,7 @@
                                         </option>
                                         <option value="Em Aberto">Em Aberto</option>
                                         <option value="Reembolsada">Reembolsada</option>
+                                        <option value="Reembolsada">Glosado</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">

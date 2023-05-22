@@ -49,7 +49,7 @@
                                     Estado
                                 </th>
                                 <th>
-                                    Observacao
+                                    Observação
                                 </th>
                                 <th>
                                     Excluir

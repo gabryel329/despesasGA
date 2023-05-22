@@ -4,12 +4,12 @@
     <div class="app-content">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-edit"></i>Lista de Tipo de Gastos</h1>
+                <h1><i class="fa fa-edit"></i>Lista de Natureza Operação</h1>
             </div>
             <ul class="app-breadcrumb breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
                 <li class="breadcrumb-item">Administrativo</li>
-                <li class="breadcrumb-item"><a href="#">Tipo de Gastos</a></li>
+                <li class="breadcrumb-item"><a href="#">Natureza Operação</a></li>
             </ul>
         </div>
         @if(session('alert-warning'))
@@ -43,7 +43,7 @@
                                     Nome
                                 </th>
                                 <th>
-                                    Observacao
+                                    Observação
                                 </th>
                                 <th>
                                     Excluir

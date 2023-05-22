@@ -33,17 +33,17 @@
                                 <div class="col-md-6">
                                     <span class="input-group-addon" for="valor">Valor <h11>*</h11></span>
                                     <input id="valor" name="valor" placeholder="" class="form-control input-md"
-                                        required="" type="text" required onblur="formatarValor(this)">
+                                        required type="text" required onblur="formatarValor(this)">
                                 </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Data <h11>*</h11></span>
                                     <input id="data" name="data" placeholder="" class="form-control input-md"
-                                        required="" type="date">
+                                        required type="date">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <Label class="form-check-label">Tipo de Gasto<h11>*</h11></Label>
+                                    <Label class="form-check-label">Nutureza Operação<h11>*</h11></Label>
                                     <select class="form-control" id="gasto_id" name="gasto_id">
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
@@ -71,7 +71,7 @@
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Centro de Custo<h11>*</h11></Label>
                                     <select class="form-control" id="centrocusto_id" name="centrocusto_id">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        <option disabled selected style="font-size:18px;color: black;" required>Escolha
                                         </option>
                                         @foreach ($centrocustos as $centrocusto)
                                             <option value="{{$centrocusto->nome}}">{{$centrocusto->nome}}</option>
@@ -83,9 +83,9 @@
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Tipo<h11>*</h11></Label>
                                     <select class="form-control" id="tipo" name="tipo">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        <option disabled selected style="font-size:18px;color: black;" required>Escolha
                                         </option>
-                                        <option value="Implantacão">Implantacão</option>
+                                        <option value="Implantacão">Implantação</option>
                                         <option value="Treinamento">Treinamento</option>
                                         <option value="Visita">Visita</option>
                                         <option value="Suporte">Suporte</option>
@@ -95,16 +95,17 @@
                                 </div>
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Status<h11>*</h11></Label>
-                                    <select class="form-control" id="status" name="status">
+                                    <select class="form-control" id="status" name="status" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
                                         <option value="Em Aberto">Em Aberto</option>
                                         <option value="Reembolsada">Reembolsada</option>
+                                        <option value="Reembolsada">Glosado</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Cartão Corporativo<h11>*</h11></Label>
-                                    <select class="form-control" id="corporativo" name="corporativo">
+                                    <select class="form-control" id="corporativo" name="corporativo" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
                                         <option value="Sim">Sim</option>
@@ -145,7 +146,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Comprovante<h11>*</h11></Label>
-                                    <input class="form-control" type="file" name="image">
+                                    <input class="form-control" type="file" name="image" required>
                                 </div>
                             </div>
                             <div class="form-group">

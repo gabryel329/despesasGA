@@ -27,24 +27,24 @@
                                 <div class="col-md-12">
                                     <span class="input-group-addon">Nome </span>
                                     <input id="nome" name="nome" placeholder="" class="form-control input-md"
-                                     required type="text" value="{{ $centrocustos->nome }}">
+                                     required type="text" value="{{ $centrocustos->nome }}" disabled style="font-size:18px;color: black;" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Cidade</span>
                                     <input class="form-control" name="cidade" type="text"
-                                            id="cidade" size="40" value="{{ $centrocustos->cidade }}">
+                                            id="cidade" size="40" value="{{ $centrocustos->cidade }}" disabled style="font-size:18px;color: black;">
                                 </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Estado</span>
                                     <input class="form-control" name="estado" type="text"
-                                            id="estado" size="40" value="{{ $centrocustos->estado }}">
+                                            id="estado" size="40" value="{{ $centrocustos->estado }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Observação</label>
-                                <input class="form-control" id="observacao" name="observacao" rows="3" value="{{ $centrocustos->observacao }}">
+                                <input class="form-control" id="observacao" name="observacao" rows="3" value="{{ $centrocustos->observacao }}" disabled style="font-size:18px;color: black;">
                             </div>
                             <br>
                             <div class="row">

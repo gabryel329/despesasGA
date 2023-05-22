@@ -37,7 +37,7 @@ class ReembolsoController extends Controller
     public function store(Request $request)
     {
         $reembolso = new Reembolso;
-        $reembolso->status = $request->get('status');
+        $reembolso->status = "Em Aberto";
         $reembolso->valor = $request->get('valor');
         $reembolso->parcelas = $request->get('parcelas');
         $reembolso->forma_pgt = $request->get('forma_pgt');
