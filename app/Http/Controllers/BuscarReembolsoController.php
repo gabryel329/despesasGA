@@ -7,19 +7,27 @@ use App\Models\Gastos;
 use App\Models\Reembolso;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BuscarReembolsoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $reembolsos = Reembolso::get();
-        $users = User::get();
+{
+    $userName = auth()->user()->name;
 
-        return view('buscar.buscar_reembolso', compact('reembolsos', 'users'));
-    }
+    $reembolsos = DB::select("SELECT r.* FROM reembolsos r
+                INNER JOIN users u ON u.name = r.usuario_id
+                WHERE u.name = ?", [$userName]);
+
+    return view('buscar.buscar_reembolso', compact('reembolsos'));
+}
 
     /**
      * Show the form for creating a new resource.

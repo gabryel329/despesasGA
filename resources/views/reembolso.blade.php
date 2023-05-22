@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <Label class="form-check-label">Tipo de Gasto<h11>*</h11></Label>
                                     <select class="form-control" id="gasto_id" name="gasto_id">
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
@@ -54,18 +54,18 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <Label class="form-check-label">Responsavel<h11>*</h11></Label>
                                     <select class="form-control" id="usuario_id" name="usuario_id">
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
-                                        </option>
+                                        </option> --}}
                                         {{-- <option>Aberta</option>
                                         <option>Quitada</option> --}}
-                                        @foreach ($usuarios as $usuario)
+                                        {{-- @foreach ($usuarios as $usuario)
                                             <option value="{{$usuario->name}}">{{$usuario->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                        @endforeach --}}
+                                    {{-- </select> --}}
+                                {{-- </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -112,7 +112,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-6" id="forma_pagamento2">
                                     <label class="control-label">Forma de Pagamento<h11>*</h11></label>
                                     <select onchange="adicionarcampo3(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required>
@@ -141,7 +141,7 @@
                                         <option>x10</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Comprovante<h11>*</h11></Label>

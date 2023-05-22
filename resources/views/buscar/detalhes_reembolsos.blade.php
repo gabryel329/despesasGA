@@ -73,7 +73,7 @@
                                     <input class="form-control" id="corporativo" name="corporativo" value="{{ $reembolsos->corporativo }}">
                                 </div>
                             </div>
-                            <br>
+                            {{-- <br>
                             <div class="row">
                                 <div class="col-md-6" id="forma_pagamento2">
                                     <h6 class="control-label">Forma de Pagamento</h6>
@@ -83,7 +83,7 @@
                                     <h6 class="control-label">Parcelas</h6>
                                     <input class="form-control" id="parcelas" name="parcelas" required value="{{ $reembolsos->parcelas }}">
                                 </div>
-                            </div>
+                            </div> --}}
                             <br>
                             <div class="row">
                                 <div class="col-md-12">

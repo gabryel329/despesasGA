@@ -41,7 +41,6 @@ class ReembolsoController extends Controller
         $reembolso->valor = $request->get('valor');
         $reembolso->parcelas = $request->get('parcelas');
         $reembolso->forma_pgt = $request->get('forma_pgt');
-        $reembolso->usuario_id = $request->get('usuario_id');
         $reembolso->observacao = $request->get('observacao');
         $reembolso->data = $request->get('data');
         $reembolso->corporativo = $request->get('corporativo');
@@ -49,17 +48,20 @@ class ReembolsoController extends Controller
         $reembolso->centrocusto_id = $request->get('centrocusto_id');
         $reembolso->gasto_id = $request->get('gasto_id');
 
-        //image Upload
-        if($request->hasFile('image') && $request->file('image')->isValid()){
+        // Obtendo o usuário logado pelo nome
+        $user = User::where('name', auth()->user()->name)->first();
 
+        // Verificando se o usuário foi encontrado
+        if ($user) {
+            $reembolso->usuario_id = $user->name;
+        }
+
+        // Upload de imagem
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $requestImage = $request->image;
-
             $extension = $requestImage->extension();
-
             $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-
             $requestImage->move(public_path('img/arquivos/'), $imageName);
-
             $reembolso->image = $imageName;
         }
 
@@ -67,7 +69,7 @@ class ReembolsoController extends Controller
 
         return redirect()->route('reembolso.index')
             ->with('success', 'Reembolso cadastrado com sucesso!');
-        }
+    }
 
     /**
      * Display the specified resource.

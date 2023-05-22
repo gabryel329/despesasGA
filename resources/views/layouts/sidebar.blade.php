@@ -35,6 +35,7 @@
                 <li><a class="treeview-item" href="/Buscar/buscarUsuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarCentroCusto"><i class="icon fa fa-circle-o"></i> Centro de Custo</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarGastos"><i class="icon fa fa-circle-o"></i> Tipo de Gastos</a></li>
+                <li><a class="treeview-item" href="/Buscar/buscarAdministrativa"><i class="icon fa fa-circle-o"></i> Buscar<br>Administrativa</a></li>
             </ul>
         </li>
     </ul>

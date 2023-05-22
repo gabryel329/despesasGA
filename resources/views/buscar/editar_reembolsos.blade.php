@@ -111,7 +111,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-6" id="forma_pagamento2">
                                     <label class="control-label">Forma de Pagamento<h11>*</h11></label>
                                     <select onchange="adicionarcampo3(this.value)" class="form-control" id="" name="forma_pgt" >
@@ -139,7 +139,7 @@
                                         <option>x10</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Comprovante<h11>*</h11></Label>
