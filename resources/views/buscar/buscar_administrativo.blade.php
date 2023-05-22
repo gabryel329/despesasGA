@@ -40,7 +40,7 @@
                         <thead class="text-primary" style="text-align: center;">
                             <tr>
                                 <th>
-                                    Responsavel
+                                    Responsável
                                 </th>
                                 <th>
                                     Data

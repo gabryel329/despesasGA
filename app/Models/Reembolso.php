@@ -21,6 +21,7 @@ class Reembolso extends Model
         'image',
         'corporativo',
         'status',
-        'tipo'
+        'tipo',
+        'movimento'
     ];
 }

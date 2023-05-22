@@ -50,7 +50,7 @@ Route::get('/reembolso', [ReembolsoController::class, 'index'])->name('reembolso
 Route::post('/reembolso', [ReembolsoController::class, 'store'])->name('reembolso.store');
 
 #ROTA BUSCAR CENTRO CUSTO
-Route::get('/Buscar/buscarCentroCusto', [BuscarCentroCustoController::class, 'index'])->name('buscarcentrocusto.index')->middleware('admin');
+Route::get('/Buscar/buscarCentroCusto', [BuscarCentroCustoController::class, 'index'])->name('buscarcentrocusto.index');
 Route::delete('/Buscar/deletarCentroCusto/{id}',[BuscarCentroCustoController::class, 'destroy'])->name('buscarcentrocusto.destroy');
 Route::post('/Buscar/pesquisarCentroCusto', [BuscarCentroCustoController::class, 'search'])->name('pesquisarcentrocusto.search');
 Route::get('/Buscar/mostrarCentroCusto/{id}', [BuscarCentroCustoController::class, 'show'])->name('mostrarcentrocusto.show');

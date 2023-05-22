@@ -93,13 +93,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <Label class="form-check-label">Status<h11>*</h11></Label>
-                                    <select class="form-control" id="status" name="status">
-                                        <option selected>{{$reembolsos->status}}
+                                    <Label class="form-check-label">Tipo de Movimento<h11>*</h11></Label>
+                                    <select class="form-control" id="movimento" name="movimento" required>
+                                        <option disabled selected style="font-size:18px;color: black;">{{$reembolsos->movimento}}
                                         </option>
-                                        <option value="Em Aberto">Em Aberto</option>
-                                        <option value="Reembolsada">Reembolsada</option>
-                                        <option value="Reembolsada">Glosado</option>
+                                        <option value="Entrada">Entrada</option>
+                                        <option value="Saida">Saída</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -142,9 +141,18 @@
                                 </div>
                             </div> --}}
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <Label class="form-check-label">Comprovante<h11>*</h11></Label>
                                     <input class="form-control" type="file" name="image">
+                                </div>
+                                <div class="col-md-6">
+                                    <Label class="form-check-label">Tipo de Movimento<h11>*</h11></Label>
+                                    <select class="form-control" id="movimento" name="movimento" required>
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        </option>
+                                        <option value="Entrada">Entrada</option>
+                                        <option value="Saida">Saida</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">

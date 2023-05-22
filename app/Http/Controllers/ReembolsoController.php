@@ -47,6 +47,7 @@ class ReembolsoController extends Controller
         $reembolso->tipo = $request->get('tipo');
         $reembolso->centrocusto_id = $request->get('centrocusto_id');
         $reembolso->gasto_id = $request->get('gasto_id');
+        $reembolso->movimento = $request->get('movimento');
 
         // Obtendo o usuário logado pelo nome
         $user = User::where('name', auth()->user()->name)->first();

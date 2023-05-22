@@ -92,7 +92,8 @@ class BuscarReembolsoController extends Controller
             'corporativo' => $request->corporativo,
             'forma_pgt' => $request->forma_pgt,
             'parcelas' => $request->parcelas,
-            'observacao' => $request->observacao
+            'observacao' => $request->observacao,
+            'movimento' => $request->movimento
         ];
 
         Reembolso::where('id', $id)->update($data);

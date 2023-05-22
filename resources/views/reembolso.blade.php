@@ -94,13 +94,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <Label class="form-check-label">Status<h11>*</h11></Label>
-                                    <select class="form-control" id="status" name="status" required>
+                                    <Label class="form-check-label">Tipo de Movimento<h11>*</h11></Label>
+                                    <select class="form-control" id="movimento" name="movimento" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
-                                        <option value="Em Aberto">Em Aberto</option>
-                                        <option value="Reembolsada">Reembolsada</option>
-                                        <option value="Reembolsada">Glosado</option>
+                                        <option value="Entrada">Entrada</option>
+                                        <option value="Saida">Saída</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">

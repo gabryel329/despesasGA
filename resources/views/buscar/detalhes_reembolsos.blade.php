@@ -65,8 +65,8 @@
                                     <input class="form-control" id="tipo" name="tipo" value="{{ $reembolsos->tipo }}" disabled style="font-size:18px;color: black;">
                                 </div>
                                 <div class="col-md-4">
-                                    <h6 class="form-check-label">Status</h6>
-                                    <input class="form-control" id="status" name="status" value="{{ $reembolsos->status }}" disabled style="font-size:18px;color: black;">
+                                    <h6 class="form-check-label">Tipo Movimento</h6>
+                                    <input class="form-control" id="movimento" name="movimento" value="{{ $reembolsos->movimento }}" disabled style="font-size:18px;color: black;">
                                 </div>
                                 <div class="col-md-4">
                                     <h6 class="form-check-label">Cartão Corporativo</h6>
@@ -86,7 +86,7 @@
                             </div> --}}
                             <br>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <h6 >Comprovante</h6>
                                         <button type="button" class="btn btn-md" data-toggle="modal" data-target=".bd-example-modal-lg">
                                             <a>Visualizar<i class="app-menu__icon fa fa-eye" aria-hidden="true"></i></a>
@@ -109,6 +109,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="form-check-label">Status</h6>
+                                    <input class="form-control" id="status" name="status" value="{{ $reembolsos->status }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             <br>
