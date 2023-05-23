@@ -91,3 +91,6 @@ Route::get('/home', [GraficosRelatoriosController::class, 'index'])->name('grafi
 Route::get('/Relatorio/relatorioDetalhado', [GraficosRelatoriosController::class, 'filtroRelatorio'])->name('relatorioDetalhado.filtroRelatorio');
 Route::post('/Relatorio/filtrarRelatorioDetalhado', [GraficosRelatoriosController::class, 'filtrar'])->name('filtrarRelatorioDetalhado.filtrar');
 Route::get('/Relatorio/listaRelatorioDetalhado', [GraficosRelatoriosController::class, 'lista'])->name('listaRelatorioDetalhado.lista');
+
+#ROTA GRAFICOS ADMINISTRATIVO
+Route::get('/Administrativo/graficosAdministrativo', [GraficosRelatoriosController::class, 'graficosADM'])->name('graficos.graficosADM')->middleware('admin');

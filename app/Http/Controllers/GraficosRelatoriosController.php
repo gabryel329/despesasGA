@@ -92,21 +92,20 @@ class GraficosRelatoriosController extends Controller
 
     public function filtrar(Request $request)
     {
-
         $dataInicial = $request->get('datainicio');
         $dataFinal = $request->get('datafim');
         $centroCusto = $request->get('centrocusto_id');
         $status = $request->get('status');
-        $cartaoCorporativo = $request->get('corporativo');
+        $cartaoCorporativo = $request->get('orporativo');
         $tipoMovimento = $request->get('movimento');
         $usuario = $request->get('usuario_id');
 
         $query = DB::table('reembolsos as r')
-            ->select('r.id','r.valor', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->select(DB::raw('CAST(r.valor AS DECIMAL(12, 2)) as valor'),'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
             ->join('gastos as g', 'g.nome', '=', 'r.gasto_id')
             ->join('centro_custos as c', 'c.nome', '=', 'r.centrocusto_id')
             ->join('users as u', 'u.name', '=', 'r.usuario_id')
-            ->groupBy('r.id','r.valor', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->groupBy('r.valor','r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
             ->orderBy('r.data', 'asc');
 
         if (!empty($dataInicial) && !empty($dataFinal)) {
@@ -135,7 +134,13 @@ class GraficosRelatoriosController extends Controller
 
         $reembolsos = $query->get();
 
-        return view('relatorio.relatorioDetalhado', compact('reembolsos'));
+        $somaEntrada = DB::select("SELECT SUM(CASE WHEN movimento = 'Entrada' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS somaEntrada ,
+        SUM(CASE WHEN movimento = 'Saida' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS somaSaida,
+        SUM(CASE WHEN movimento = 'Entrada' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) - SUM(CASE WHEN movimento = 'Saida' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS subtracao
+        FROM reembolsos
+        where movimento in ('Entrada', 'Saida') and data >= '".$dataInicial."' and data <= '".$dataFinal."' and centrocusto_id = '".$centroCusto."' ");
+
+        return view('relatorio.relatorioDetalhado', compact('reembolsos', 'somaEntrada', 'dataInicial', 'dataFinal'));
     }
 
     public function lista()
@@ -143,6 +148,63 @@ class GraficosRelatoriosController extends Controller
         $reembolsos = DB::table('reembolsos')->get();
 
         return view('relatorio.relatorioDetalhado', compact('reembolsos'));
+    }
+
+    public function graficosADM()
+    {
+
+        $reembolsos = DB::select("SELECT count(r.id) as reembolsos FROM reembolsos r
+                    INNER JOIN users u ON u.name = r.usuario_id");
+
+        $emAbertos = DB::select("SELECT count(r.id) as abertos FROM reembolsos r
+                    INNER JOIN users u ON u.name = r.usuario_id
+                    WHERE r.status = 'Em Aberto'");
+
+        $reembolsadas = DB::select("SELECT count(r.id) as reembolsadas FROM reembolsos r
+                    INNER JOIN users u ON u.name = r.usuario_id
+                    WHERE r.status = 'Reembolsada'");
+
+        //Grafico ABERTOSREEMBOLSADOS
+        $abertos = DB::select("SELECT count(r.id) as aberto FROM reembolsos r
+                    INNER JOIN users u ON u.name = r.usuario_id
+                    WHERE r.status = 'Em Aberto'");
+
+        $reembolsados = DB::select("SELECT count(r.id) as reembolsado FROM reembolsos r
+                    INNER JOIN users u ON u.name = r.usuario_id
+                    WHERE r.status = 'Reembolsada'");
+
+        $glosados = DB::select("SELECT count(r.id) as glosado FROM reembolsos r
+                    INNER JOIN users u ON u.name = r.usuario_id
+                    WHERE r.status = 'Glosada'");
+        //Fim Grafico ABERTOSREEMBOLSADOS
+
+        //GRAFICO DE VALORES POR USUARIO
+
+            $data = DB::select("WITH meses AS (SELECT generate_series(1, 12) AS month)
+                SELECT
+                    COALESCE(SUM(CAST(r.valor AS DECIMAL(12, 2))), 0) AS valor,
+                    CASE
+                        WHEN m.month = 1 THEN 'Janeiro'
+                        WHEN m.month = 2 THEN 'Fevereiro'
+                        WHEN m.month = 3 THEN 'Março'
+                        WHEN m.month = 4 THEN 'Abril'
+                        WHEN m.month = 5 THEN 'Maio'
+                        WHEN m.month = 6 THEN 'Junho'
+                        WHEN m.month = 7 THEN 'Julho'
+                        WHEN m.month = 8 THEN 'Agosto'
+                        WHEN m.month = 9 THEN 'Setembro'
+                        WHEN m.month = 10 THEN 'Outubro'
+                        WHEN m.month = 11 THEN 'Novembro'
+                        WHEN m.month = 12 THEN 'Dezembro'
+                    END AS mes
+                FROM
+                    meses m
+                    LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.created_at) = m.month
+                    INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
+                GROUP BY m.month, mes ORDER BY m.month");
+
+        return view('relatorio.graficoadministrativo', compact('reembolsos', 'emAbertos', 'reembolsadas', 'abertos', 'reembolsados',
+        'data','glosados'));
     }
     /**
      * Show the form for creating a new resource.

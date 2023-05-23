@@ -13,25 +13,35 @@
             </ul>
         </div>
         @if(session('alert-warning'))
-        <div class="alert alert-warning">
-            {{ session('alert-warning') }}
-        </div>
-    @endif
-    <div class="row">
-        <div class="col-md-6">
-            <div class="tile">
-                <div class="tile-title-w-btn">
-                    <h3 class="title">Filtro</h3>
+            <div class="alert alert-warning">
+                {{ session('alert-warning') }}
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-6">
+                <div class="tile">
+                    <div class="tile-title-w-btn">
+                        <h3 class="title">Filtro</h3>
+                    </div>
+                    <div class="tile-body">
+                        <form action="{{ route('pesquisarreembolsos.search') }}" method="post">
+                            @csrf
+                            <input id="search" class="form-control input-md" type="text" name="search" placeholder="Nome ou Natureza Operação">
+                        </form>
+                    </div>
                 </div>
-                <div class="tile-body">
-                    <form action="{{ route('pesquisarreembolsos.search') }}" method="post">
-                        @csrf
-                        <input id="search" class="form-control input-md" type="text" name="search" placeholder="Nome ou Natureza Operação">
-                    </form>
+            </div>
+            <div class="col-md-6">
+                <div class="tile">
+                    <div class="tile-title-w-btn">
+                        <h4 class="title">Detalhes</h4>
+                    </div>
+                    <div>
+                        <p><strong>Data:</strong> {{ $dataInicial }}  <strong>Até</strong>  {{ $dataFinal }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="row">
             <div class="card-body">
                 <div class="table-responsive-md">
@@ -88,6 +98,39 @@
                                 </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-title-w-btn">
+                        <h4 class="title">Valores</h4>
+                    </div>
+                    <div>
+                        @forelse ($somaEntrada as $entrada)
+                            <p style="color: green"><strong>Entradas:</strong> R${{ $entrada->somaentrada }} </p>
+                            @empty
+                                0
+                        @endforelse
+                    </div>
+                    <div>
+                        @forelse ($somaEntrada as $saida)
+                            <p style="color: red"><strong>Saidas:</strong> R${{ $saida->somasaida }} </p>
+                            @empty
+                                0
+                        @endforelse
+                    </div>
+                    <div>
+                        @forelse ($somaEntrada as $total)
+                            <h3><strong>Total:</strong> R${{ $total->subtracao }}</h3>
+                            @if ($total->subtracao < 0)
+                                <p style="color: red;">Total negativo!</p>
+                            @endif
+                        @empty
+                            <p>0</p>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>

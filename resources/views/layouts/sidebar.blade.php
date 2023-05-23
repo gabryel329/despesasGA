@@ -36,7 +36,7 @@
                 <li><a class="treeview-item" href="/Buscar/buscarCentroCusto"><i class="icon fa fa-circle-o"></i> Centro de Custo</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarGastos"><i class="icon fa fa-circle-o"></i> Natureza Operação</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarAdministrativa"><i class="icon fa fa-circle-o"></i> Buscar<br>Administrativa</a></li>
-                <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Graficos<br>Administrativo</a></li>
+                <li><a class="treeview-item" href="/Administrativo/graficosAdministrativo"><i class="icon fa fa-circle-o"></i> Graficos<br>Administrativo</a></li>
             </ul>
         </li>
     </ul>

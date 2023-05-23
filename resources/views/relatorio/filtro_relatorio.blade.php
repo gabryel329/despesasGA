@@ -26,19 +26,19 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <span class="input-group-addon">Data Inicial</span>
+                                    <span class="input-group-addon">Data Inicial*</span>
                                     <input id="datainicio" name="datainicio" placeholder="" class="form-control input-md"
                                         required type="date">
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="input-group-addon">Data Fim</span>
+                                    <span class="input-group-addon">Data Fim*</span>
                                     <input id="datafim" name="datafim" placeholder="" class="form-control input-md"
                                         required type="date">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Centro de Custo</Label>
+                                    <Label class="form-check-label">Centro de Custo*</Label>
                                     <select class="form-control" id="centrocusto_id" name="centrocusto_id" required>
                                         <option disabled selected style="font-size:18px;color: black;" >Escolha
                                         </option>

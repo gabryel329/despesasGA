@@ -15,13 +15,13 @@
         <div class="cover"></div>
     </section>
     <section class="login-content">
-      <div class="logo">
+      {{-- <div class="logo">
         <h1><img src="{{ asset('images/logo.png') }}" alt="Logo"></h1>
-      </div>
+      </div> --}}
       <div class="login-box">
         <form class="login-form" method="POST" action="{{ route('login') }}">
             @csrf
-          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Login</h3>
+          <h3 class="login-head"><img src="{{ asset('images/logo3.png') }}" alt="Logo"></h3>
           <div class="form-group">
             <label class="control-label">Email</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
