@@ -23,6 +23,11 @@
                 <div class="tile-body">
                     <form method="POST" name="formusuario" action="{{ route('filtrarRelatorioDetalhado.filtrar') }}" class="form-horizontal">
                         @csrf
+                        <div class="col-md-11 control-label">
+                            <p class="help-block">
+                                <h11>*</h11> Campo Obrigatório
+                            </p>
+                        </div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6">
