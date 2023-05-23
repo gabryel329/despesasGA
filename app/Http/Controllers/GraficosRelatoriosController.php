@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CentroCusto;
+use App\Models\Gastos;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -75,11 +77,73 @@ class GraficosRelatoriosController extends Controller
                     INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
                 WHERE
                     u.name = '".$userName."'GROUP BY m.month, mes ORDER BY m.month");
-   
+
         return view('/home', compact('users','reembolsos', 'emAbertos', 'reembolsadas', 'abertos', 'reembolsados',
         'data','glosados'));
     }
 
+    public function filtroRelatorio()
+    {
+        $centrocustos = CentroCusto::get();
+        $usuarios = User::get();
+
+        return view('relatorio.filtro_relatorio', compact('centrocustos', 'usuarios'));
+    }
+
+    public function filtrar(Request $request)
+    {
+
+        $dataInicial = $request->get('datainicio');
+        $dataFinal = $request->get('datafim');
+        $centroCusto = $request->get('centrocusto_id');
+        $status = $request->get('status');
+        $cartaoCorporativo = $request->get('corporativo');
+        $tipoMovimento = $request->get('movimento');
+        $usuario = $request->get('usuario_id');
+
+        $query = DB::table('reembolsos as r')
+            ->select('r.id','r.valor', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->join('gastos as g', 'g.nome', '=', 'r.gasto_id')
+            ->join('centro_custos as c', 'c.nome', '=', 'r.centrocusto_id')
+            ->join('users as u', 'u.name', '=', 'r.usuario_id')
+            ->groupBy('r.id','r.valor', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->orderBy('r.data', 'asc');
+
+        if (!empty($dataInicial) && !empty($dataFinal)) {
+            $query->whereBetween('r.data', [$dataInicial, $dataFinal]);
+        }
+
+        if (!empty($centroCusto)) {
+            $query->where('r.centrocusto_id', $centroCusto);
+        }
+
+        if (!empty($status)) {
+            $query->where('r.status', $status);
+        }
+
+        if (!empty($cartaoCorporativo)) {
+            $query->where('r.corporativo', $cartaoCorporativo);
+        }
+
+        if (!empty($tipoMovimento)) {
+            $query->where('r.movimento', $tipoMovimento);
+        }
+
+        if (!empty($usuario)) {
+            $query->where('r.usuario_id', $usuario);
+        }
+
+        $reembolsos = $query->get();
+
+        return view('relatorio.relatorioDetalhado', compact('reembolsos'));
+    }
+
+    public function lista()
+    {
+        $reembolsos = DB::table('reembolsos')->get();
+
+        return view('relatorio.relatorioDetalhado', compact('reembolsos'));
+    }
     /**
      * Show the form for creating a new resource.
      */

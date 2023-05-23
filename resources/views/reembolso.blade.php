@@ -54,18 +54,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                {{-- <div class="col-md-6">
-                                    <Label class="form-check-label">Responsavel<h11>*</h11></Label>
-                                    <select class="form-control" id="usuario_id" name="usuario_id">
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
-                                        </option> --}}
-                                        {{-- <option>Aberta</option>
-                                        <option>Quitada</option> --}}
-                                        {{-- @foreach ($usuarios as $usuario)
-                                            <option value="{{$usuario->name}}">{{$usuario->name}}</option>
-                                        @endforeach --}}
-                                    {{-- </select> --}}
-                                {{-- </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -85,11 +73,11 @@
                                     <select class="form-control" id="tipo" name="tipo">
                                         <option disabled selected style="font-size:18px;color: black;" required>Escolha
                                         </option>
-                                        <option value="Implantacão">Implantação</option>
+                                        <option value="Implantação">Implantação</option>
                                         <option value="Treinamento">Treinamento</option>
                                         <option value="Visita">Visita</option>
                                         <option value="Suporte">Suporte</option>
-                                        <option value="Apresentacão do Sistema">Apresentacão do Sistema</option>
+                                        <option value="Apresentação do Sistema">Apresentacão do Sistema</option>
                                         <option value="Reunião">Reunião</option>
                                     </select>
                                 </div>

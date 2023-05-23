@@ -40,6 +40,9 @@
                         <thead class="text-primary" style="text-align: center;">
                             <tr>
                                 <th>
+                                    Código
+                                </th>
+                                <th>
                                     Responsável
                                 </th>
                                 <th>
@@ -61,12 +64,6 @@
                                     Status
                                 </th>
                                 <th>
-                                    Observação
-                                </th>
-                                {{-- <th>
-                                    Comprovante
-                                </th> --}}
-                                <th>
                                     Excluir
                                 </th>
                                 <th>
@@ -77,6 +74,7 @@
                         <tbody style="text-align: center">
                             @forelse($reembolsos as $reembolso)
                                 <tr>
+                                    <td>{{$reembolso->id}}</td>
                                     <td>{{$reembolso->usuario_id}}</td>
                                     <td>{{ $reembolso->data }}</td>
                                     <td>{{ $reembolso->gasto_id }}</td>
@@ -84,7 +82,6 @@
                                     <td>{{ $reembolso->centrocusto_id }}</td>
                                     <td>{{ $reembolso->tipo }}</td>
                                     <td>{{ $reembolso->status }}</td>
-                                    <td>{{ $reembolso->observacao }}</td>
                                     {{-- <td>
                                         <button type="button" class="btn btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
                                             <a><i class="fa fa-edit" aria-hidden="true"></i></a>

@@ -82,9 +82,12 @@ Route::get('/Buscar/editarUsuarios/{id}',[BuscarUsuarioController::class, 'edit'
 Route::put('/Buscar/atualizarUsuarios/{id}',[BuscarUsuarioController::class, 'update'])->name('atualizarusuarios.update');
 
 #ROTA BUSCAR ADMINISTRATIVA
-
 Route::get('/Buscar/buscarAdministrativa', [BuscarAdministrativaController::class, 'index'])->name('buscaradministrativo.index')->middleware('admin');
 
-#ROTA GRAFICOS E RELATORIOS
-
+#ROTA GRAFICOS TELA INICIAL
 Route::get('/home', [GraficosRelatoriosController::class, 'index'])->name('graficosrelatorios.index');
+
+#ROTA RELATORIOS DETALHADOS
+Route::get('/Relatorio/relatorioDetalhado', [GraficosRelatoriosController::class, 'filtroRelatorio'])->name('relatorioDetalhado.filtroRelatorio');
+Route::post('/Relatorio/filtrarRelatorioDetalhado', [GraficosRelatoriosController::class, 'filtrar'])->name('filtrarRelatorioDetalhado.filtrar');
+Route::get('/Relatorio/listaRelatorioDetalhado', [GraficosRelatoriosController::class, 'lista'])->name('listaRelatorioDetalhado.lista');
