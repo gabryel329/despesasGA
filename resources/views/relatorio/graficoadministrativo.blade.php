@@ -71,7 +71,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="tile">
-                <h3 class="tile-title">Reembolsos Status %<br><span><p style="font-size: smaller;">(Por Usuario)</p></span></h3>
+                <h3 class="tile-title">Reembolsos Status %</h3>
                 <div class="embed-responsive embed-responsive-16by9" >
                     <div id="pieChartDemo" class="embed-responsive-item" width="100%" height="100%"></div>
                 </div>
@@ -79,7 +79,7 @@
         </div>
         <div class="col-md-6">
             <div class="tile">
-                <h3 class="tile-title">Reembolsos por Mês<br><span><p style="font-size: smaller;">(Por Usuario)</p></span></h3>
+                <h3 class="tile-title">Reembolsos por Mês</h3>
                 <div class="embed-responsive embed-responsive-16by9">
                     <div id="chart2" class="embed-responsive-item" width="100%" height="100%" ></div>
                 </div>
