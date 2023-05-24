@@ -42,7 +42,7 @@
                                     </span>
                                 @enderror
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class="utility">
               <div class="animated-checkbox">
                 <label>
@@ -50,7 +50,7 @@
                 </label>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="form-group btn-container">
             <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>Entrar</button>
           </div>
