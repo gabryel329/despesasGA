@@ -34,6 +34,7 @@
         </div>
     </div>
         <div class="row">
+            <div class="col-12">
             <div class="card-body">
                 <div class="table-responsive-md">
                     <table id="tabela" class="table table-hover thead-light table table-striped table table-bordered">
@@ -134,6 +135,7 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
         </div>
     </div>

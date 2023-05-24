@@ -103,7 +103,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="col-md-12">
-                                                            <img src="/img/arquivos/{{ $reembolsos->image }}">
+                                                            <img src="/img/arquivos/{{ $reembolsos->image }}" class="img-fluid max-height-100" alt="Comprovante">
                                                         </div>
                                                     </div>
                                                 </div>

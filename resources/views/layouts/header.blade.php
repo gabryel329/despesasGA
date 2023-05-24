@@ -42,7 +42,7 @@
             </div>
             <div class="modal-body" style="text-align: center;">
                 <p>Olá! Agradecemos por utilizar nossos serviços.</p>
-                <p>Todos os direitos autorais são destinados ao Grupo GB Software.</p>
+                <p>Todos os direitos autorais são destinados ao <strong>Grupo GB Software</strong>.</p>
             </div>
         </div>
     </div>
