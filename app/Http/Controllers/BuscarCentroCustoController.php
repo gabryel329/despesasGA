@@ -12,7 +12,7 @@ class BuscarCentroCustoController extends Controller
      */
     public function index()
     {
-        $centrocustos = CentroCusto::get();
+        $centrocustos = CentroCusto::orderBy('id', 'desc')->get();
 
         return view('buscar.buscar_centrocusto', compact('centrocustos'));
     }

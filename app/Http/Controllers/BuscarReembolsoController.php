@@ -24,7 +24,8 @@ class BuscarReembolsoController extends Controller
 
     $reembolsos = DB::select("SELECT r.* FROM reembolsos r
                 INNER JOIN users u ON u.name = r.usuario_id
-                WHERE u.name = ?", [$userName]);
+                WHERE u.name = ?
+                ORDER BY r.id DESC", [$userName]);
 
     return view('buscar.buscar_reembolso', compact('reembolsos'));
 }

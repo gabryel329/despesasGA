@@ -13,7 +13,7 @@ class BuscarUsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = User::get();
+        $usuarios = User::orderBy('id', 'desc')->get();
 
         return view('buscar.buscar_usuarios', compact('usuarios'));
     }

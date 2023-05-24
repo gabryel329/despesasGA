@@ -12,7 +12,7 @@ class BuscarGastosController extends Controller
      */
     public function index()
     {
-        $gastos = Gastos::get();
+        $gastos = Gastos::orderBy('id', 'desc')->get();
 
         return view('buscar.buscar_gastos', compact('gastos'));
     }

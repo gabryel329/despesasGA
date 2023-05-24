@@ -12,7 +12,7 @@ class BuscarAdministrativaController extends Controller
      */
     public function index()
     {
-        $reembolsos = Reembolso::get();
+        $reembolsos = Reembolso::orderBy('id', 'desc')->get();
 
         return view('buscar.buscar_administrativo', compact('reembolsos'));
     }
