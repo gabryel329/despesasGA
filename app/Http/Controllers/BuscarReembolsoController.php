@@ -80,26 +80,34 @@ class BuscarReembolsoController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        $data=[
-            'valor' => $request->valor,
-            'data' => $request->data,
-            'usuario_id' => $request->usuario_id,
-            'gasto_id' => $request->gasto_id,
-            'centrocusto_id' => $request->centrocusto_id,
-            'tipo' => $request->tipo,
-            'status' => $request->status,
-            'corporativo' => $request->corporativo,
-            'forma_pgt' => $request->forma_pgt,
-            'parcelas' => $request->parcelas,
-            'observacao' => $request->observacao,
-            'movimento' => $request->movimento
-        ];
-      
-   
-        Reembolso::where('id', $id)->update($data);
-        return redirect()->route('mostrarreembolsos.show', ['id' => $id])->with('success', 'Editado com sucesso!');
+{
+    $data = [
+        'valor' => $request->valor,
+        'data' => $request->data,
+        'usuario_id' => $request->usuario_id,
+        'gasto_id' => $request->gasto_id,
+        'centrocusto_id' => $request->centrocusto_id,
+        'tipo' => $request->tipo,
+        'status' => $request->status,
+        'corporativo' => $request->corporativo,
+        'forma_pgt' => $request->forma_pgt,
+        'parcelas' => $request->parcelas,
+        'observacao' => $request->observacao,
+        'movimento' => $request->movimento
+    ];
+
+    // Verificar se um arquivo de imagem foi enviado
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        $requestImage = $request->image;
+        $extension = $requestImage->extension();
+        $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+        $requestImage->move(public_path('img/arquivos/'), $imageName);
+        $data['image'] = $imageName;
     }
+
+    Reembolso::where('id', $id)->update($data);
+    return redirect()->route('mostrarreembolsos.show', ['id' => $id])->with('success', 'Editado com sucesso!');
+}
 
     /**
      * Remove the specified resource from storage.

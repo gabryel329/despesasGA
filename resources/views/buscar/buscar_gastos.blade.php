@@ -34,8 +34,9 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-12">
             <div class="card-body">
-                <div class="table-responsive-md">
+                <div class="table-responsive">
                     <table id="tabela" class="table table-hover thead-light table table-striped table table-bordered">
                         <thead class="text-primary" style="text-align: center;">
                             <tr>
@@ -87,6 +88,7 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
         </div>
     </div>
