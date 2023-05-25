@@ -26,6 +26,39 @@
     <link href="{{ url('css/main.css') }}" rel="stylesheet">
     <link href="{{ url('css/self.css') }}" rel="stylesheet">
 
+    <style>
+        .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .row [class^="col-"] {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .col-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+    .select2-container .select2-selection {
+        width: 100% !important;
+    }
+    </style>
+
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')

@@ -33,13 +33,13 @@
                         </div>
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <span class="input-group-addon">Data Inicial*</span>
                                         <input id="datainicio" name="datainicio" placeholder="" class="form-control input-md" required type="date">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <span class="input-group-addon">Data Fim*</span>
                                         <input id="datafim" name="datafim" placeholder="" class="form-control input-md" required type="date">
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label class="form-check-label">Centro de Custo*</label>
                                         <select class="select2 form-control" id="centrocusto_id" name="centrocusto_id" required>
@@ -58,9 +58,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label class="form-check-label">Status</label>
                                         <select class="form-control" id="status" name="status">
@@ -70,8 +68,10 @@
                                             <option value="Glosada">Glosada</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-check-label">Tipo de Movimento</label>
                                         <select class="form-control" id="movimento" name="movimento">
@@ -81,7 +81,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-check-label">Cartão Corporativo</label>
                                         <select class="form-control" id="corporativo" name="corporativo">
@@ -91,7 +91,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-check-label">Responsável</label>
                                         <select class="form-control" id="usuario_id" name="usuario_id">
