@@ -8,6 +8,7 @@ use App\Http\Controllers\BuscarUsuarioController;
 use App\Http\Controllers\CentroCustoController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\GraficosRelatoriosController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ReembolsoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
@@ -94,3 +95,6 @@ Route::get('/Relatorio/listaRelatorioDetalhado', [GraficosRelatoriosController::
 
 #ROTA GRAFICOS ADMINISTRATIVO
 Route::get('/Administrativo/graficosAdministrativo', [GraficosRelatoriosController::class, 'graficosADM'])->name('graficos.graficosADM')->middleware('admin');
+
+#ROTA GERAR PDF
+Route::get('/Relatorio/PDF', [GraficosRelatoriosController::class, 'gerarPDF'])->name('gerar.pdf');

@@ -8,7 +8,7 @@
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
             <li class="breadcrumb-item">Cadastros</li>
-            <li class="breadcrumb-item"><a href="#">Reembolso</a></li>
+            <li class="breadcrumb-item"><a href="#">Lançamento</a></li>
         </ul>
     </div>
     @if(session('success'))
@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-9" style="display: inline-block; margin: auto;">
             <div class="tile">
-                <h3 class="tile-title">Reembolso</h3>
+                <h3 class="tile-title">Lançamento</h3>
                 <div class="tile-body">
                     <form method="POST" name="formusuario" action="{{ route('reembolso.store') }}" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
@@ -80,22 +80,19 @@
                                         <option value="Reunião">Reunião</option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <Label class="form-check-label">Tipo de Movimento<h11>*</h11></Label>
-                                    <select class="form-control" id="movimento" name="movimento" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
-                                        </option>
-                                        <option value="Entrada">Entrada</option>
-                                        <option value="Saida">Saída</option>
+                                <div class="col-md-4" id="parcelas3">
+                                    <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
+                                    <select onchange="adicionarcampo3(this.value)" class="form-control" id="corporativo" name="corporativo" required>
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Nao">Não</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <Label class="form-check-label">Cartão Corporativo<h11>*</h11></Label>
-                                    <select class="form-control" id="corporativo" name="corporativo" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
-                                        </option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
+                                    <label class="form-check-label">Tipo de Movimento<h11>*</h11></label>
+                                    <select class="form-control" id="movimento" name="movimento" required>
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                        <option value="Saida">Saída</option>
                                     </select>
                                 </div>
                             </div>
@@ -166,16 +163,14 @@ function formatarValor(campo) {
 </script>
 
 <script>
-
     function adicionarcampo3(e) {
-        var parcelas = document.getElementById('parcelas3')
+        var movimentoSelect = document.getElementById('movimento');
 
-        if (e == "Credito") {
-            parcelas.removeAttribute("hidden");
-        } else if (e != 'Credito') {
-            parcelas.setAttribute("hidden", true);
+        if (e === 'Sim') {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
+        } else {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
         }
     }
-
 </script>
 @endpush

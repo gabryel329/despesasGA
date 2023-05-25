@@ -38,6 +38,18 @@
                     </div>
                     <div>
                         <p><strong>Data:</strong> {{ $dataInicial }}  <strong>Até</strong>  {{ $dataFinal }}</p>
+                        <form action="{{ route('gerar.pdf') }}" method="GET" target="_blank">
+                            @csrf
+                            <input id="datainicio" value="{{$dataInicial}}" style="display: none;" name="datainicio" placeholder="" class="form-control input-md" required type="date">
+                            <input id="datafim" value="{{$dataFinal}}" style="display: none;" name="datafim" placeholder="" class="form-control input-md" required type="date">
+                            @forelse ($reembolsos as $reembolso )
+                                <input id="centrocusto_id" value="{{$reembolso->centrocusto_id}}" style="display: none;" name="centrocusto_id" placeholder="" class="form-control input-md" required type="text">
+                            @empty
+
+                            @endforelse
+
+                            <button type="submit" class="btn btn-primary">Gerar PDF</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\CentroCusto;
-use App\Models\Gastos;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\View;
 
 class GraficosRelatoriosController extends Controller
 {
@@ -141,6 +142,72 @@ class GraficosRelatoriosController extends Controller
         where movimento in ('Entrada', 'Saida') and data >= '".$dataInicial."' and data <= '".$dataFinal."' and centrocusto_id = '".$centroCusto."' ");
 
         return view('relatorio.relatorioDetalhado', compact('reembolsos', 'somaEntrada', 'dataInicial', 'dataFinal'));
+    }
+
+    public function gerarPDF(Request $request)
+    {
+        $dataInicial = $request->get('datainicio');
+        $dataFinal = $request->get('datafim');
+        $centroCusto = $request->get('centrocusto_id');
+        $status = $request->get('status');
+        $cartaoCorporativo = $request->get('orporativo');
+        $tipoMovimento = $request->get('movimento');
+        $usuario = $request->get('usuario_id');
+
+        $query = DB::table('reembolsos as r')
+            ->select(DB::raw('CAST(r.valor AS DECIMAL(12, 2)) as valor'),'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->join('gastos as g', 'g.nome', '=', 'r.gasto_id')
+            ->join('centro_custos as c', 'c.nome', '=', 'r.centrocusto_id')
+            ->join('users as u', 'u.name', '=', 'r.usuario_id')
+            ->groupBy('r.valor','r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->orderBy('r.data', 'asc');
+
+        if (!empty($dataInicial) && !empty($dataFinal)) {
+            $query->whereBetween('r.data', [$dataInicial, $dataFinal]);
+        }
+
+        if (!empty($centroCusto)) {
+            $query->where('r.centrocusto_id', $centroCusto);
+        }
+
+        if (!empty($status)) {
+            $query->where('r.status', $status);
+        }
+
+        if (!empty($cartaoCorporativo)) {
+            $query->where('r.corporativo', $cartaoCorporativo);
+        }
+
+        if (!empty($tipoMovimento)) {
+            $query->where('r.movimento', $tipoMovimento);
+        }
+
+        if (!empty($usuario)) {
+            $query->where('r.usuario_id', $usuario);
+        }
+
+        $reembolsos = $query->get();
+
+        $somaEntrada = DB::select("SELECT SUM(CASE WHEN movimento = 'Entrada' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS somaEntrada ,
+        SUM(CASE WHEN movimento = 'Saida' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS somaSaida,
+        SUM(CASE WHEN movimento = 'Entrada' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) - SUM(CASE WHEN movimento = 'Saida' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS subtracao
+        FROM reembolsos
+        where movimento in ('Entrada', 'Saida') and data >= '".$dataInicial."' and data <= '".$dataFinal."' and centrocusto_id = '".$centroCusto."' ");
+
+        $dompdf = new Dompdf();
+
+        // Carregue o conteúdo HTML da view
+        $view = View::make('relatorio.relatorioDetalhado_pdf', compact('reembolsos', 'somaEntrada', 'dataInicial', 'dataFinal'));
+        $html = $view->render();
+
+        // Carregue o HTML no Dompdf
+        $dompdf->loadHtml($html);
+
+        // Renderize o PDF
+        $dompdf->render();
+
+        // Salve o PDF em um arquivo ou envie para o navegador
+        $dompdf->stream('relatorioDetalhado.pdf');
     }
 
     public function lista()

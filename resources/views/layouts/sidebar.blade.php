@@ -10,14 +10,14 @@
                     class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Cadastros</span><i
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="/reembolso"><i class="icon fa fa-circle-o"></i> Reembolso / Adiantamento</a></li>
+                <li><a class="treeview-item" href="/reembolso"><i class="icon fa fa-circle-o"></i> Lançamento</a></li>
             </ul>
         </li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
                 class="app-menu__icon fa fa-archive"></i><span class="app-menu__label">Buscar</span><i
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="/Buscar/buscarReembolsos"><i class="icon fa fa-circle-o"></i> Reembolso</a></li>
+                <li><a class="treeview-item" href="/Buscar/buscarReembolsos"><i class="icon fa fa-circle-o"></i> Lançamento</a></li>
 
             </ul>
         </li>
