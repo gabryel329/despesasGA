@@ -45,7 +45,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <Label class="form-check-label">Nutureza Operação<h11>*</h11></Label>
-                                    <select class="form-control" id="gasto_id" name="gasto_id">
+                                    <select class="form-control select2" id="gasto_id" name="gasto_id">
                                         <option selected >{{$reembolsos->gasto_id}}
                                         </option>
                                         @foreach ($gastos as $gasto)
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <Label class="form-check-label">Responsavel<h11>*</h11></Label>
-                                    <select class="form-control" id="usuario_id" name="usuario_id">
+                                    <select class="form-control select2" id="usuario_id" name="usuario_id">
                                         <option selected>{{$reembolsos->usuario_id}}
                                         </option>
                                         {{-- <option>Aberta</option>
@@ -69,7 +69,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Centro de Custo<h11>*</h11></Label>
-                                    <select class="form-control" id="centrocusto_id" name="centrocusto_id">
+                                    <select class="form-control select2" id="centrocusto_id" name="centrocusto_id">
                                         <option selected>{{$reembolsos->centrocusto_id}}
                                         </option>
                                         @foreach ($centrocustos as $centrocusto)
@@ -81,7 +81,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Tipo<h11>*</h11></Label>
-                                    <select class="form-control" id="tipo" name="tipo">
+                                    <select class="form-control select2" id="tipo" name="tipo">
                                         <option selected>{{$reembolsos->tipo}}
                                         </option>
                                         <option value="Implantacao">Implantação</option>
