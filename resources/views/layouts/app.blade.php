@@ -125,4 +125,12 @@ $(document).ready(function() {
     $('.select2').select2();
 });
 </script>
+
+<script>
+    function formatarValor(campo) {
+      const valor = parseFloat(campo.value.replace(',', '.')).toFixed(2);
+      const valor_formatado = valor.replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+      campo.value = valor_formatado;
+    }
+  </script>
 </html>
