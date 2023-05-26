@@ -196,9 +196,11 @@ class GraficosRelatoriosController extends Controller
 
         $dompdf = new Dompdf();
 
-        // Carregue o conteúdo HTML da view
+       // Carregue o conteúdo HTML da view
         $view = View::make('relatorio.relatorioDetalhado_pdf', compact('reembolsos', 'somaEntrada', 'dataInicial', 'dataFinal'));
         $html = $view->render();
+
+        $dompdf = new Dompdf();
 
         // Carregue o HTML no Dompdf
         $dompdf->loadHtml($html);
@@ -206,8 +208,22 @@ class GraficosRelatoriosController extends Controller
         // Renderize o PDF
         $dompdf->render();
 
+        // Obtenha o canvas do PDF
+        $canvas = $dompdf->getCanvas();
+
+        // Caminho absoluto para a imagem
+        $imagePath = public_path('images/logo.png');
+
+        // Verifique se a imagem existe
+        if (file_exists($imagePath)) {
+            // Adicione a imagem ao canvas
+            $canvas->image($imagePath, 20, 20, 70, 50);
+        }
+
         // Salve o PDF em um arquivo ou envie para o navegador
         $dompdf->stream('relatorioDetalhado.pdf');
+
+
     }
 
     public function lista()

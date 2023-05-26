@@ -79,7 +79,7 @@
                                         <td>{{$reembolso->usuario_id}}</td>
                                         <td>{{ $reembolso->data }}</td>
                                         <td>{{ $reembolso->gasto_id }}</td>
-                                        <td>{{ $reembolso->valor }}</td>
+                                        <td>R${{ $reembolso->valor }}</td>
                                         <td>{{ $reembolso->centrocusto_id }}</td>
                                         <td>{{ $reembolso->tipo }}</td>
                                         <td>{{ $reembolso->status }}</td>

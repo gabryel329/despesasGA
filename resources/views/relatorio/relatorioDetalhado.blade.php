@@ -80,6 +80,9 @@
                                     Centro de Custo
                                 </th>
                                 <th>
+                                    Corporativo
+                                </th>
+                                <th>
                                     Tipo
                                 </th>
                                 <th>
@@ -99,9 +102,10 @@
                                     <td>{{ $reembolso->gasto_id }}</td>
                                     <td>{{ $reembolso->status }}</td>
                                     <td>{{ $reembolso->centrocusto_id }}</td>
+                                    <td>{{ $reembolso->corporativo }}
                                     <td>{{ $reembolso->tipo }}</td>
                                     <td>{{ $reembolso->movimento }}</td>
-                                    <td>{{ $reembolso->valor }}</td>
+                                    <td>R${{ $reembolso->valor }}</td>
 
                                     @empty
                                         <p class="alert-warning" style="font-size:22px;"center>Nenhum Reembolso

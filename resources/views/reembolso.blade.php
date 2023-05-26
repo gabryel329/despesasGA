@@ -32,9 +32,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <span class="input-group-addon" for="valor">Valor <h11>*</h11></span>
-                                    <input id="valor" name="valor" placeholder="" class="form-control input-md"
-                                        required type="text" required onblur="formatarValor(this)">
-                                </div>
+                                    <input id="valor" name="valor" placeholder="" class="form-control input-md" required type="text" onblur="formatarValor(this)">
+                                  </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Data <h11>*</h11></span>
                                     <input id="data" name="data" placeholder="" class="form-control input-md"
@@ -155,12 +154,12 @@
 
 @push('scripts')
 <script>
-function formatarValor(campo) {
-    const valor = parseFloat(campo.value.replace(',', '.')).toFixed(2);
-    const valor_formatado = valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    campo.value = valor_formatado;
-  }
-</script>
+    function formatarValor(campo) {
+      const valor = campo.value.replace(/\D/g, '').replace(/^0+/, '');
+      const valor_formatado = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      campo.value = valor_formatado;
+    }
+  </script>
 
 <script>
     function adicionarcampo3(e) {
