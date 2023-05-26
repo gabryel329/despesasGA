@@ -104,7 +104,7 @@
                                     <td>{{ $reembolso->centrocusto_id }}</td>
                                     <td>{{ $reembolso->corporativo }}
                                     <td>{{ $reembolso->tipo }}</td>
-                                    <td>{{ $reembolso->movimento }}</td>
+                                    <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                     <td>R${{ $reembolso->valor }}</td>
 
                                     @empty

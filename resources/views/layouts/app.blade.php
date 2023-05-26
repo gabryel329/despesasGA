@@ -25,7 +25,15 @@
 
     <link href="{{ url('css/main.css') }}" rel="stylesheet">
     <link href="{{ url('css/self.css') }}" rel="stylesheet">
+    <style>
+        .entrada {
+            color: green;
+        }
 
+        .saida {
+            color: red;
+        }
+    </style>
     <style>
         .row {
         display: flex;

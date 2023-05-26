@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Nutureza Operação<h11>*</h11></Label>
-                                    <select class="select2 form-control" id="gasto_id" name="gasto_id">
+                                    <select class="select2 form-control" id="gasto_id" name="gasto_id" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
                                         {{-- <option>Aberta</option>

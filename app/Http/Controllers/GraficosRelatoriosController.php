@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\View;
 
+
 class GraficosRelatoriosController extends Controller
 {
     /**
@@ -214,11 +215,11 @@ class GraficosRelatoriosController extends Controller
         // Caminho absoluto para a imagem
         $imagePath = public_path('images/logo.png');
 
-        // Verifique se a imagem existe
-        if (file_exists($imagePath)) {
-            // Adicione a imagem ao canvas
-            $canvas->image($imagePath, 20, 20, 70, 50);
-        }
+        // // Verifique se a imagem existe
+        // if (file_exists($imagePath)) {
+        //     // Adicione a imagem ao canvas
+        //     $canvas->image($imagePath, 20, 20, 70, 50);
+        // }
 
         // Salve o PDF em um arquivo ou envie para o navegador
         $dompdf->stream('relatorioDetalhado.pdf');

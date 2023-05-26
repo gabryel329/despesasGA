@@ -1,5 +1,13 @@
 @extends('layouts.app')
+<style>
+        .entrada {
+            color: green;
+        }
 
+        .saida {
+            color: red;
+        }
+    </style>
 @section('content')
     <div class="app-content">
         <div class="app-title">
@@ -62,6 +70,9 @@
                                     Tipo
                                 </th>
                                 <th>
+                                    Tipo de Movimento
+                                </th>
+                                <th>
                                     Status
                                 </th>
                                 <th>
@@ -82,6 +93,7 @@
                                     <td>R${{ $reembolso->valor }}</td>
                                     <td>{{ $reembolso->centrocusto_id }}</td>
                                     <td>{{ $reembolso->tipo }}</td>
+                                    <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                     <td>{{ $reembolso->status }}</td>
                                     {{-- <td>
                                         <button type="button" class="btn btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">

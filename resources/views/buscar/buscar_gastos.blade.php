@@ -12,9 +12,9 @@
                 <li class="breadcrumb-item"><a href="#">Natureza Operação</a></li>
             </ul>
         </div>
-        @if(session('alert-warning'))
-        <div class="alert alert-warning">
-            {{ session('alert-warning') }}
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
     @endif
         <div class="row">

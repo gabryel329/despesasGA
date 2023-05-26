@@ -62,6 +62,9 @@
                                         Tipo
                                     </th>
                                     <th>
+                                        Tipo de Movimento
+                                    </th>
+                                    <th>
                                         Status
                                     </th>
                                     <th>
@@ -82,6 +85,7 @@
                                         <td>R${{ $reembolso->valor }}</td>
                                         <td>{{ $reembolso->centrocusto_id }}</td>
                                         <td>{{ $reembolso->tipo }}</td>
+                                        <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                         <td>{{ $reembolso->status }}</td>
                                         <td>
                                             <form action="{{ route('buscarreembolsos.destroy', $reembolso->id) }}" method="post" class="ms-2">
