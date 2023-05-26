@@ -34,7 +34,7 @@ class GastosController extends Controller
         {
             Gastos::create($request->all());
             $msg = ["msg" =>"sucesso"];
-            return redirect()->route('gastos.index')->with('success', 'Tipo de Gasto cadastrado com sucesso!');
+            return redirect()->route('buscargastos.index')->with('success', 'Tipo de Gasto cadastrado com sucesso!');
         }catch(\Exception $e)
         {
 

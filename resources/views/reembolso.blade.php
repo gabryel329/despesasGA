@@ -128,7 +128,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Comprovante<h11>*</h11></Label>
-                                    <input class="form-control" type="file" name="image" required>
+                                    <input class="form-control" type="file" name="image">
                                 </div>
                             </div>
                             <div class="form-group">

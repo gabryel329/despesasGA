@@ -34,7 +34,7 @@ class CentroCustoController extends Controller
         {
             CentroCusto::create($request->all());
             $msg = ["msg" =>"sucesso"];
-            return redirect()->route('centrocusto.index')->with('success', 'Centro de Custo cadastrado com sucesso!');
+            return redirect()->route('buscarcentrocusto.index')->with('success', 'Centro de Custo cadastrado com sucesso!');
         }catch(\Exception $e)
         {
 

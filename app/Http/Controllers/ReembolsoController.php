@@ -68,7 +68,7 @@ class ReembolsoController extends Controller
 
         $reembolso->save();
 
-        return redirect()->route('reembolso.index')
+        return redirect()->route('buscarreembolsos.index')
             ->with('success', 'Reembolso cadastrado com sucesso!');
     }
 

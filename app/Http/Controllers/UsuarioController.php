@@ -47,7 +47,7 @@ class UsuarioController extends Controller
     $user->save();
 
     // Redirecione o usuário de volta para a página de login
-    return redirect()->route('usuario.index')->with('success', 'Usuário cadastrado com sucesso!');
+    return redirect()->route('buscarusuarios.index')->with('success', 'Usuário cadastrado com sucesso!');
 }
 
     /**
