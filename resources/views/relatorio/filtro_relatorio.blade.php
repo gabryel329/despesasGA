@@ -87,7 +87,7 @@
                                         <select class="form-control" id="corporativo" name="corporativo">
                                             <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                             <option value="Sim">Sim</option>
-                                            <option value="Não">Não</option>
+                                            <option value="Nao">Não</option>
                                         </select>
                                     </div>
                                 </div>
