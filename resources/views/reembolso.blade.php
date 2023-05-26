@@ -155,8 +155,8 @@
 @push('scripts')
 <script>
     function formatarValor(campo) {
-      const valor = campo.value.replace(/\D/g, '').replace(/^0+/, '');
-      const valor_formatado = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      const valor = parseFloat(campo.value.replace(',', '.')).toFixed(2);
+      const valor_formatado = valor.replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
       campo.value = valor_formatado;
     }
   </script>
