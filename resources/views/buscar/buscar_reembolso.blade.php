@@ -4,12 +4,12 @@
     <div class="app-content">
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-edit"></i>Lista de Reembolso</h1>
+                <h1><i class="fa fa-edit"></i>Lista de Lançamentos</h1>
             </div>
             <ul class="app-breadcrumb breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
                 <li class="breadcrumb-item">Buscar</li>
-                <li class="breadcrumb-item"><a href="#">Reembolso</a></li>
+                <li class="breadcrumb-item"><a href="#">Lançamentos</a></li>
             </ul>
         </div>
         @if(session('alert-warning'))
