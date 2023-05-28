@@ -27,7 +27,7 @@
                     <div class="tile-body">
                         <form action="{{ route('pesquisarcentrocusto.search') }}" method="post">
                             @csrf
-                            <input id="search" class="form-control input-md" type="text" name="search" placeholder="Nome ou CPF">
+                            <input id="search" class="form-control input-md" type="text" name="search" placeholder="">
                         </form>
                     </div>
                 </div>
