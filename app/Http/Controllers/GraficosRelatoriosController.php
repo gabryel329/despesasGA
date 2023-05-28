@@ -57,32 +57,32 @@ class GraficosRelatoriosController extends Controller
         //GRAFICO DE VALORES POR USUARIO
 
         $data = DB::select("
-        WITH meses AS (SELECT generate_series(1, 12) AS month)
-        SELECT
-            COALESCE(SUM(CAST(REPLACE(r.valor, ',', '.') AS DECIMAL(12, 2))), 0) AS valor,
-            CASE
-                WHEN m.month = 1 THEN 'Janeiro'
-                WHEN m.month = 2 THEN 'Fevereiro'
-                WHEN m.month = 3 THEN 'Março'
-                WHEN m.month = 4 THEN 'Abril'
-                WHEN m.month = 5 THEN 'Maio'
-                WHEN m.month = 6 THEN 'Junho'
-                WHEN m.month = 7 THEN 'Julho'
-                WHEN m.month = 8 THEN 'Agosto'
-                WHEN m.month = 9 THEN 'Setembro'
-                WHEN m.month = 10 THEN 'Outubro'
-                WHEN m.month = 11 THEN 'Novembro'
-                WHEN m.month = 12 THEN 'Dezembro'
-            END AS mes
-        FROM
-            meses m
-            LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.created_at) = m.month
-            INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
-        WHERE
-            u.name = '".$userName."'
-        GROUP BY m.month, mes
-        ORDER BY m.month
-    ");
+    WITH meses AS (SELECT generate_series(1, 12) AS month)
+    SELECT
+        COALESCE(SUM(CAST(REPLACE(REPLACE(r.valor, '.', ''), ',', '.') AS DECIMAL(12, 2))), 0) AS valor,
+        CASE
+            WHEN m.month = 1 THEN 'Janeiro'
+            WHEN m.month = 2 THEN 'Fevereiro'
+            WHEN m.month = 3 THEN 'Março'
+            WHEN m.month = 4 THEN 'Abril'
+            WHEN m.month = 5 THEN 'Maio'
+            WHEN m.month = 6 THEN 'Junho'
+            WHEN m.month = 7 THEN 'Julho'
+            WHEN m.month = 8 THEN 'Agosto'
+            WHEN m.month = 9 THEN 'Setembro'
+            WHEN m.month = 10 THEN 'Outubro'
+            WHEN m.month = 11 THEN 'Novembro'
+            WHEN m.month = 12 THEN 'Dezembro'
+        END AS mes
+    FROM
+        meses m
+        LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.created_at) = m.month
+        INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
+    WHERE
+        u.name = '".$userName."'
+    GROUP BY m.month, mes
+    ORDER BY m.month
+");
     
 
         return view('/home', compact('users','reembolsos', 'emAbertos', 'reembolsadas', 'abertos', 'reembolsados',

@@ -138,10 +138,8 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button id="Cadastrar" data-toggle="modal" data-target="#exampleModal"
-                                        name="Cadastrar" class="btn btn-success" type="Submit">Cadastrar</button>
-                                    <button id="cancelar" name="cancelar" class="btn btn-danger"
-                                        type="Reset">Cancelar</button>
+                                    <input type="submit" name="submit" class="btn btn-success" value="Gravar">
+                                    <a class="btn btn-danger" type="button" href="{{ route('buscarreembolsos.index') }}">Cancelar</a>
                                 </div>
                             </div>
                         </div>
