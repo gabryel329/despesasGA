@@ -30,7 +30,7 @@
             <div class="tile">
                 <div class="tile-title-w-btn">
                     <h3 class="title">Filtro</h3>
-                    <p><a class="btn btn-primary icon-btn" href="/reembolso" target="_blank"><i class="fa fa-file"></i>Novo</a></p>
+                    <p><a class="btn btn-primary icon-btn" href="/reembolso"><i class="fa fa-file"></i>Novo</a></p>
                 </div>
                 <div class="tile-body">
                     <form action="{{ route('pesquisarreembolsos.search') }}" method="post">

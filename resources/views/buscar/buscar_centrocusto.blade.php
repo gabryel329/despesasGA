@@ -22,7 +22,7 @@
                 <div class="tile">
                     <div class="tile-title-w-btn">
                         <h3 class="title">Filtro</h3>
-                        <p><a class="btn btn-primary icon-btn" href="/centrocusto" target="_blank"><i class="fa fa-file"></i>Novo</a></p>
+                        <p><a class="btn btn-primary icon-btn" href="/centrocusto"><i class="fa fa-file"></i>Novo</a></p>
                     </div>
                     <div class="tile-body">
                         <form action="{{ route('pesquisarcentrocusto.search') }}" method="post">
