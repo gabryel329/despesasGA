@@ -135,9 +135,43 @@ $(document).ready(function() {
 </script>
 
 <script>
-  function formatarValor(campo) {
-    const valor = parseFloat(campo.value.replace(',', '.')).toFixed(2);
-    campo.value =  valor.replace(',', '.');
-  }
+    function formatarValor(input) {
+        // Obter o valor digitado
+        var valor = input.value;
+
+        // Remover todos os caracteres não numéricos
+        valor = valor.replace(/[^\d.-]/g, '');
+
+        // Converter para um número
+        var numero = parseFloat(valor);
+
+        // Verificar se é um número válido
+        if (!isNaN(numero)) {
+            // Dividir o número por 100 para mover os dois últimos dígitos para os centavos
+            var valorFormatado = (numero / 100).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            // Definir o valor formatado no campo de entrada
+            input.value = valorFormatado;
+        }
+    }
+</script>
+
+<script>
+    // Obter a data atual
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Definir a data atual como valor padrão do campo de entrada
+    document.getElementById('data').value = currentDate;
+</script>
+
+<script>
+    // Obter a data atual
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Definir a data atual como valor padrão do campo de entrada
+    document.getElementById('datafim').value = currentDate;
 </script>
 </html>

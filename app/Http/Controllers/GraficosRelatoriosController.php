@@ -56,29 +56,34 @@ class GraficosRelatoriosController extends Controller
 
         //GRAFICO DE VALORES POR USUARIO
 
-            $data = DB::select("WITH meses AS (SELECT generate_series(1, 12) AS month)
-                SELECT
-                    COALESCE(SUM(CAST(r.valor AS DECIMAL(12, 2))), 0) AS valor,
-                    CASE
-                        WHEN m.month = 1 THEN 'Janeiro'
-                        WHEN m.month = 2 THEN 'Fevereiro'
-                        WHEN m.month = 3 THEN 'Março'
-                        WHEN m.month = 4 THEN 'Abril'
-                        WHEN m.month = 5 THEN 'Maio'
-                        WHEN m.month = 6 THEN 'Junho'
-                        WHEN m.month = 7 THEN 'Julho'
-                        WHEN m.month = 8 THEN 'Agosto'
-                        WHEN m.month = 9 THEN 'Setembro'
-                        WHEN m.month = 10 THEN 'Outubro'
-                        WHEN m.month = 11 THEN 'Novembro'
-                        WHEN m.month = 12 THEN 'Dezembro'
-                    END AS mes
-                FROM
-                    meses m
-                    LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.created_at) = m.month
-                    INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
-                WHERE
-                    u.name = '".$userName."'GROUP BY m.month, mes ORDER BY m.month");
+        $data = DB::select("
+        WITH meses AS (SELECT generate_series(1, 12) AS month)
+        SELECT
+            COALESCE(SUM(CAST(REPLACE(r.valor, ',', '.') AS DECIMAL(12, 2))), 0) AS valor,
+            CASE
+                WHEN m.month = 1 THEN 'Janeiro'
+                WHEN m.month = 2 THEN 'Fevereiro'
+                WHEN m.month = 3 THEN 'Março'
+                WHEN m.month = 4 THEN 'Abril'
+                WHEN m.month = 5 THEN 'Maio'
+                WHEN m.month = 6 THEN 'Junho'
+                WHEN m.month = 7 THEN 'Julho'
+                WHEN m.month = 8 THEN 'Agosto'
+                WHEN m.month = 9 THEN 'Setembro'
+                WHEN m.month = 10 THEN 'Outubro'
+                WHEN m.month = 11 THEN 'Novembro'
+                WHEN m.month = 12 THEN 'Dezembro'
+            END AS mes
+        FROM
+            meses m
+            LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.created_at) = m.month
+            INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
+        WHERE
+            u.name = '".$userName."'
+        GROUP BY m.month, mes
+        ORDER BY m.month
+    ");
+    
 
         return view('/home', compact('users','reembolsos', 'emAbertos', 'reembolsadas', 'abertos', 'reembolsados',
         'data','glosados'));
@@ -136,11 +141,17 @@ class GraficosRelatoriosController extends Controller
 
         $reembolsos = $query->get();
 
-        $somaEntrada = DB::select("SELECT SUM(CASE WHEN movimento = 'Entrada' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS somaEntrada ,
-        SUM(CASE WHEN movimento = 'Saida' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS somaSaida,
-        SUM(CASE WHEN movimento = 'Entrada' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) - SUM(CASE WHEN movimento = 'Saida' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS subtracao
-        FROM reembolsos
-        where movimento in ('Entrada', 'Saida') and data >= '".$dataInicial."' and data <= '".$dataFinal."' and centrocusto_id = '".$centroCusto."' ");
+        $somaEntrada = DB::select("
+    SELECT
+        REPLACE(SUM(CASE WHEN movimento = 'Entrada' THEN REPLACE(valor, ',', '.') ELSE 0 END), '.', ',') AS somaEntrada,
+        REPLACE(SUM(CASE WHEN movimento = 'Saida' THEN REPLACE(valor, ',', '.') ELSE 0 END), '.', ',') AS somaSaida,
+        REPLACE(SUM(CASE WHEN movimento = 'Entrada' THEN REPLACE(valor, ',', '.') ELSE 0 END), '.', ',') -
+        REPLACE(SUM(CASE WHEN movimento = 'Saida' THEN REPLACE(valor, ',', '.') ELSE 0 END), '.', ',') AS subtracao
+    FROM reembolsos
+    WHERE
+        movimento IN ('Entrada', 'Saida')
+        AND data >= '".$dataInicial."' AND data <= '".$dataFinal."' AND centrocusto_id = '".$centroCusto."'
+");
 
         return view('relatorio.relatorioDetalhado', compact('reembolsos', 'somaEntrada', 'dataInicial', 'dataFinal'));
     }
@@ -189,11 +200,17 @@ class GraficosRelatoriosController extends Controller
 
         $reembolsos = $query->get();
 
-        $somaEntrada = DB::select("SELECT SUM(CASE WHEN movimento = 'Entrada' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS somaEntrada ,
-        SUM(CASE WHEN movimento = 'Saida' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS somaSaida,
-        SUM(CASE WHEN movimento = 'Entrada' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) - SUM(CASE WHEN movimento = 'Saida' THEN CAST(valor AS DECIMAL(12, 2)) ELSE 0 END) AS subtracao
-        FROM reembolsos
-        where movimento in ('Entrada', 'Saida') and data >= '".$dataInicial."' and data <= '".$dataFinal."' and centrocusto_id = '".$centroCusto."' ");
+        $somaEntrada = DB::select("
+    SELECT
+        REPLACE(SUM(CASE WHEN movimento = 'Entrada' THEN REPLACE(valor, ',', '.') ELSE 0 END), '.', ',') AS somaEntrada,
+        REPLACE(SUM(CASE WHEN movimento = 'Saida' THEN REPLACE(valor, ',', '.') ELSE 0 END), '.', ',') AS somaSaida,
+        REPLACE(SUM(CASE WHEN movimento = 'Entrada' THEN REPLACE(valor, ',', '.') ELSE 0 END), '.', ',') -
+        REPLACE(SUM(CASE WHEN movimento = 'Saida' THEN REPLACE(valor, ',', '.') ELSE 0 END), '.', ',') AS subtracao
+    FROM reembolsos
+    WHERE
+        movimento IN ('Entrada', 'Saida')
+        AND data >= '".$dataInicial."' AND data <= '".$dataFinal."' AND centrocusto_id = '".$centroCusto."'
+");
 
         $dompdf = new Dompdf();
 
