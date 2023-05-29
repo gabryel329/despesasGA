@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cartao;
 use App\Models\CentroCusto;
+use App\Models\Reembolso;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -82,7 +84,7 @@ class GraficosRelatoriosController extends Controller
         u.name = '".$userName."'
     GROUP BY m.month, mes
     ORDER BY m.month");
-    
+
 
         return view('/home', compact('users','reembolsos', 'emAbertos', 'reembolsadas', 'abertos', 'reembolsados',
         'data','glosados'));
@@ -92,8 +94,9 @@ class GraficosRelatoriosController extends Controller
     {
         $centrocustos = CentroCusto::get();
         $usuarios = User::get();
+        $cartaos = Cartao::get();
 
-        return view('relatorio.filtro_relatorio', compact('centrocustos', 'usuarios'));
+        return view('relatorio.filtro_relatorio', compact('centrocustos', 'usuarios', 'cartaos'));
     }
 
     public function filtrar(Request $request)
@@ -105,13 +108,15 @@ class GraficosRelatoriosController extends Controller
         $cartaoCorporativo = $request->get('orporativo');
         $tipoMovimento = $request->get('movimento');
         $usuario = $request->get('usuario_id');
+        $cartaos = $request->get('cartao_id');
 
         $query = DB::table('reembolsos as r')
-            ->select(DB::raw("CAST(REPLACE(REPLACE(r.valor, '.', ''), ',', '.') AS DECIMAL(12, 2)) AS valor"), 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->select(DB::raw("CAST(REPLACE(REPLACE(r.valor, '.', ''), ',', '.') AS DECIMAL(12, 2)) AS valor"), 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento','r.cartao_id')
             ->join('gastos as g', 'g.nome', '=', 'r.gasto_id')
             ->join('centro_custos as c', 'c.nome', '=', 'r.centrocusto_id')
+            ->join('cartaos as cc', 'cc.nome', '=', 'r.cartao_id')
             ->join('users as u', 'u.name', '=', 'r.usuario_id')
-            ->groupBy('r.valor', 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->groupBy('r.valor', 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento','r.cartao_id')
             ->orderBy('r.data', 'asc');
 
         if (!empty($dataInicial) && !empty($dataFinal)) {
@@ -134,6 +139,10 @@ class GraficosRelatoriosController extends Controller
             $query->where('r.movimento', $tipoMovimento);
         }
 
+        if (!empty($cartaos)) {
+            $query->where('r.cartao_id', $cartaos);
+        }
+
         if (!empty($usuario)) {
             $query->where('r.usuario_id', $usuario);
         }
@@ -150,7 +159,7 @@ class GraficosRelatoriosController extends Controller
         WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
 
         $total = DB::select("SELECT
-        COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) - 
+        COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
         COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
         FROM reembolsos r
         WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
@@ -169,17 +178,23 @@ class GraficosRelatoriosController extends Controller
         $cartaoCorporativo = $request->get('orporativo');
         $tipoMovimento = $request->get('movimento');
         $usuario = $request->get('usuario_id');
+        $cartaos = $request->get('cartao_id');
 
         $query = DB::table('reembolsos as r')
-            ->select(DB::raw("CAST(REPLACE(REPLACE(r.valor, '.', ''), ',', '.') AS DECIMAL(12, 2)) AS valor"), 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->select(DB::raw("CAST(REPLACE(REPLACE(r.valor, '.', ''), ',', '.') AS DECIMAL(12, 2)) AS valor"), 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento','r.cartao_id')
             ->join('gastos as g', 'g.nome', '=', 'r.gasto_id')
             ->join('centro_custos as c', 'c.nome', '=', 'r.centrocusto_id')
+            ->join('cartaos as cc', 'cc.nome', '=', 'r.cartao_id')
             ->join('users as u', 'u.name', '=', 'r.usuario_id')
-            ->groupBy('r.valor', 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento')
+            ->groupBy('r.valor', 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento','r.cartao_id')
             ->orderBy('r.data', 'asc');
 
         if (!empty($dataInicial) && !empty($dataFinal)) {
             $query->whereBetween('r.data', [$dataInicial, $dataFinal]);
+        }
+
+        if (!empty($cartaos)) {
+            $query->where('r.cartao_id', $cartaos);
         }
 
         if (!empty($centroCusto)) {
@@ -214,7 +229,7 @@ class GraficosRelatoriosController extends Controller
         WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
 
         $total = DB::select("SELECT
-        COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) - 
+        COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
         COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
         FROM reembolsos r
         WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
@@ -253,7 +268,7 @@ class GraficosRelatoriosController extends Controller
 
     public function lista()
     {
-        $reembolsos = Reembolsos::get();
+        $reembolsos = Reembolso::get();
 
         return view('relatorio.relatorioDetalhado', compact('reembolsos'));
     }

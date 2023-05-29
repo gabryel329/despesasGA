@@ -92,29 +92,28 @@
                                         <option value="Reuniao">Reunião</option>
                                     </select>
                                 </div>
+                                <div class="col-md-4" id="parcelas3">
+                                    <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
+                                    <select onchange="adicionarcampo3(this.value)" class="form-control" id="corporativo" name="corporativo" required>
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Nao">Não</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-4">
                                     <Label class="form-check-label">Tipo de Movimento<h11>*</h11></Label>
-                                    <select class="form-control" id="movimento" name="movimento">
+                                    <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento">
                                         <option  selected style="font-size:18px;color: black;" value="{{$reembolsos->movimento}}">{{$reembolsos->movimento}}
                                         </option>
                                         <option value="Entrada">Entrada</option>
                                         <option value="Saida">Saida</option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <Label class="form-check-label">Cartão Corporativo<h11>*</h11></Label>
-                                    <select class="form-control" id="corporativo" name="corporativo">
-                                        <option selected >{{$reembolsos->corporativo}}
-                                        </option>
-                                        <option value="Sim">Sim</option>
-                                        <option value="Nao">Nao</option>
-                                    </select>
-                                </div>
                             </div>
-                            {{-- <div class="row">
-                                <div class="col-md-6" id="forma_pagamento2">
+                            <div class="row">
+                                {{-- <div class="col-md-6" id="forma_pagamento2">
                                     <label class="control-label">Forma de Pagamento<h11>*</h11></label>
-                                    <select onchange="adicionarcampo3(this.value)" class="form-control" id="" name="forma_pgt" >
+                                    <select onchange="adicionarcampo4(this.value)" class="form-control" id="" name="forma_pgt" >
                                         <option selected >{{$reembolsos->forma_pgt}}
                                         </option>
                                         <option>Pix</option>
@@ -122,24 +121,17 @@
                                         <option>Debito</option>
                                         <option value="Credito">Credito</option>
                                     </select>
-                                </div>
-                                <div class="col-md-6" id="parcelas3" hidden>
-                                    <label class="control-label">Parcelas<h11>*</h11></label>
-                                    <select class="form-control" id="" name="parcelas" >
-                                        <option selected>{{$reembolsos->parcelas}}
-                                        <option>A vista</option>
-                                        <option>x2</option>
-                                        <option>x3</option>
-                                        <option>x4</option>
-                                        <option>x5</option>
-                                        <option>x6</option>
-                                        <option>x7</option>
-                                        <option>x8</option>
-                                        <option>x9</option>
-                                        <option>x10</option>
+                                </div> --}}
+                                <div class="col-md-6" id="parcelas4" hidden>
+                                    <label class="control-label">Qual cartão:<h11>*</h11></label>
+                                    <select class="form-control" id="cartao_id" name="cartao_id" required>
+                                        <option selected>{{$reembolsos->cartao_id}}
+                                        @foreach ($cartaos as $cartao)
+                                            <option value="{{$cartao->nome}}">{{$cartao->nome}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <Label class="form-check-label">Comprovante<h11>*</h11></Label>
@@ -186,15 +178,27 @@ function formatarValor(campo) {
 
 <script>
 
-    function adicionarcampo3(e) {
-        var parcelas = document.getElementById('parcelas3')
+    function adicionarcampo4(e) {
+        var parcelas = document.getElementById('parcelas4')
 
-        if (e == "Credito") {
+        if (e == "Saida") {
             parcelas.removeAttribute("hidden");
-        } else if (e != 'Credito') {
+        } else if (e != 'Saida') {
             parcelas.setAttribute("hidden", true);
         }
     }
 
+</script>
+
+<script>
+    function adicionarcampo3(e) {
+        var movimentoSelect = document.getElementById('movimento');
+
+        if (e === 'Sim') {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
+        } else {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
+        }
+    }
 </script>
 @endpush

@@ -72,22 +72,22 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-check-label">Tipo de Movimento</label>
-                                        <select class="form-control" id="movimento" name="movimento">
+                                    <div class="form-group" id="parcelas3">
+                                        <label class="form-check-label">Cartão Corporativo</label>
+                                        <select class="form-control" id="corporativo" onchange="adicionarcampo3(this.value)" name="corporativo">
                                             <option disabled selected style="font-size:18px;color: black;">Escolha</option>
-                                            <option value="Entrada">Entrada</option>
-                                            <option value="Saída">Saída</option>
+                                            <option value="Sim">Sim</option>
+                                            <option value="Nao">Não</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="form-check-label">Cartão Corporativo</label>
-                                        <select class="form-control" id="corporativo" name="corporativo">
+                                        <label class="form-check-label">Tipo de Movimento</label>
+                                        <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento">
                                             <option disabled selected style="font-size:18px;color: black;">Escolha</option>
-                                            <option value="Sim">Sim</option>
-                                            <option value="Nao">Não</option>
+                                            <option value="Entrada">Entrada</option>
+                                            <option value="Saída">Saída</option>
                                         </select>
                                     </div>
                                 </div>
@@ -104,6 +104,30 @@
                                 </div>
                             </div>
                             <div class="row">
+                                {{-- <div class="col-md-6" id="forma_pagamento2">
+                                    <label class="control-label">Forma de Pagamento<h11>*</h11></label>
+                                    <select onchange="adicionarcampo4(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required>
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        </option>
+                                        <option>Pix</option>
+                                        <option>Dinheiro</option>
+                                        <option>Debito</option>
+                                        <option value="Credito">Credito</option>
+                                    </select>
+                                </div> --}}
+                                <div class="col-md-6" id="parcelas4" hidden>
+                                    <label class="control-label">Qual cartão:<h11>*</h11></label>
+                                    <select class="form-control" id="cartao_id" name="cartao_id" required>
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        </option>
+                                        @foreach ($cartaos as $cartao)
+                                            <option value="{{$cartao->nome}}">{{$cartao->nome}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <button id="Gerar" data-toggle="modal" data-target="#exampleModal" name="Gerar" class="btn btn-success" type="submit">Gerar Relatório</button>
                                     <button id="cancelar" name="cancelar" class="btn btn-danger" type="reset">Cancelar</button>
@@ -116,3 +140,29 @@
         </div>
     </div>
 </main>
+
+<script>
+
+    function adicionarcampo4(e) {
+        var parcelas = document.getElementById('parcelas4')
+
+        if (e == "Saida") {
+            parcelas.removeAttribute("hidden");
+        } else if (e != 'Saida') {
+            parcelas.setAttribute("hidden", true);
+        }
+    }
+
+</script>
+
+<script>
+    function adicionarcampo3(e) {
+        var movimentoSelect = document.getElementById('movimento');
+
+        if (e === 'Sim') {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
+        } else {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
+        }
+    }
+</script>

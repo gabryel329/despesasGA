@@ -83,6 +83,9 @@
                                     Corporativo
                                 </th>
                                 <th>
+                                    Cartão
+                                </th>
+                                <th>
                                     Tipo de Movimentação
                                 </th>
                                 <th>
@@ -100,6 +103,7 @@
                                     <td>{{ $reembolso->status }}</td>
                                     <td>{{ $reembolso->centrocusto_id }}</td>
                                     <td>{{ $reembolso->corporativo }}</td>
+                                    <td>{{ $reembolso->cartao_id}}
                                     <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                     <td>R${{ $reembolso->valor }}</td>
 
@@ -190,7 +194,7 @@
             }
         };
         // Formatando os valores manualmente
-        var formatter = new google.visualization.NumberFormat({ 
+        var formatter = new google.visualization.NumberFormat({
             prefix: 'R$ ',
             decimalSymbol: ',',
             groupingSymbol: '.',

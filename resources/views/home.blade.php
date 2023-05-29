@@ -34,7 +34,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="widget-small info coloured-icon"><i class="icon fa fa-thumbs-o-up fa-3x"></i>
             <div class="info">
-                <h4>Lançamentos<br><span><p style="font-size: smaller;">(Glosados)</p></span></h4>
+                <h4>Lançamentos<br><span><p style="font-size: smaller;">(Em Abertos)</p></span></h4>
                 @forelse ( $emAbertos as $emAberto )
                                 <p><b>{{$emAberto->abertos}}</b></p>
                             @empty
@@ -46,7 +46,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="widget-small warning coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
           <div class="info">
-            <h4>Lançamentos<br><span><p style="font-size: smaller;">(Em Abertos)</p></span></h4>
+            <h4>Lançamentos<br><span><p style="font-size: smaller;">(Glosados)</p></span></h4>
             @forelse ( $glosados as $glosado )
                             <p><b>{{$glosado->glosado}}</b></p>
                         @empty

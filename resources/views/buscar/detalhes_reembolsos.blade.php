@@ -73,17 +73,17 @@
                                     <input class="form-control" id="corporativo" name="corporativo" value="{{ $reembolsos->corporativo }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
-                            {{-- <br>
+                            <br>
                             <div class="row">
-                                <div class="col-md-6" id="forma_pagamento2">
+                                {{-- <div class="col-md-6" id="forma_pagamento2">
                                     <h6 class="control-label">Forma de Pagamento</h6>
                                     <input onchange="adicionarcampo3(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required value="{{ $reembolsos->forma_pgt }}">
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6" id="parcelas3">
-                                    <h6 class="control-label">Parcelas</h6>
-                                    <input class="form-control" id="parcelas" name="parcelas" required value="{{ $reembolsos->parcelas }}">
+                                    <h6 class="control-label">Cartão</h6>
+                                    <input class="form-control" id="cartao_id" name="cartao_id" required value="{{ $reembolsos->cartao_id }}" disabled style="font-size:18px;color: black;">
                                 </div>
-                            </div> --}}
+                            </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">

@@ -26,6 +26,7 @@
             class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Administrativo</span><i
             class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
+                <li><a class="treeview-item" href="/Buscar/buscarCartaos"><i class="icon fa fa-circle-o"></i> Cartões</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarUsuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarCentroCusto"><i class="icon fa fa-circle-o"></i> Centro de Custo</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarGastos"><i class="icon fa fa-circle-o"></i> Natureza Operação</a></li>

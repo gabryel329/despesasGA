@@ -79,9 +79,9 @@
                                         <option value="Reunião">Reunião</option>
                                     </select>
                                 </div>
-                                <div class="col-md-4" id="parcelas3">
+                                <div class="col-md-4" id="parcelas3" >
                                     <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
-                                    <select onchange="adicionarcampo3(this.value)" class="form-control" id="corporativo" name="corporativo" required>
+                                    <select onchange="adicionarcampo3(this.value)"  class="form-control" id="corporativo" name="corporativo" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                         <option value="Sim">Sim</option>
                                         <option value="Nao">Não</option>
@@ -89,16 +89,16 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-check-label">Tipo de Movimento<h11>*</h11></label>
-                                    <select class="form-control" id="movimento" name="movimento" required>
+                                    <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                         <option value="Saida">Saída</option>
                                     </select>
                                 </div>
                             </div>
-                            {{-- <div class="row">
-                                <div class="col-md-6" id="forma_pagamento2">
+                            <div class="row">
+                                {{-- <div class="col-md-6" id="forma_pagamento2">
                                     <label class="control-label">Forma de Pagamento<h11>*</h11></label>
-                                    <select onchange="adicionarcampo3(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required>
+                                    <select onchange="adicionarcampo4(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
                                         <option>Pix</option>
@@ -106,25 +106,18 @@
                                         <option>Debito</option>
                                         <option value="Credito">Credito</option>
                                     </select>
-                                </div>
-                                <div class="col-md-6" id="parcelas3" hidden>
-                                    <label class="control-label">Parcelas<h11>*</h11></label>
-                                    <select class="form-control" id="parcelas" name="parcelas" required>
+                                </div> --}}
+                                <div class="col-md-6" id="parcelas4" hidden>
+                                    <label class="control-label">Qual cartão:<h11>*</h11></label>
+                                    <select class="form-control" id="cartao_id" name="cartao_id" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
-                                        <option>A vista</option>
-                                        <option>x2</option>
-                                        <option>x3</option>
-                                        <option>x4</option>
-                                        <option>x5</option>
-                                        <option>x6</option>
-                                        <option>x7</option>
-                                        <option>x8</option>
-                                        <option>x9</option>
-                                        <option>x10</option>
+                                        @foreach ($cartaos as $cartao)
+                                            <option value="{{$cartao->nome}}">{{$cartao->nome}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Comprovante<h11>*</h11></Label>
@@ -158,6 +151,20 @@
       campo.value = valor_formatado;
     }
   </script>
+
+<script>
+
+    function adicionarcampo4(e) {
+        var parcelas = document.getElementById('parcelas4')
+
+        if (e == "Saida") {
+            parcelas.removeAttribute("hidden");
+        } else if (e != 'Saida') {
+            parcelas.setAttribute("hidden", true);
+        }
+    }
+
+</script>
 
 <script>
     function adicionarcampo3(e) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cartao;
 use App\Models\CentroCusto;
 use App\Models\Gastos;
 use App\Models\Reembolso;
@@ -19,8 +20,9 @@ class ReembolsoController extends Controller
         $gastos = Gastos::get();
         $centrocustos = CentroCusto::get();
         $usuarios = User::get();
+        $cartaos = Cartao::get();
 
-        return view('/reembolso', compact('reembolso', 'gastos', 'centrocustos', 'usuarios'));
+        return view('/reembolso', compact('reembolso', 'gastos', 'centrocustos', 'usuarios', 'cartaos'));
     }
 
     /**
@@ -48,6 +50,7 @@ class ReembolsoController extends Controller
         $reembolso->centrocusto_id = $request->get('centrocusto_id');
         $reembolso->gasto_id = $request->get('gasto_id');
         $reembolso->movimento = $request->get('movimento');
+        $reembolso->cartao_id = $request->get('cartao_id');
 
         // Obtendo o usuário logado pelo nome
         $user = User::where('name', auth()->user()->name)->first();

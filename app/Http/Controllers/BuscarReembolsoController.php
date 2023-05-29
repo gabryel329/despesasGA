@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cartao;
 use App\Models\CentroCusto;
 use App\Models\Gastos;
 use App\Models\Reembolso;
@@ -68,10 +69,11 @@ class BuscarReembolsoController extends Controller
         $gastos = Gastos::get();
         $usuarios = User::get();
         $centrocustos = CentroCusto::get();
+        $cartaos = Cartao::get();
 
         if(!empty($reembolsos))
         {
-            return view('buscar.editar_reembolsos', ['reembolsos'=>$reembolsos, 'centrocustos'=>$centrocustos, 'gastos'=>$gastos, 'usuarios'=>$usuarios]);
+            return view('buscar.editar_reembolsos', ['reembolsos'=>$reembolsos, 'centrocustos'=>$centrocustos, 'gastos'=>$gastos, 'usuarios'=>$usuarios, 'cartaos'=>$cartaos]);
         }else{
             return redirect()->route('mostrarreembolsos.show');
         }
@@ -94,7 +96,8 @@ class BuscarReembolsoController extends Controller
         'forma_pgt' => $request->forma_pgt,
         'parcelas' => $request->parcelas,
         'observacao' => $request->observacao,
-        'movimento' => $request->movimento
+        'movimento' => $request->movimento,
+        'cartao_id' => $request->cartao_id
     ];
 
     // Verificar se um arquivo de imagem foi enviado

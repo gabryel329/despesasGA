@@ -135,6 +135,7 @@
                                         <th>Status</th>
                                         <th>Centro de Custo</th>
                                         <th>Corporativo</th>
+                                        <th>Cartão</th>
                                         <th>Tipo</th>
                                         <th>Tipo de Movimentação</th>
                                         <th>Valor</th>
@@ -150,6 +151,7 @@
                                         <td>{{ $reembolso->status }}</td>
                                         <td>{{ $reembolso->centrocusto_id }}</td>
                                         <td>{{ $reembolso->corporativo }}</td>
+                                        <td>{{ $reembolso->cartao_id }}</td>
                                         <td>{{ $reembolso->tipo }}</td>
                                         <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                         <td>R${{ $reembolso->valor }}</td>

@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\BuscarAdministrativaController;
+use App\Http\Controllers\BuscarCartaoController;
 use App\Http\Controllers\BuscarCentroCustoController;
 use App\Http\Controllers\BuscarGastosController;
 use App\Http\Controllers\BuscarContaController;
 use App\Http\Controllers\BuscarReembolsoController;
 use App\Http\Controllers\BuscarUsuarioController;
+use App\Http\Controllers\CartaoController;
 use App\Http\Controllers\CentroCustoController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\ContaController;
@@ -48,6 +50,10 @@ Route::post('/usuario', [UsuarioController::class, 'store'])->name('usuario.stor
 Route::get('/gastos', [GastosController::class, 'index'])->name('gastos.index');
 Route::post('/gastos', [GastosController::class, 'store'])->name('gastos.store');
 
+#ROTA TIPOS DE CARTÃO
+Route::get('/cartaos', [CartaoController::class, 'index'])->name('cartaos.index');
+Route::post('/cartaos', [CartaoController::class, 'store'])->name('cartaos.store');
+
 #ROTA REEMBOLSO
 Route::get('/reembolso', [ReembolsoController::class, 'index'])->name('reembolso.index');
 Route::post('/reembolso', [ReembolsoController::class, 'store'])->name('reembolso.store');
@@ -67,6 +73,14 @@ Route::post('/Buscar/pesquisarGastos', [BuscarGastosController::class, 'search']
 Route::get('/Buscar/mostrarGastos/{id}', [BuscarGastosController::class, 'show'])->name('mostrargastos.show');
 Route::get('/Buscar/editarGastos/{id}',[BuscarGastosController::class, 'edit'])->name('editargastos.edit');
 Route::put('/Buscar/atualizarGastos/{id}',[BuscarGastosController::class, 'update'])->name('atualizargastos.update');
+
+#ROTA BUSCAR CARTAO
+Route::get('/Buscar/buscarCartaos', [BuscarCartaoController::class, 'index'])->name('buscarcartaos.index')->middleware('admin');
+Route::delete('/Buscar/deletarCartaos/{id}',[BuscarCartaoController::class, 'destroy'])->name('buscarcartaos.destroy');
+Route::post('/Buscar/pesquisarCartaos', [BuscarCartaoController::class, 'search'])->name('pesquisarcartaos.search');
+Route::get('/Buscar/mostrarCartaos/{id}', [BuscarCartaoController::class, 'show'])->name('mostrarcartaos.show');
+Route::get('/Buscar/editarCartaos/{id}',[BuscarCartaoController::class, 'edit'])->name('editarcartaos.edit');
+Route::put('/Buscar/atualizarCartaos/{id}',[BuscarCartaoController::class, 'update'])->name('atualizarcartaos.update');
 
 #ROTA BUSCAR REEMBOLSO
 Route::get('/Buscar/buscarReembolsos', [BuscarReembolsoController::class, 'index'])->name('buscarreembolsos.index');

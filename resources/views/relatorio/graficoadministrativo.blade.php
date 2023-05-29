@@ -86,6 +86,16 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">Cartão mais utilizado por Mês</h3>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <div id="chart3" class="embed-responsive-item" width="100%" height="100%" ></div>
+                </div>
+            </div>
+        </div>
+    </div>
   </main>
 
 

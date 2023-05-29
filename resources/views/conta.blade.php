@@ -31,8 +31,8 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span class="input-group-addon">Nome ou Número<h11>*</h11></span>
-                                    <input id="nome" name="nome" placeholder="" class="form-control input-md"
+                                    <span class="input-group-addon">Cartão<h11>*</h11></span>
+                                    <input id="nome" name="nome" placeholder="4 últimos nº do cartão" class="form-control input-md"
                                     required type="text">
                                 </div>
                             </div>
