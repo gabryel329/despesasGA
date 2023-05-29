@@ -34,7 +34,7 @@
                                 <div class="col-md-6">
                                     <span class="input-group-addon" for="valor">Valor <h11>*</h11></span>
                                     <input id="valor" name="valor" placeholder="" class="form-control input-md"
-                                         type="text" onblur="formatarValor(this)" value="{{$reembolsos->valor}}">
+                                         type="text" onKeyPress="return(moeda(this,'.',',',event))" value="{{$reembolsos->valor}}">
                                 </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Data <h11>*</h11></span>
@@ -122,9 +122,9 @@
                                         <option value="Credito">Credito</option>
                                     </select>
                                 </div> --}}
-                                <div class="col-md-6" id="parcelas4" hidden>
+                                <div class="col-md-6">
                                     <label class="control-label">Qual cartão:<h11>*</h11></label>
-                                    <select class="form-control" id="cartao_id" name="cartao_id" required>
+                                    <select class="form-control" id="cartao_id" name="cartao_id">
                                         <option selected>{{$reembolsos->cartao_id}}
                                         @foreach ($cartaos as $cartao)
                                             <option value="{{$cartao->nome}}">{{$cartao->nome}}</option>
@@ -168,13 +168,6 @@
 </main>
 
 @push('scripts')
-<script>
-function formatarValor(campo) {
-    const valor = parseFloat(campo.value.replace(',', '.')).toFixed(2);
-    const valor_formatado = valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    campo.value = valor_formatado;
-  }
-</script>
 
 <script>
 

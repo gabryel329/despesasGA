@@ -104,7 +104,7 @@
                                         <td>
                                             <div>
                                                 <button type="button" class="btn btn-sm">
-                                                    <a href="{{ route('mostrarreembolsos.show', $reembolso->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a href="{{ route('editarreembolsos.edit', $reembolso->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                 </button>
                                             </div>
                                         </td>

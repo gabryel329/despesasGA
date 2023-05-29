@@ -88,7 +88,7 @@
                                     <td>
                                         <div>
                                             <button type="button" class="btn btn-sm">
-                                                <a href="{{ route('mostrarcentrocusto.show', $centrocusto->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <a href="{{ route('editarcentrocusto.edit', $centrocusto->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             </button>
                                         </div>
                                     </td>

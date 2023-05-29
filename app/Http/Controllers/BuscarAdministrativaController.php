@@ -62,6 +62,14 @@ class BuscarAdministrativaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if($reembolsos = Reembolso::find($id))
+        {
+            if($reembolsos->delete()){
+                return redirect()->route('buscaradministrativo.index')->with('alert-warning','Deletado com Sucesso! ');
+            }else{
+                return redirect()->back()->with('alert-warning','Não pode deletar, possui dependentes ativos !');
+            }
+        }
+        return redirect()->back()->with('alert-warning','Não foi possivel deletar! ');
     }
 }
