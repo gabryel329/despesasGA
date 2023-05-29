@@ -3,10 +3,12 @@
 use App\Http\Controllers\BuscarAdministrativaController;
 use App\Http\Controllers\BuscarCentroCustoController;
 use App\Http\Controllers\BuscarGastosController;
+use App\Http\Controllers\BuscarContaController;
 use App\Http\Controllers\BuscarReembolsoController;
 use App\Http\Controllers\BuscarUsuarioController;
 use App\Http\Controllers\CentroCustoController;
 use App\Http\Controllers\GastosController;
+use App\Http\Controllers\ContaController;
 use App\Http\Controllers\GraficosRelatoriosController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ReembolsoController;
@@ -49,6 +51,18 @@ Route::post('/gastos', [GastosController::class, 'store'])->name('gastos.store')
 #ROTA REEMBOLSO
 Route::get('/reembolso', [ReembolsoController::class, 'index'])->name('reembolso.index');
 Route::post('/reembolso', [ReembolsoController::class, 'store'])->name('reembolso.store');
+
+#ROTA CONTA
+Route::get('/conta', [ContaController::class, 'index'])->name('conta.index');
+Route::post('/conta', [ContaController::class, 'store'])->name('conta.store');
+
+#ROTA BUSCAR CENTRO CUSTO
+Route::get('/Buscar/buscarConta', [BuscarContaController::class, 'index'])->name('buscarconta.index');
+Route::delete('/Buscar/deletarConta/{id}',[BuscarContaController::class, 'destroy'])->name('buscarconta.destroy');
+Route::post('/Buscar/pesquisarConta', [BuscarContaController::class, 'search'])->name('pesquisarconta.search');
+Route::get('/Buscar/mostrarConta/{id}', [BuscarContaController::class, 'show'])->name('mostrarconta.show');
+Route::get('/Buscar/editarConta/{id}',[BuscarContaController::class, 'edit'])->name('editarconta.edit');
+Route::put('/Buscar/atualizarConta/{id}',[BuscarContaController::class, 'update'])->name('atualizarconta.update');
 
 #ROTA BUSCAR CENTRO CUSTO
 Route::get('/Buscar/buscarCentroCusto', [BuscarCentroCustoController::class, 'index'])->name('buscarcentrocusto.index');

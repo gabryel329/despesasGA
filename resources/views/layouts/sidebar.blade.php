@@ -10,6 +10,7 @@
                     class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Cadastros</span><i
                     class="treeview-indicator fa fa-angle-right"></i></a>
         </li>  -->
+        
         <li class="treeview"><a class="app-menu__item" href="/Buscar/buscarReembolsos">
             <i class="app-menu__icon fa fa-edit"></i> Lançamentos</a></li>
 
@@ -25,6 +26,7 @@
             class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Administrativo</span><i
             class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Contas</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarUsuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarCentroCusto"><i class="icon fa fa-circle-o"></i> Centro de Custo</a></li>
                 <li><a class="treeview-item" href="/Buscar/buscarGastos"><i class="icon fa fa-circle-o"></i> Natureza Operação</a></li>
