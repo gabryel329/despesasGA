@@ -17,6 +17,11 @@
             {{ session('success') }}
         </div>
     @endif
+    @if(session('alert-warning'))
+        <div class="alert alert-warning">
+            {{ session('alert-warning') }}
+        </div>
+        @endif
         <div class="row">
             <div class="col-md-6">
                 <div class="tile">

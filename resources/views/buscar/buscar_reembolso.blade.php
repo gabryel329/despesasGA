@@ -12,7 +12,12 @@
                 <li class="breadcrumb-item"><a href="#">Lançamentos</a></li>
             </ul>
         </div>
-        @if(session('alert-warning'))
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('alert-warning'))
         <div class="alert alert-warning">
             {{ session('alert-warning') }}
         </div>
@@ -59,7 +64,7 @@
                                         Centro de Custo
                                     </th>
                                     <th>
-                                        Tipo
+                                        Observação
                                     </th>
                                     <th>
                                         Tipo de Movimento
@@ -84,7 +89,7 @@
                                         <td>{{ $reembolso->gasto_id }}</td>
                                         <td>R${{ $reembolso->valor }}</td>
                                         <td>{{ $reembolso->centrocusto_id }}</td>
-                                        <td>{{ $reembolso->tipo }}</td>
+                                        <td>{{ $reembolso->observacao }}</td>
                                         <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                         <td>{{ $reembolso->status }}</td>
                                         <td>

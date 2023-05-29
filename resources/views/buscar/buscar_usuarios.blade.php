@@ -12,11 +12,16 @@
                 <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
             </ul>
         </div>
-        @if(session('alert-warning'))
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('alert-warning'))
         <div class="alert alert-warning">
             {{ session('alert-warning') }}
         </div>
-    @endif
+        @endif
         <div class="row">
             <div class="col-md-6">
                 <div class="tile">

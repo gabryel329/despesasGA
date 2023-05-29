@@ -83,9 +83,6 @@
                                     Corporativo
                                 </th>
                                 <th>
-                                    Tipo
-                                </th>
-                                <th>
                                     Tipo de Movimentação
                                 </th>
                                 <th>
@@ -102,8 +99,7 @@
                                     <td>{{ $reembolso->gasto_id }}</td>
                                     <td>{{ $reembolso->status }}</td>
                                     <td>{{ $reembolso->centrocusto_id }}</td>
-                                    <td>{{ $reembolso->corporativo }}
-                                    <td>{{ $reembolso->tipo }}</td>
+                                    <td>{{ $reembolso->corporativo }}</td>
                                     <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                     <td>R${{ $reembolso->valor }}</td>
 
@@ -121,39 +117,39 @@
         </div>
         <div class="row d-flex align-items-stretch">
             <div class="col-md-6">
-                <div class="tile">
-                    <h3 class="tile-title">Valores</h3>
-                        <div>
-                            @forelse ($somaEntrada as $entrada)
-                                <p style="color: green"><strong>Entradas:</strong> R${{ $entrada->somaentrada }} </p>
-                                @empty
-                                    0
-                            @endforelse
-                        </div>
-                        <div>
-                            @forelse ($somaEntrada as $saida)
-                                <p style="color: red"><strong>Saidas:</strong> R${{ $saida->somasaida }} </p>
-                                @empty
-                                    0
-                            @endforelse
-                        </div>
-                        <div>
-                            @forelse ($somaEntrada as $total)
-                                <h3><strong>Total:</strong> R${{ $total->subtracao }}</h3>
-                                @if ($total->subtracao < 0)
-                                    <p style="color: red;">Total negativo!</p>
-                                @endif
-                            @empty
-                                <p>0</p>
-                            @endforelse
-                        </div>
+            <div class="tile">
+                <h3 class="tile-title">Valores</h3>
+                <div>
+                    @forelse ($somaEntrada as $entrada)
+                        <p style="color: green"><strong>Entradas:</strong> R${{ $entrada->somaentrada }}</p>
+                    @empty
+                        <p>0</p>
+                    @endforelse
                 </div>
+                <div>
+                    @forelse ($somaSaida as $saida)
+                        <p style="color: red"><strong>Saídas:</strong> R${{ $saida->somasaida }}</p>
+                    @empty
+                        <p>0</p>
+                    @endforelse
+                </div>
+                <div>
+                    @forelse ($total as $value)
+                        <h3><strong>Total:</strong> R${{ $value->total }}</h3>
+                        @if ($value->total < 0)
+                            <p style="color: red;">Total negativo!</p>
+                        @endif
+                    @empty
+                        <p>0</p>
+                    @endforelse
+                </div>
+            </div>
             </div>
             <div class="col-md-6">
                 <div class="tile">
                     <h3 class="tile-title">Gráfico de Comparação</h3>
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <canvas id="graficoBarras" class="embed-responsive-item" width="100%" height="100%" ></canvas>
+                    <div>
+                        <div id="graficoBarras" class="embed-responsive-item"></div>
                     </div>
                 </div>
             </div>
@@ -165,45 +161,52 @@
     document.getElementById("menuclique").click()
 </script>
 
-<!-- Script do Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
 
-<script>
-    // Dados do gráfico
-    var ctx = document.getElementById('graficoBarras').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Entradas', 'Saídas'],
-            datasets: [{
-                label: 'Valor',
-                data: [ @forelse ($somaEntrada as $entrada)
-                            {{ $entrada->somaentrada }}
-                        @empty
-                            0
-                        @endforelse,
-                        @forelse ($somaEntrada as $saida)
-                            {{ $saida->somasaida }}
-                        @empty
-                            0
-                        @endforelse],
-                backgroundColor: ['green', 'red'],
-                borderColor: ['green', 'red'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function(value) {
-                            return 'R$' + value;
-                        }
-                    }
-                }
+    function drawChart() {
+        // Dados do gráfico
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Categoria');
+        data.addColumn('number', 'Valor');
+        data.addColumn({ type: 'string', role: 'style' }); // Coluna para definir as cores das barras
+        data.addRows([
+            ['Entradas', @forelse ($somaEntrada as $entrada) {{ $entrada->somaentrada }},'color: green'@empty 0,'color: green' @endforelse],
+            ['Saídas', @forelse ($somaSaida as $saida) {{ $saida->somasaida }},'color: red'@empty 0,'color: red' @endforelse]
+        ]);
+
+        // Opções do gráfico
+        var options = {
+            title: 'Valores',
+            legend: 'none', // Oculta a legenda
+            hAxis: {
+                title: 'Categoria'
+            },
+            vAxis: {
+                title: 'Valor',
+                format: "R$ ###,###.00"
             }
+        };
+        // Formatando os valores manualmente
+        var formatter = new google.visualization.NumberFormat({ 
+            prefix: 'R$ ',
+            decimalSymbol: ',',
+            groupingSymbol: '.',
+            fractionDigits: 2
+        });
+
+        for (var i = 0; i < data.getNumberOfRows(); i++) {
+            var value = data.getValue(i, 1);
+            var formattedValue = formatter.formatValue(value);
+            data.setFormattedValue(i, 1, formattedValue);
         }
-    });
+
+        // Criação do gráfico de barras
+        var chart = new google.visualization.ColumnChart(document.getElementById('graficoBarras'));
+        chart.draw(data, options);
+    }
 </script>
+
 @endpush

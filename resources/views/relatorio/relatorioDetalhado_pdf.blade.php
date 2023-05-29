@@ -151,7 +151,7 @@
                                         <td>{{ $reembolso->centrocusto_id }}</td>
                                         <td>{{ $reembolso->corporativo }}</td>
                                         <td>{{ $reembolso->tipo }}</td>
-                                        <td>{{ $reembolso->movimento }}</td>
+                                        <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                         <td>R${{ $reembolso->valor }}</td>
                                     </tr>
                                     @empty
@@ -173,15 +173,15 @@
                         @empty
                         <p>0</p>
                         @endforelse
-                        @forelse ($somaEntrada as $saida)
+                        @forelse ($somaSaida as $saida)
                         <p style="color: red"><strong>Saídas:</strong> R${{ $saida->somasaida }}</p>
                         @empty
                         <p>0</p>
                         @endforelse
                         <p>_________________________</p>
-                        @forelse ($somaEntrada as $total)
-                        <h3><strong>Total:</strong> R${{ $total->subtracao }}</h3>
-                        @if ($total->subtracao < 0)
+                        @forelse ($total as $total)
+                        <h3><strong>Total:</strong> R${{ $total->total }}</h3>
+                        @if ($total->total < 0)
                         <p style="color: red;">Total negativo!</p>
                         @endif
                         @empty
