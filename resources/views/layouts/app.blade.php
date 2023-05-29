@@ -215,29 +215,19 @@ $(document).ready(function() {
      </script>
 
 <script>
-    function adicionarcampo3(e) {
-        var movimentoSelect = document.getElementById('movimento');
 
-        if (e === 'Sim') {
-            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
-        } else {
-            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
-        }
-    }
+function atualizarCampos(e) {
+  var parcelas = document.getElementById('parcelas4');
+  var movimentoSelect = document.getElementById('movimento');
+
+  if (e === 'Sim') {
+    parcelas.removeAttribute('hidden');
+    movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
+  } else {
+    parcelas.setAttribute('hidden', true);
+    movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
+  }
+}
 </script>
-<script>
 
-    function adicionarcampo4(e) {
-        var parcelas = document.getElementById('parcelas4')
-        var movimentoSelect = document.getElementById('movimento');
-        var corporativoSelect = document.getElementById('corporativo');
-
-        if (e == "Saida" && corporativoSelect.value === 'Sim') {
-            parcelas.removeAttribute("hidden");
-        } else if (e != 'Saida' && corporativoSelect.value === 'Nao') {
-            parcelas.setAttribute("hidden", true);
-        }
-    }
-
-</script>
 </html>
