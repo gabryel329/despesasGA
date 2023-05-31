@@ -110,6 +110,7 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @stack('scripts')
 
     </body>
@@ -173,6 +174,14 @@ $(document).ready(function() {
 
     // Definir a data atual como valor padrão do campo de entrada
     document.getElementById('datafim').value = currentDate;
+</script>
+
+<script>
+    // Obter a data atual
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Definir a data atual como valor padrão do campo de entrada
+    document.getElementById('datainicio').value = currentDate;
 </script>
 
 <script language="javascript">
