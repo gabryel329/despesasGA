@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Data <h11>*</h11></span>
-                                    <input id="data1" name="data" placeholder="" class="form-control input-md"
+                                    <input id="data" name="data" placeholder="" class="form-control input-md"
                                          type="date" value="{{$reembolsos->data}}">
                                 </div>
                             </div>
@@ -94,8 +94,8 @@
                                 </div>
                                 <div class="col-md-4" id="parcelas3">
                                     <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
-                                    <select onchange="atualizarCampos(this.value)" class="form-control" id="corporativo" name="corporativo">
-                                        <option selected style="font-size:18px;color: black;">{{$reembolsos->corporativo}}</option>
+                                    <select onchange="atualizarCampos(this.value)" class="form-control" id="corporativo" name="corporativo" required>
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                         <option value="Sim">Sim</option>
                                         <option value="Nao">Não</option>
                                     </select>
@@ -156,7 +156,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="submit" name="submit" class="btn btn-success" value="Atualizar">
-                                    <a class="btn btn-danger" type="button" href="{{ route('buscarreembolsos.index') }}">Cancelar</a>
+                                    <a class="btn btn-danger" type="button" href="{{ route('mostrarreembolsos.show', $reembolsos->id) }}">Cancelar</a>
                                 </div>
                             </div>
                         </div>

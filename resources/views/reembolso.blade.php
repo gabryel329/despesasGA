@@ -21,7 +21,7 @@
             <div class="tile">
                 <h3 class="tile-title">Lançamento</h3>
                 <div class="tile-body">
-                    <form method="POST" name="formlancamento" id="formlancamento"  action="{{ route('reembolso.store') }}" class="form-horizontal" enctype="multipart/form-data">
+                    <form method="POST" name="formusuario" action="{{ route('reembolso.store') }}" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-11 control-label">
                             <p class="help-block">
@@ -32,27 +32,30 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <span class="input-group-addon" for="valor">Valor <h11>*</h11></span>
-                                    <input id="valor" name="valor" placeholder="" class="form-control input-md" type="text" onKeyPress="return(moeda(this,'.',',',event))" required>
+                                    <input id="valor" name="valor" placeholder="" class="form-control input-md" required type="text" onKeyPress="return(moeda(this,'.',',',event))">
                                   </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Data <h11>*</h11></span>
-                                    <input id="data" name="data" placeholder="" class="form-control input-md" type="date" required>
+                                    <input id="data" name="data" placeholder="" class="form-control input-md"
+                                        required type="date">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <Label class="input-group-addon">Nutureza Operação<h11>*</h11></Label>
-                                    <select class="select2 form-control input-md" id="gasto_id" name="gasto_id" value="{{ old('gasto_id') }}" required>
+                                    <Label class="form-check-label">Nutureza Operação<h11>*</h11></Label>
+                                    <select class="select2 form-control" id="gasto_id" name="gasto_id" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
+                                        {{-- <option>Aberta</option>
+                                        <option>Quitada</option> --}}
                                         @foreach ($gastos as $gasto)
                                             <option value="{{$gasto->nome}}">{{$gasto->nome}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="input-group-addon">Centro de Custo<h11>*</h11></label>
-                                    <select class="select2 form-control input-md" id="centrocusto_id" name="centrocusto_id" required>
+                                    <label class="form-check-label">Centro de Custo<h11>*</h11></label>
+                                    <select class="form-control select2" id="centrocusto_id" name="centrocusto_id" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                         @foreach ($centrocustos as $centrocusto)
                                             <option value="{{$centrocusto->nome}}">{{$centrocusto->nome}}</option>
@@ -62,9 +65,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <Label class="input-group-addon">Tipo da Visita<h11>*</h11></Label>
-                                    <select class="select2 form-control input-md" id="tipo" name="tipo" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                    <Label class="form-check-label">Tipo<h11>*</h11></Label>
+                                    <select class="form-control select2" id="tipo" name="tipo">
+                                        <option disabled selected style="font-size:18px;color: black;" required>Escolha
                                         </option>
                                         <option value="Implantação">Implantação</option>
                                         <option value="Treinamento">Treinamento</option>
@@ -75,25 +78,36 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4" id="parcelas3" >
-                                    <label class="input-group-addon">Cartão Corporativo<h11>*</h11></label>
-                                    <select onchange="atualizarCampos(this.value)" class="form-control input-md" id="corporativo" name="corporativo" required>
+                                    <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
+                                    <select onchange="atualizarCampos(this.value)"  class="form-control" id="corporativo" name="corporativo" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                         <option value="Sim">Sim</option>
                                         <option value="Nao">Não</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="input-group-addon">Tipo de Movimento<h11>*</h11></label>
-                                    <select class="form-control input-md" id="movimento" name="movimento" required>
+                                    <label class="form-check-label">Tipo de Movimento<h11>*</h11></label>
+                                    <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                         <option value="Saida">Saída</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
+                                {{-- <div class="col-md-6" id="forma_pagamento2">
+                                    <label class="control-label">Forma de Pagamento<h11>*</h11></label>
+                                    <select onchange="adicionarcampo4(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required>
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha
+                                        </option>
+                                        <option>Pix</option>
+                                        <option>Dinheiro</option>
+                                        <option>Debito</option>
+                                        <option value="Credito">Credito</option>
+                                    </select>
+                                </div> --}}
                                 <div class="col-md-6" id="parcelas4" hidden>
                                     <label class="control-label">Qual cartão:<h11>*</h11></label>
-                                    <select class="form-control input-md" id="cartao_id" name="cartao_id" required>
+                                    <select class="form-control" id="cartao_id" name="cartao_id" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
                                         @foreach ($cartaos as $cartao)
@@ -104,18 +118,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <Label class="input-group-addon">Comprovante</Label>
-                                    <input class="form-control input-md" type="file" name="image">
+                                    <Label class="form-check-label">Comprovante<h11>*</h11></Label>
+                                    <input class="form-control" type="file" name="image">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Observação</label>
-                                <textarea class="form-control input-md" id="observacao" name="observacao" rows="3"></textarea>
+                                <textarea class="form-control" id="observacao" name="observacao" rows="3"></textarea>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="button" name="button" onclick="validaformulario()" class="btn btn-success">Gravar</button>
+                                    <input type="submit" name="submit" class="btn btn-success" value="Gravar">
                                     <a class="btn btn-danger" type="button" href="{{ route('buscarreembolsos.index') }}">Cancelar</a>
                                 </div>
                             </div>
@@ -128,67 +142,5 @@
 </main>
 
 @push('scripts')
-    <script>
-        function validaformulario()
-        {
 
-           if ((document.getElementById("gasto_id").value!='Escolha'))
-           {
-                if ((document.getElementById("centrocusto_id").value!='Escolha'))
-                {
-                    if ((document.getElementById("tipo").value!='Escolha'))
-                    {
-                        if ((document.getElementById("movimento").value!='Escolha'))
-                            {
-                            if ((document.getElementById("corporativo").value!='Escolha'))
-                                {
-                                document.getElementById("formlancamento").submit();
-                                }else{
-                                    Swal.fire({
-                                            position: 'top',
-                                            icon: 'error',
-                                            title: 'Por favor preencher o Cartão Corporativo.',
-                                            showConfirmButton: false,
-                                            timer: 1500
-                                            });
-                            }
-                        }else{
-                            Swal.fire({
-                                    position: 'top',
-                                    icon: 'error',
-                                    title: 'Por favor preencher o Tipo de Movimento.',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                    });
-                        }
-                    }else{
-                        Swal.fire({
-                                position: 'top',
-                                icon: 'error',
-                                title: 'Por favor preencher o Tipo da Visita.',
-                                showConfirmButton: false,
-                                timer: 1500
-                                });
-                    }
-                }else{
-                    Swal.fire({
-                            position: 'top',
-                            icon: 'error',
-                            title: 'Por favor preencher o Centro de Custo.',
-                            showConfirmButton: false,
-                            timer: 1500
-                            });
-                }
-           }else{
-                Swal.fire({
-                            position: 'top',
-                            icon: 'error',
-                            title: 'Por favor preencher a Natureza de Operação.',
-                            showConfirmButton: false,
-                            timer: 1500
-                            });
-           }
-
-        }
-    </script>
 @endpush

@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon"><h6>Data</h6></span>
-                                    <input id="data1" name="data" placeholder="" class="form-control input-md"
+                                    <input id="data" name="data" placeholder="" class="form-control input-md"
                                         required="" type="date" value="{{ $reembolsos->data }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <h6 class="form-check-label">Cartão Corporativo</h6>
-                                    <input class="form-control" id="corporativo" name="corporativo" value="{{$reembolsos->corporativo}}" disabled style="font-size:18px;color: black;">
+                                    <input class="form-control" id="corporativo" name="corporativo" value="{{ $reembolsos->corporativo }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>
                             <br>
