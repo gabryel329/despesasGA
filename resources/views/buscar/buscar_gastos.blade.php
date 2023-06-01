@@ -80,7 +80,7 @@
                                     <td>
                                         <div>
                                             <button type="button" class="btn btn-sm">
-                                                <a href="{{ route('editargastos.edit', $gasto->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <a href="{{ route('mostrargastos.show', $gasto->id) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             </button>
                                         </div>
                                     </td>

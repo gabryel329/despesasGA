@@ -100,7 +100,6 @@ Route::put('/Buscar/atualizarUsuarios/{id}',[BuscarUsuarioController::class, 'up
 
 #ROTA BUSCAR ADMINISTRATIVA
 Route::get('/Buscar/buscarAdministrativa', [BuscarAdministrativaController::class, 'index'])->name('buscaradministrativo.index')->middleware('admin');
-Route::delete('/Buscar/deletarReembolsosADM/{id}',[BuscarAdministrativaController::class, 'destroy'])->name('buscaradministrativo.destroy')->middleware('admin');
 
 #ROTA GRAFICOS TELA INICIAL
 Route::get('/home', [GraficosRelatoriosController::class, 'index'])->name('graficosrelatorios.index');

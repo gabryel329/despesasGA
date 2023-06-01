@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <span class="input-group-addon" for="valor">Valor <h11>*</h11></span>
-                                    <input id="valor" name="valor" placeholder="" class="form-control input-md" required type="text" onKeyPress="return(moeda(this,'.',',',event))">
+                                    <input id="valor" name="valor" placeholder="" class="form-control input-md" required type="text" onblur="formatarValor(this)">
                                   </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Data <h11>*</h11></span>
