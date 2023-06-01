@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <Label class="form-check-label">Nutureza Operação<h11>*</h11></Label>
                                     <select class="select2 form-control" id="gasto_id" name="gasto_id" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
@@ -53,7 +53,9 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <label class="form-check-label">Centro de Custo<h11>*</h11></label>
                                     <select class="form-control select2" id="centrocusto_id" name="centrocusto_id" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
@@ -142,5 +144,37 @@
 </main>
 
 @push('scripts')
+<script>
+    function formatarValor(campo) {
+      const valor = parseFloat(campo.value.replace(',', '.')).toFixed(2);
+      const valor_formatado = valor.replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+      campo.value = valor_formatado;
+    }
+  </script>
 
+<script>
+
+    function adicionarcampo4(e) {
+        var parcelas = document.getElementById('parcelas4')
+
+        if (e == "Saida") {
+            parcelas.removeAttribute("hidden");
+        } else if (e != 'Saida') {
+            parcelas.setAttribute("hidden", true);
+        }
+    }
+
+</script>
+
+<script>
+    function adicionarcampo3(e) {
+        var movimentoSelect = document.getElementById('movimento');
+
+        if (e === 'Sim') {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
+        } else {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
+        }
+    }
+</script>
 @endpush

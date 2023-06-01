@@ -122,7 +122,7 @@
                                         <option value="Credito">Credito</option>
                                     </select>
                                 </div> --}}
-                                <div class="col-md-6" id="parcelas4" hidden>
+                                <div class="col-md-6">
                                     <label class="control-label">Qual cartão:<h11>*</h11></label>
                                     <select class="form-control" id="cartao_id" name="cartao_id">
                                         <option selected>{{$reembolsos->cartao_id}}
@@ -169,4 +169,29 @@
 
 @push('scripts')
 
+<script>
+
+    function adicionarcampo4(e) {
+        var parcelas = document.getElementById('parcelas4')
+
+        if (e == "Saida") {
+            parcelas.removeAttribute("hidden");
+        } else if (e != 'Saida') {
+            parcelas.setAttribute("hidden", true);
+        }
+    }
+
+</script>
+
+<script>
+    function adicionarcampo3(e) {
+        var movimentoSelect = document.getElementById('movimento');
+
+        if (e === 'Sim') {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
+        } else {
+            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
+        }
+    }
+</script>
 @endpush
