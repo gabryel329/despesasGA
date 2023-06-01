@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="col-md-4" id="parcelas3" >
                                     <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
-                                    <select onchange="atualizarCampos(this.value)"  class="form-control" id="corporativo" name="corporativo" required>
+                                    <select onchange="adicionarcampo3(this.value)"  class="form-control" id="corporativo" name="corporativo" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                         <option value="Sim">Sim</option>
                                         <option value="Nao">Não</option>
