@@ -24,27 +24,22 @@
                     <form action="{{ route('atualizarreembolsos.update', ['id'=>$reembolsos->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('put')
-                        <div class="col-md-11 control-label">
-                            <p class="help-block">
-                                <h11>*</h11> Campo Obrigatório
-                            </p>
-                        </div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <span class="input-group-addon" for="valor">Valor <h11>*</h11></span>
+                                    <span class="input-group-addon" for="valor">Valor  da Visita</span>
                                     <input id="valor" name="valor" placeholder="" class="form-control input-md"
-                                         type="text" onblur="formatarValor(this)" value="{{$reembolsos->valor}}">
+                                         type="text" onKeyPress="return(moeda(this,'.',',',event))" value="{{$reembolsos->valor}}">
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="input-group-addon">Data <h11>*</h11></span>
-                                    <input id="data" name="data" placeholder="" class="form-control input-md"
+                                    <span class="input-group-addon">Data  da Visita</span>
+                                    <input id="data1" name="data" placeholder="" class="form-control input-md"
                                          type="date" value="{{$reembolsos->data}}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Nutureza Operação<h11>*</h11></Label>
+                                    <Label class="form-check-label">Nutureza Operação da Visita</Label>
                                     <select class="form-control select2" id="gasto_id" name="gasto_id">
                                         <option selected >{{$reembolsos->gasto_id}}
                                         </option>
@@ -54,12 +49,10 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Responsavel<h11>*</h11></Label>
+                                    <Label class="form-check-label">Responsavel da Visita</Label>
                                     <select class="form-control select2" id="usuario_id" name="usuario_id">
                                         <option selected>{{$reembolsos->usuario_id}}
                                         </option>
-                                        {{-- <option>Aberta</option>
-                                        <option>Quitada</option> --}}
                                         @foreach ($usuarios as $usuario)
                                             <option value="{{$usuario->name}}">{{$usuario->name}}</option>
                                         @endforeach
@@ -68,7 +61,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <Label class="form-check-label">Centro de Custo<h11>*</h11></Label>
+                                    <Label class="form-check-label">Centro de Custo da Visita</Label>
                                     <select class="form-control select2" id="centrocusto_id" name="centrocusto_id">
                                         <option selected>{{$reembolsos->centrocusto_id}}
                                         </option>
@@ -80,7 +73,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <Label class="form-check-label">Tipo<h11>*</h11></Label>
+                                    <Label class="form-check-label">Tipo da Visita</Label>
                                     <select class="form-control select2" id="tipo" name="tipo">
                                         <option selected>{{$reembolsos->tipo}}
                                         </option>
@@ -93,17 +86,17 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4" id="parcelas3">
-                                    <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
-                                    <select onchange="adicionarcampo3(this.value)" class="form-control" id="corporativo" name="corporativo" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                    <label class="form-check-label">Cartão Corporativo da Visita</label>
+                                    <select onchange="atualizarCampos(this.value)" class="form-control" id="corporativo" name="corporativo" required>
+                                        <option selected value="{{$reembolsos->corporativo}}">{{$reembolsos->corporativo}}</option>
                                         <option value="Sim">Sim</option>
                                         <option value="Nao">Não</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <Label class="form-check-label">Tipo de Movimento<h11>*</h11></Label>
+                                    <Label class="form-check-label">Tipo de Movimento da Visita</Label>
                                     <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento">
-                                        <option  selected style="font-size:18px;color: black;" value="{{$reembolsos->movimento}}">{{$reembolsos->movimento}}
+                                        <option  selected value="{{$reembolsos->movimento}}">{{$reembolsos->movimento}}
                                         </option>
                                         <option value="Entrada">Entrada</option>
                                         <option value="Saida">Saida</option>
@@ -111,20 +104,9 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <div class="col-md-6" id="forma_pagamento2">
-                                    <label class="control-label">Forma de Pagamento<h11>*</h11></label>
-                                    <select onchange="adicionarcampo4(this.value)" class="form-control" id="" name="forma_pgt" >
-                                        <option selected >{{$reembolsos->forma_pgt}}
-                                        </option>
-                                        <option>Pix</option>
-                                        <option>Dinheiro</option>
-                                        <option>Debito</option>
-                                        <option value="Credito">Credito</option>
-                                    </select>
-                                </div> --}}
                                 <div class="col-md-6" id="parcelas4" hidden>
-                                    <label class="control-label">Qual cartão:<h11>*</h11></label>
-                                    <select class="form-control" id="cartao_id" name="cartao_id" required>
+                                    <label class="control-label">Qual cartão: da Visita</label>
+                                    <select class="form-control" id="cartao_id" name="cartao_id">
                                         <option selected>{{$reembolsos->cartao_id}}
                                         @foreach ($cartaos as $cartao)
                                             <option value="{{$cartao->nome}}">{{$cartao->nome}}</option>
@@ -134,13 +116,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Comprovante<h11>*</h11></Label>
+                                    <Label class="form-check-label">Comprovante da Visita</Label>
                                     <input class="form-control" type="file" name="image">
                                 </div>
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Status<h11>*</h11></Label>
+                                    <Label class="form-check-label">Status da Visita</Label>
                                     <select class="form-control" id="status" name="status" required>
-                                        <option  value="{{$reembolsos->status}}" style="font-size:18px;color: black;">{{$reembolsos->status}}
+                                        <option  value="{{$reembolsos->status}}">{{$reembolsos->status}}
                                         </option>
                                         <option value="Em Aberto">Em Aberto</option>
                                         <option value="Reembolsada">Reembolsada</option>
@@ -156,7 +138,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="submit" name="submit" class="btn btn-success" value="Atualizar">
-                                    <a class="btn btn-danger" type="button" href="{{ route('mostrarreembolsos.show', $reembolsos->id) }}">Cancelar</a>
+                                    <a class="btn btn-danger" type="button" href="{{ route('buscarreembolsos.index') }}">Cancelar</a>
                                 </div>
                             </div>
                         </div>
@@ -168,37 +150,5 @@
 </main>
 
 @push('scripts')
-<script>
-function formatarValor(campo) {
-    const valor = parseFloat(campo.value.replace(',', '.')).toFixed(2);
-    const valor_formatado = valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    campo.value = valor_formatado;
-  }
-</script>
 
-<script>
-
-    function adicionarcampo4(e) {
-        var parcelas = document.getElementById('parcelas4')
-
-        if (e == "Saida") {
-            parcelas.removeAttribute("hidden");
-        } else if (e != 'Saida') {
-            parcelas.setAttribute("hidden", true);
-        }
-    }
-
-</script>
-
-<script>
-    function adicionarcampo3(e) {
-        var movimentoSelect = document.getElementById('movimento');
-
-        if (e === 'Sim') {
-            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
-        } else {
-            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
-        }
-    }
-</script>
 @endpush

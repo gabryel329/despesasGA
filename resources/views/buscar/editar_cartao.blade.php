@@ -40,7 +40,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="submit" name="submit" class="btn btn-success" value="Atualizar">
-                                    <a class="btn btn-danger" type="button" href="{{ route('mostrarcartaos.show', $cartaos->id) }}">Cancelar</a>
+                                    <a class="btn btn-danger" type="button" href="{{ route('buscarcartaos.index') }}">Cancelar</a>
                                 </div>
                             </div>
                         </div>

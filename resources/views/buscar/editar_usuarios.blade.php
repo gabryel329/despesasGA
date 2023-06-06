@@ -24,15 +24,10 @@
                     <form action="{{ route('atualizarusuarios.update', $usuarios->id) }}" method="POST" >
                         @csrf
                         @method('put')
-                        <div class="col-md-11 control-label">
-                            <p class="help-block">
-                                <h11>*</h11> Campo Obrigatório
-                            </p>
-                        </div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span class="input-group-addon">Nome <h11>*</h11></span>
+                                    <span class="input-group-addon">Nome </span>
                                     <input id="name" type="text" class="form-control input-md @error('name') is-invalid @enderror" name="name" value="{{ $usuarios->name }}" autocomplete="name" autofocus>
 
                                     @error('name')
@@ -44,7 +39,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <span class="input-group-addon">E-mail<h11>*</h11></span>
+                                    <span class="input-group-addon">E-mail</span>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $usuarios->email }}" autocomplete="email">
 
                                     @error('email')
@@ -56,7 +51,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <span class="input-group-addon">Senha<h11>*</h11></span>
+                                    <span class="input-group-addon">Senha</span>
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
                                     <p style="font-size: smaller;">(Minimo 8 caracteres)</p>
                                     @error('password')
@@ -66,7 +61,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="input-group-addon">Confime a Senha<h11>*</h11></span>
+                                    <span class="input-group-addon">Confime a Senha</span>
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                                 </div>
                             </div>
@@ -85,7 +80,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="submit" name="submit" class="btn btn-success" value="Atualizar">
-                                    <a class="btn btn-danger" type="button" href="{{ route('mostrarusuarios.show', $usuarios->id) }}">Cancelar</a>
+                                    <a class="btn btn-danger" type="button" href="{{ route('buscarusuarios.index') }}">Cancelar</a>
                                 </div>
                             </div>
                         </div>

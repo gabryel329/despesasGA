@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <span class="input-group-addon">Nome <h11>*</h11></span>
-                                    <input id="nome" name="nome" placeholder="" class="form-control input-md"
+                                    <input id="nome" name="nome" pattern="\d{4}" placeholder="Apenas os últimos (4) digitos ****" class="form-control input-md"
                                     required type="text">
                                 </div>
                             </div>

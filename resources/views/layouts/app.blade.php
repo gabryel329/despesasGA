@@ -174,4 +174,27 @@ $(document).ready(function() {
     // Definir a data atual como valor padrão do campo de entrada
     document.getElementById('datafim').value = currentDate;
 </script>
+
+<script>
+    // Obter a data atual
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Definir a data atual como valor padrão do campo de entrada
+    document.getElementById('datainicio').value = currentDate;
+</script>
+
+<script>
+function atualizarCampos(e) {
+    var parcelas = document.getElementById('parcelas4');
+    var movimentoSelect = document.getElementById('movimento');
+
+    if (e === 'Sim') {
+      parcelas.removeAttribute('hidden');
+      movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
+    } else {
+      parcelas.setAttribute('hidden', true);
+      movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
+    }
+  }
+</script>
 </html>

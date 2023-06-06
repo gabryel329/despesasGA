@@ -54,7 +54,7 @@ class BuscarCartaoController extends Controller
         $cartaos = Cartao::find($id);
         if(!empty($cartaos))
         {
-            return view('buscar.editar_cartaos', ['cartaos'=>$cartaos]);
+            return view('buscar.editar_cartao', ['cartaos'=>$cartaos]);
         }else{
             return redirect()->route('mostrarcartaos.show');
         }

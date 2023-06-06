@@ -21,7 +21,7 @@
             <div class="tile">
                 <h3 class="tile-title">Lançamento</h3>
                 <div class="tile-body">
-                    <form method="POST" name="formusuario" action="{{ route('reembolso.store') }}" class="form-horizontal" enctype="multipart/form-data">
+                    <form method="POST" name="formlancamento" id="formlancamento" action="{{ route('reembolso.store') }}" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-11 control-label">
                             <p class="help-block">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <Label class="form-check-label">Tipo<h11>*</h11></Label>
+                                    <Label class="form-check-label">Tipo de Visita<h11>*</h11></Label>
                                     <select class="form-control select2" id="tipo" name="tipo">
                                         <option disabled selected style="font-size:18px;color: black;" required>Escolha
                                         </option>
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="col-md-4" id="parcelas3" >
                                     <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
-                                    <select onchange="adicionarcampo3(this.value)"  class="form-control" id="corporativo" name="corporativo" required>
+                                    <select onchange="atualizarCampos(this.value)"  class="form-control" id="corporativo" name="corporativo" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                         <option value="Sim">Sim</option>
                                         <option value="Nao">Não</option>
@@ -96,17 +96,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <div class="col-md-6" id="forma_pagamento2">
-                                    <label class="control-label">Forma de Pagamento<h11>*</h11></label>
-                                    <select onchange="adicionarcampo4(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
-                                        </option>
-                                        <option>Pix</option>
-                                        <option>Dinheiro</option>
-                                        <option>Debito</option>
-                                        <option value="Credito">Credito</option>
-                                    </select>
-                                </div> --}}
                                 <div class="col-md-6" id="parcelas4" hidden>
                                     <label class="control-label">Qual cartão:<h11>*</h11></label>
                                     <select class="form-control" id="cartao_id" name="cartao_id" required>
@@ -131,7 +120,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="submit" name="submit" class="btn btn-success" value="Gravar">
+                                    <button type="button" name="button" onclick="validaformulario()" class="btn btn-success">Gravar</button>
                                     <a class="btn btn-danger" type="button" href="{{ route('buscarreembolsos.index') }}">Cancelar</a>
                                 </div>
                             </div>
@@ -144,37 +133,69 @@
 </main>
 
 @push('scripts')
-<script>
-    function formatarValor(campo) {
-      const valor = parseFloat(campo.value.replace(',', '.')).toFixed(2);
-      const valor_formatado = valor.replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-      campo.value = valor_formatado;
-    }
-  </script>
 
 <script>
+    function validaformulario()
+    {
 
-    function adicionarcampo4(e) {
-        var parcelas = document.getElementById('parcelas4')
+       if ((document.getElementById("gasto_id").value!='Escolha'))
+       {
+            if ((document.getElementById("centrocusto_id").value!='Escolha'))
+            {
+                if ((document.getElementById("tipo").value!='Escolha'))
+                {
+                    if ((document.getElementById("movimento").value!='Escolha'))
+                        {
+                        if ((document.getElementById("corporativo").value!='Escolha'))
+                            {
+                            document.getElementById("formlancamento").submit();
+                            }else{
+                                Swal.fire({
+                                        position: 'top',
+                                        icon: 'error',
+                                        title: 'Por favor preencher o Cartão Corporativo.',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                        });
+                        }
+                    }else{
+                        Swal.fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: 'Por favor preencher o Tipo de Movimento.',
+                                showConfirmButton: false,
+                                timer: 1500
+                                });
+                    }
+                }else{
+                    Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: 'Por favor preencher o Tipo da Visita.',
+                            showConfirmButton: false,
+                            timer: 1500
+                            });
+                }
+            }else{
+                Swal.fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: 'Por favor preencher o Centro de Custo.',
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+            }
+       }else{
+            Swal.fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: 'Por favor preencher a Natureza de Operação.',
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+       }
 
-        if (e == "Saida") {
-            parcelas.removeAttribute("hidden");
-        } else if (e != 'Saida') {
-            parcelas.setAttribute("hidden", true);
-        }
     }
-
 </script>
 
-<script>
-    function adicionarcampo3(e) {
-        var movimentoSelect = document.getElementById('movimento');
-
-        if (e === 'Sim') {
-            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
-        } else {
-            movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
-        }
-    }
-</script>
 @endpush
