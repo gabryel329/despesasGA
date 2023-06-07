@@ -109,7 +109,6 @@
         <img src="{{ public_path('images/logo.png') }}" class="watermark" width="50" height="50">
         <div class="header">
             <h1>Relatório Detalhado</h1>
-            <p style="text-decoration: underline;">Intervalo de Data: {{ $dataInicial }} - {{ $dataFinal }}</p>
         </div>
         <div class="container content">
             <div class="row">

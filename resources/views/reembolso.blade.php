@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <span class="input-group-addon" for="valor">Valor <h11>*</h11></span>
-                                    <input id="valor" name="valor" placeholder="" class="form-control input-md" required type="text" onblur="formatarValor(this)">
+                                    <input id="valor" name="valor" placeholder="" class="form-control input-md" required type="text" onKeyPress="return(moeda(this,'.',',',event))">
                                   </div>
                                 <div class="col-md-6">
                                     <span class="input-group-addon">Data <h11>*</h11></span>
@@ -91,7 +91,7 @@
                                     <label class="form-check-label">Tipo de Movimento<h11>*</h11></label>
                                     <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
-                                        <option value="Saida">Saída</option>
+                                        <option value="Saida">Saida</option>
                                     </select>
                                 </div>
                             </div>

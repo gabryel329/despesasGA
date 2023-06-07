@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-check-label">Centro de Custo*</label>
+                                        <label class="form-check-label">Centro de Custo</label>
                                         <select class="select2 form-control" id="centrocusto_id" name="centrocusto_id" required>
                                             <option disabled selected style="font-size:18px;color: black;">Escolha</option>
                                             @foreach ($centrocustos as $centrocusto)
@@ -68,56 +68,27 @@
                                             <option value="Glosada">Glosada</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group" id="parcelas3">
-                                        <label class="form-check-label">Cartão Corporativo</label>
-                                        <select class="form-control" id="corporativo" onchange="adicionarcampo3(this.value)" name="corporativo">
-                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
-                                            <option value="Sim">Sim</option>
-                                            <option value="Nao">Não</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-check-label">Tipo de Movimento</label>
-                                        <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento">
-                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
-                                            <option value="Entrada">Entrada</option>
-                                            <option value="Saída">Saída</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-check-label">Responsável</label>
-                                        <select class="form-control" id="usuario_id" name="usuario_id">
-                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
-                                            @foreach ($usuarios as $usuario)
-                                                <option value="{{$usuario->name}}">{{$usuario->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <div class="col-md-6" id="forma_pagamento2">
-                                    <label class="control-label">Forma de Pagamento<h11>*</h11></label>
-                                    <select onchange="adicionarcampo4(this.value)" class="form-control" id="forma_pgt" name="forma_pgt" required>
-                                        <option disabled selected style="font-size:18px;color: black;">Escolha
-                                        </option>
-                                        <option>Pix</option>
-                                        <option>Dinheiro</option>
-                                        <option>Debito</option>
-                                        <option value="Credito">Credito</option>
+                                <div class="col-md-4" id="parcelas3" >
+                                    <label class="form-check-label">Cartão Corporativo</label>
+                                    <select onchange="atualizarCampos(this.value)"  class="form-control" id="corporativo" name="corporativo">
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Nao">Não</option>
                                     </select>
-                                </div> --}}
-                                <div class="col-md-6" id="parcelas4" hidden>
-                                    <label class="control-label">Qual cartão:<h11>*</h11></label>
-                                    <select class="form-control" id="cartao_id" name="cartao_id" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-check-label">Tipo de Movimento</label>
+                                    <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento">
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                        <option value="Saida">Saída</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" id="parcelas4" hidden>
+                                    <label class="form-check-label">Qual cartão:</label>
+                                    <select class="form-control" id="cartao_id" name="cartao_id">
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
                                         @foreach ($cartaos as $cartao)
@@ -126,11 +97,24 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-check-label">Responsável</label>
+                                        <select class="select2 form-control" id="usuario_id" name="usuario_id">
+                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                            @foreach ($usuarios as $usuario)
+                                                <option value="{{$usuario->name}}">{{$usuario->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
                                     <button id="Gerar" data-toggle="modal" data-target="#exampleModal" name="Gerar" class="btn btn-success" type="submit">Gerar Relatório</button>
-                                    <button id="cancelar" name="cancelar" class="btn btn-danger" type="reset">Cancelar</button>
+                                    <a class="btn btn-danger" type="button" href="/home">Cancelar</a>
                                 </div>
                             </div>
                         </div>

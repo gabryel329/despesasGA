@@ -134,28 +134,42 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
-    function formatarValor(input) {
-        // Obter o valor digitado
-        var valor = input.value;
-
-        // Remover todos os caracteres não numéricos
-        valor = valor.replace(/[^\d.-]/g, '');
-
-        // Converter para um número
-        var numero = parseFloat(valor);
-
-        // Verificar se é um número válido
-        if (!isNaN(numero)) {
-            // Dividir o número por 100 para mover os dois últimos dígitos para os centavos
-            var valorFormatado = (numero / 100).toLocaleString('pt-BR', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-
-            // Definir o valor formatado no campo de entrada
-            input.value = valorFormatado;
+<script language="javascript">
+    function moeda(a, e, r, t) {
+        let n = ""
+          , h = j = 0
+          , u = tamanho2 = 0
+          , l = ajd2 = ""
+          , o = window.Event ? t.which : t.keyCode;
+        if (13 == o || 8 == o)
+            return !0;
+        if (n = String.fromCharCode(o),
+        -1 == "0123456789".indexOf(n))
+            return !1;
+        for (u = a.value.length,
+        h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
+            ;
+        for (l = ""; h < u; h++)
+            -1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
+        if (l += n,
+        0 == (u = l.length) && (a.value = ""),
+        1 == u && (a.value = "0" + r + "0" + l),
+        2 == u && (a.value = "0" + r + l),
+        u > 2) {
+            for (ajd2 = "",
+            j = 0,
+            h = u - 3; h >= 0; h--)
+                3 == j && (ajd2 += e,
+                j = 0),
+                ajd2 += l.charAt(h),
+                j++;
+            for (a.value = "",
+            tamanho2 = ajd2.length,
+            h = tamanho2 - 1; h >= 0; h--)
+                a.value += ajd2.charAt(h);
+            a.value += r + l.substr(u - 2, u)
         }
+        return !1
     }
 </script>
 
@@ -190,10 +204,10 @@ function atualizarCampos(e) {
 
     if (e === 'Sim') {
       parcelas.removeAttribute('hidden');
-      movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option>';
+      movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saida</option>';
     } else {
       parcelas.setAttribute('hidden', true);
-      movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saída</option><option value="Entrada">Entrada</option>';
+      movimentoSelect.innerHTML = '<option disabled selected style="font-size:18px;color: black;">Escolha</option><option value="Saida">Saida</option><option value="Entrada">Entrada</option>';
     }
   }
 </script>

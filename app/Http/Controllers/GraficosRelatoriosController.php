@@ -59,185 +59,213 @@ class GraficosRelatoriosController extends Controller
         //GRAFICO DE VALORES POR USUARIO
 
         $data = DB::select("WITH meses AS (SELECT generate_series(1, 12) AS month)
-    SELECT
-        COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS soma_entrada,
-        COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS soma_saida,
-        CASE
-            WHEN m.month = 1 THEN 'Janeiro'
-            WHEN m.month = 2 THEN 'Fevereiro'
-            WHEN m.month = 3 THEN 'Março'
-            WHEN m.month = 4 THEN 'Abril'
-            WHEN m.month = 5 THEN 'Maio'
-            WHEN m.month = 6 THEN 'Junho'
-            WHEN m.month = 7 THEN 'Julho'
-            WHEN m.month = 8 THEN 'Agosto'
-            WHEN m.month = 9 THEN 'Setembro'
-            WHEN m.month = 10 THEN 'Outubro'
-            WHEN m.month = 11 THEN 'Novembro'
-            WHEN m.month = 12 THEN 'Dezembro'
-        END AS mes
-    FROM
-        meses m
-        LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.created_at) = m.month
-        INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
-    WHERE
-        u.name = '".$userName."'
-    GROUP BY m.month, mes
-    ORDER BY m.month");
+        SELECT
+            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS soma_entrada,
+            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS soma_saida,
+            CASE
+                WHEN m.month = 1 THEN 'Janeiro'
+                WHEN m.month = 2 THEN 'Fevereiro'
+                WHEN m.month = 3 THEN 'Março'
+                WHEN m.month = 4 THEN 'Abril'
+                WHEN m.month = 5 THEN 'Maio'
+                WHEN m.month = 6 THEN 'Junho'
+                WHEN m.month = 7 THEN 'Julho'
+                WHEN m.month = 8 THEN 'Agosto'
+                WHEN m.month = 9 THEN 'Setembro'
+                WHEN m.month = 10 THEN 'Outubro'
+                WHEN m.month = 11 THEN 'Novembro'
+                WHEN m.month = 12 THEN 'Dezembro'
+            END AS mes
+        FROM
+            meses m
+            LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.data) = m.month
+            INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
+        WHERE
+            u.name = '".$userName."'
+        GROUP BY m.month, mes
+        ORDER BY m.month");
 
 
         return view('/home', compact('users','reembolsos', 'emAbertos', 'reembolsadas', 'abertos', 'reembolsados',
         'data','glosados'));
     }
 
-    public function filtroRelatorio()
+    public function relatorio(Request $request)
     {
         $centrocustos = CentroCusto::get();
         $usuarios = User::get();
         $cartaos = Cartao::get();
+        $reembolsos = Reembolso::query();
 
-        return view('relatorio.filtro_relatorio', compact('centrocustos', 'usuarios', 'cartaos'));
-    }
-
-    public function filtrar(Request $request)
-    {
-        $dataInicial = $request->get('datainicio');
-        $dataFinal = $request->get('datafim');
-        $centroCusto = $request->get('centrocusto_id');
-        $status = $request->get('status');
-        $cartaoCorporativo = $request->get('orporativo');
-        $tipoMovimento = $request->get('movimento');
-        $usuario = $request->get('usuario_id');
-        $cartaos = $request->get('cartao_id');
-
-        $query = DB::table('reembolsos as r')
-            ->select(DB::raw("CAST(REPLACE(REPLACE(r.valor, '.', ''), ',', '.') AS DECIMAL(12, 2)) AS valor"), 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento','r.cartao_id')
-            ->join('gastos as g', 'g.nome', '=', 'r.gasto_id')
-            ->join('centro_custos as c', 'c.nome', '=', 'r.centrocusto_id')
-            ->join('cartaos as cc', 'cc.nome', '=', 'r.cartao_id')
-            ->join('users as u', 'u.name', '=', 'r.usuario_id')
-            ->groupBy('r.valor', 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento','r.cartao_id')
-            ->orderBy('r.data', 'asc');
-
-        if (!empty($dataInicial) && !empty($dataFinal)) {
-            $query->whereBetween('r.data', [$dataInicial, $dataFinal]);
+        if ($request->has('datainicio') && $request->has('datafim') && !empty($request->datainicio) && !empty($request->datafim)){
+            $reembolsos->whereBetween('data', [$request->datainicio, $request->datafim]);
         }
 
-        if (!empty($centroCusto)) {
-            $query->where('r.centrocusto_id', $centroCusto);
+        if ($request->has('centrocusto_id') && !empty($request->centrocusto_id)) {
+            $reembolsos->where('centrocusto_id', $request->centrocusto_id);
         }
 
-        if (!empty($status)) {
-            $query->where('r.status', $status);
+        if ($request->has('status') && !empty($request->status)) {
+            $reembolsos->where('status', $request->status);
         }
 
-        if (!empty($cartaoCorporativo)) {
-            $query->where('r.corporativo', $cartaoCorporativo);
+        if ($request->has('corporativo') && !empty($request->corporativo)) {
+            $reembolsos->where('corporativo', $request->corporativo);
         }
 
-        if (!empty($tipoMovimento)) {
-            $query->where('r.movimento', $tipoMovimento);
+        if ($request->has('movimento') && !empty($request->movimento)) {
+            $reembolsos->where('movimento', $request->movimento);
         }
 
-        if (!empty($cartaos)) {
-            $query->where('r.cartao_id', $cartaos);
+        if ($request->has('usuario_id') && !empty($request->usuario_id)) {
+            $reembolsos->where('usuario_id', $request->usuario_id);
         }
 
-        if (!empty($usuario)) {
-            $query->where('r.usuario_id', $usuario);
+        if ($request->has('cartao_id') && !empty($request->cartao_id)) {
+            $reembolsos->where('cartao_id', $request->cartao_id);
         }
 
-        // Execute a consulta
-        $reembolsos = $query->get();
+        $reembolsos = $reembolsos->get();
 
         $somaEntrada = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somaentrada
-        FROM reembolsos r
-        WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
+        FROM reembolsos r");
 
         $somaSaida = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somasaida
-        FROM reembolsos r
-        WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
+        FROM reembolsos r");
 
         $total = DB::select("SELECT
         COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
         COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
-        FROM reembolsos r
-        WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
+        FROM reembolsos r");
 
-        return view('relatorio.relatorioDetalhado', compact('reembolsos', 'somaEntrada', 'dataInicial', 'dataFinal', 'somaSaida', 'total'));
+        if ($request->has('datainicio') && $request->has('datafim') && !empty($request->datainicio) && !empty($request->datafim)) {
+            $dataInicio = $request->datainicio;
+            $dataFim = $request->datafim;
+
+            $reembolsos->whereBetween('data', [$dataInicio, $dataFim]);
+
+            $somaEntrada = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somaentrada
+            FROM reembolsos r
+            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
+
+            $somaSaida = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somasaida
+            FROM reembolsos r
+            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
+
+            $total = DB::select("SELECT
+            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
+            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
+            FROM reembolsos r
+            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
+        }
+
+        if ($request->has('centrocusto_id') && !empty($request->centrocusto_id)) {
+            $centroCustoId = $request->centrocusto_id;
+            $reembolsos->where('centrocusto_id', $centroCustoId);
+        }
+
+        if ($request->has('status') && !empty($request->status)) {
+            $status = $request->status;
+            $reembolsos->where('status', $status);
+        }
+
+        if ($request->has('corporativo') && !empty($request->corporativo)) {
+            $corporativo = $request->corporativo;
+            $reembolsos->where('corporativo', $corporativo);
+        }
+
+        if ($request->has('movimento') && !empty($request->movimento)) {
+            $movimento = $request->movimento;
+            $reembolsos->where('movimento', $movimento);
+        }
+
+        if ($request->has('usuario_id') && !empty($request->usuario_id)) {
+            $usuarioId = $request->usuario_id;
+            $reembolsos->where('usuario_id', $usuarioId);
+        }
+
+        if ($request->has('cartao_id') && !empty($request->cartao_id)) {
+            $cartaoId = $request->cartao_id;
+            $reembolsos->where('cartao_id', $cartaoId);
+        }
 
 
+        return view('relatorio.relatorioDetalhado', compact('reembolsos', 'somaEntrada', 'somaSaida', 'total','usuarios', 'cartaos', 'centrocustos'));
     }
 
     public function gerarPDF(Request $request)
     {
-        $dataInicial = $request->get('datainicio');
-        $dataFinal = $request->get('datafim');
-        $centroCusto = $request->get('centrocusto_id');
-        $status = $request->get('status');
-        $cartaoCorporativo = $request->get('orporativo');
-        $tipoMovimento = $request->get('movimento');
-        $usuario = $request->get('usuario_id');
-        $cartaos = $request->get('cartao_id');
-
-        $query = DB::table('reembolsos as r')
-            ->select(DB::raw("CAST(REPLACE(REPLACE(r.valor, '.', ''), ',', '.') AS DECIMAL(12, 2)) AS valor"), 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento','r.cartao_id')
-            ->join('gastos as g', 'g.nome', '=', 'r.gasto_id')
-            ->join('centro_custos as c', 'c.nome', '=', 'r.centrocusto_id')
-            ->join('cartaos as cc', 'cc.nome', '=', 'r.cartao_id')
-            ->join('users as u', 'u.name', '=', 'r.usuario_id')
-            ->groupBy('r.valor', 'r.id', 'r.data', 'r.gasto_id', 'r.centrocusto_id', 'r.usuario_id', 'r.status', 'r.tipo', 'r.corporativo', 'r.movimento','r.cartao_id')
-            ->orderBy('r.data', 'asc');
-
-        if (!empty($dataInicial) && !empty($dataFinal)) {
-            $query->whereBetween('r.data', [$dataInicial, $dataFinal]);
-        }
-
-        if (!empty($cartaos)) {
-            $query->where('r.cartao_id', $cartaos);
-        }
-
-        if (!empty($centroCusto)) {
-            $query->where('r.centrocusto_id', $centroCusto);
-        }
-
-        if (!empty($status)) {
-            $query->where('r.status', $status);
-        }
-
-        if (!empty($cartaoCorporativo)) {
-            $query->where('r.corporativo', $cartaoCorporativo);
-        }
-
-        if (!empty($tipoMovimento)) {
-            $query->where('r.movimento', $tipoMovimento);
-        }
-
-        if (!empty($usuario)) {
-            $query->where('r.usuario_id', $usuario);
-        }
-
-        // Execute a consulta
-        $reembolsos = $query->get();
+        $centrocustos = CentroCusto::get();
+        $usuarios = User::get();
+        $cartaos = Cartao::get();
+        $reembolsos = Reembolso::all();
 
         $somaEntrada = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somaentrada
-        FROM reembolsos r
-        WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
+        FROM reembolsos r");
 
         $somaSaida = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somasaida
-        FROM reembolsos r
-        WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
+        FROM reembolsos r");
 
         $total = DB::select("SELECT
         COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
         COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
-        FROM reembolsos r
-        WHERE r.data >= '" . $dataInicial . "' AND r.data <= '" . $dataFinal . "' AND r.centrocusto_id = '" . $centroCusto . "';");
+        FROM reembolsos r");
+
+        if ($request->has('datainicio') && $request->has('datafim') && !empty($request->datainicio) && !empty($request->datafim)) {
+            $dataInicio = $request->datainicio;
+            $dataFim = $request->datafim;
+
+            $reembolsos->whereBetween('data', [$dataInicio, $dataFim]);
+
+            $somaEntrada = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somaentrada
+            FROM reembolsos r
+            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
+
+            $somaSaida = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somasaida
+            FROM reembolsos r
+            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
+
+            $total = DB::select("SELECT
+            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
+            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
+            FROM reembolsos r
+            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
+        }
+
+        if ($request->has('centrocusto_id') && !empty($request->centrocusto_id)) {
+            $centroCustoId = $request->centrocusto_id;
+            $reembolsos->where('centrocusto_id', $centroCustoId);
+        }
+
+        if ($request->has('status') && !empty($request->status)) {
+            $status = $request->status;
+            $reembolsos->where('status', $status);
+        }
+
+        if ($request->has('corporativo') && !empty($request->corporativo)) {
+            $corporativo = $request->corporativo;
+            $reembolsos->where('corporativo', $corporativo);
+        }
+
+        if ($request->has('movimento') && !empty($request->movimento)) {
+            $movimento = $request->movimento;
+            $reembolsos->where('movimento', $movimento);
+        }
+
+        if ($request->has('usuario_id') && !empty($request->usuario_id)) {
+            $usuarioId = $request->usuario_id;
+            $reembolsos->where('usuario_id', $usuarioId);
+        }
+
+        if ($request->has('cartao_id') && !empty($request->cartao_id)) {
+            $cartaoId = $request->cartao_id;
+            $reembolsos->where('cartao_id', $cartaoId);
+        }
 
         $dompdf = new Dompdf();
 
        // Carregue o conteúdo HTML da view
-        $view = View::make('relatorio.relatorioDetalhado_pdf', compact('reembolsos', 'somaEntrada', 'dataInicial', 'dataFinal', 'somaSaida', 'total'));
+        $view = View::make('relatorio.relatorioDetalhado_pdf',compact('reembolsos', 'somaEntrada', 'somaSaida', 'total','usuarios', 'cartaos', 'centrocustos'));
         $html = $view->render();
 
         $dompdf = new Dompdf();
@@ -263,14 +291,6 @@ class GraficosRelatoriosController extends Controller
         // Salve o PDF em um arquivo ou envie para o navegador
         $dompdf->stream('relatorioDetalhado.pdf');
 
-
-    }
-
-    public function lista()
-    {
-        $reembolsos = Reembolso::get();
-
-        return view('relatorio.relatorioDetalhado', compact('reembolsos'));
     }
 
     public function graficosADM()
@@ -303,8 +323,7 @@ class GraficosRelatoriosController extends Controller
 
         //GRAFICO DE VALORES do USUARIO
 
-        $data = DB::select("
-        WITH meses AS (SELECT generate_series(1, 12) AS month)
+        $data = DB::select("WITH meses AS (SELECT generate_series(1, 12) AS month)
         SELECT
             COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS soma_entrada,
             COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS soma_saida,
@@ -324,7 +343,7 @@ class GraficosRelatoriosController extends Controller
             END AS mes
         FROM
             meses m
-            LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.created_at) = m.month
+            LEFT JOIN reembolsos r ON EXTRACT(MONTH FROM r.data) = m.month
             INNER JOIN users u ON u.name = r.usuario_id OR r.usuario_id IS NULL
         GROUP BY m.month, mes
         ORDER BY m.month");

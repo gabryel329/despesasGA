@@ -18,42 +18,94 @@
             </div>
         @endif
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="tile">
                     <div class="tile-title-w-btn">
                         <h3 class="title">Filtro</h3>
                     </div>
                     <div class="tile-body">
-                        <form action="{{ route('pesquisarreembolsos.search') }}" method="post">
+                        <form action="{{ route('relatorioDetalhado.relatorio') }}" method="get">
                             @csrf
-                            <input id="search" class="form-control input-md" type="text" name="search" placeholder="Nome ou Natureza Operação">
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="tile">
-                    <div class="tile-title-w-btn">
-                        <h4 class="title">Detalhes</h4>
-                    </div>
-                    <div>
-                        <p><strong>Data:</strong> {{ $dataInicial }}  <strong>Até</strong>  {{ $dataFinal }}</p>
-                        <form action="{{ route('gerar.pdf') }}" method="GET" target="_blank">
-                            @csrf
-                            <input id="datainicio" value="{{$dataInicial}}" style="display: none;" name="datainicio" placeholder="" class="form-control input-md" required type="date">
-                            <input id="datafim" value="{{$dataFinal}}" style="display: none;" name="datafim" placeholder="" class="form-control input-md" required type="date">
-                            @forelse ($reembolsos as $reembolso )
-                                <input id="centrocusto_id" value="{{$reembolso->centrocusto_id}}" style="display: none;" name="centrocusto_id" placeholder="" class="form-control input-md" required type="text">
-                            @empty
-
-                            @endforelse
-
-                            <button type="submit" class="btn btn-primary">Gerar PDF</button>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Centro de Custo</label>
+                                        <select class="select2 form-control" id="centrocusto_id" name="centrocusto_id">
+                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                            @foreach ($centrocustos as $centrocusto)
+                                                <option value="{{$centrocusto->nome}}">{{$centrocusto->nome}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Status</label>
+                                        <select class="form-control" id="status" name="status">
+                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                            <option value="Em Aberto">Em Aberto</option>
+                                            <option value="Reembolsada">Reembolsada</option>
+                                            <option value="Glosada">Glosada</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="datainicio">Data de Início:</label>
+                                        <input type="date" class="form-control" id="datainicio1" name="datainicio" value="{{ request('datainicio') }}">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="datafim">Data de Término:</label>
+                                        <input type="date" class="form-control" id="datafim1" name="datafim" value="{{ request('datafim') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Responsável</label>
+                                        <select class="select2 form-control" id="usuario_id" name="usuario_id">
+                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                            @foreach ($usuarios as $usuario)
+                                                <option value="{{$usuario->name}}">{{$usuario->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" id="parcelas3" >
+                                    <label class="form-label">Cartão Corporativo</label>
+                                    <select class="form-control" id="corporativo" name="corporativo">
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                        <option value="Sim">Sim</option>
+                                        <option value="Nao">Não</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Tipo de Movimento</label>
+                                    <select class="form-control" id="movimento" name="movimento">
+                                        <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                        <option value="Saida">Saída</option>
+                                        <option value="Entrada">Entrada</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Digite o cartão</label>
+                                    <input id="search" class="form-control input-md" type="text" name="search" placeholder="">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Filtrar</button>
+                            <a class="btn btn-danger" type="button" href="{{ route('relatorioDetalhado.relatorio') }}">Resetar</a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <form action="{{ route('gerar.pdf') }}" method="GET" target="_blank">
+            @csrf
+            <button type="submit" class="btn btn-primary">Gerar PDF</button>
+        </form>
         <div class="row">
             <div class="col-12">
             <div class="card-body">
