@@ -27,7 +27,23 @@
                         <form action="{{ route('relatorioDetalhado.relatorio') }}" method="get">
                             @csrf
                             <div class="row">
-                                <div class="col-4">
+
+
+                                <div class="col-6 col-md-4">
+                                    <div class="form-group">
+                                        <label for="datainicio">Data de Início:</label>
+                                        <input type="date" class="form-control" id="datainicio1" name="datainicio" value="{{ request('datainicio') }}">
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div class="form-group">
+                                        <label for="datafim">Data de Término:</label>
+                                        <input type="date" class="form-control" id="datafim1" name="datafim" value="{{ request('datafim') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-12">
                                     <div class="form-group">
                                         <label class="form-label">Centro de Custo</label>
                                         <select class="select2 form-control" id="centrocusto_id" name="centrocusto_id">
@@ -38,22 +54,9 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="datainicio">Data de Início:</label>
-                                        <input type="date" class="form-control" id="datainicio1" name="datainicio" value="{{ request('datainicio') }}">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="datafim">Data de Término:</label>
-                                        <input type="date" class="form-control" id="datafim1" name="datafim" value="{{ request('datafim') }}">
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-6 col-md-3">
                                     <div class="form-group">
                                         <label class="form-label">Responsável</label>
                                         <select class="select2 form-control" id="usuario_id" name="usuario_id">
@@ -64,7 +67,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-6 col-md-3">
                                     <div class="form-group">
                                         <label class="form-label">Status</label>
                                         <select class="form-control" id="status" name="status">
@@ -75,7 +78,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3" id="parcelas3" >
+                                <div class="col-6 col-md-3" id="parcelas3" >
                                     <label class="form-label">Cartão Corporativo</label>
                                     <select class="form-control" id="corporativo" name="corporativo">
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
@@ -83,7 +86,7 @@
                                         <option value="Nao">Não</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-6 col-md-3">
                                     <label class="form-label">Tipo de Movimento</label>
                                     <select class="form-control" id="movimento" name="movimento">
                                         <option disabled selected style="font-size:18px;color: black;">Escolha</option>
@@ -92,13 +95,21 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Filtrar</button>
-                            <a class="btn btn-danger" type="button" href="{{ route('relatorioDetalhado.relatorio') }}">Resetar</a>
+                            <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                                </div>
+                                <div class="col-6">
+                                    <a class="btn btn-danger" type="button" href="{{ route('relatorioDetalhado.relatorio') }}">Resetar</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <form action="{{ route('gerar.pdf') }}" method="GET" target="_blank">
             @csrf
             <button type="submit" class="btn btn-primary" disabled>Gerar PDF</button>
