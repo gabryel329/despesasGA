@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\View;
 
 
@@ -128,146 +129,64 @@ class GraficosRelatoriosController extends Controller
         $reembolsos = $reembolsos->get();
 
         $somaEntrada = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somaentrada
-        FROM reembolsos r");
+        FROM reembolsos r
+        WHERE 1=1
+        ".($request->has('datainicio') && $request->has('datafim') && !empty($request->datainicio) && !empty($request->datafim) ? "AND r.data BETWEEN '{$request->datainicio}' AND '{$request->datafim}'" : "")."
+        ".($request->has('centrocusto_id') && !empty($request->centrocusto_id) ? "AND r.centrocusto_id = '{$request->centrocusto_id}'" : "")."
+        ".($request->has('status') && !empty($request->status) ? "AND r.status = '{$request->status}'" : "")."
+        ".($request->has('corporativo') && !empty($request->corporativo) ? "AND r.corporativo = '{$request->corporativo}'" : "")."
+        ".($request->has('movimento') && !empty($request->movimento) ? "AND r.movimento = '{$request->movimento}'" : "")."
+        ".($request->has('usuario_id') && !empty($request->usuario_id) ? "AND r.usuario_id = '{$request->usuario_id}'" : "")."
+        ".($request->has('cartao_id') && !empty($request->cartao_id) ? "AND r.cartao_id = '{$request->cartao_id}'" : "")."
+        ");
 
         $somaSaida = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somasaida
-        FROM reembolsos r");
+        FROM reembolsos r
+        WHERE 1=1
+        ".($request->has('datainicio') && $request->has('datafim') && !empty($request->datainicio) && !empty($request->datafim) ? "AND r.data BETWEEN '{$request->datainicio}' AND '{$request->datafim}'" : "")."
+        ".($request->has('centrocusto_id') && !empty($request->centrocusto_id) ? "AND r.centrocusto_id = '{$request->centrocusto_id}'" : "")."
+        ".($request->has('status') && !empty($request->status) ? "AND r.status = '{$request->status}'" : "")."
+        ".($request->has('corporativo') && !empty($request->corporativo) ? "AND r.corporativo = '{$request->corporativo}'" : "")."
+        ".($request->has('movimento') && !empty($request->movimento) ? "AND r.movimento = '{$request->movimento}'" : "")."
+        ".($request->has('usuario_id') && !empty($request->usuario_id) ? "AND r.usuario_id = '{$request->usuario_id}'" : "")."
+        ".($request->has('cartao_id') && !empty($request->cartao_id) ? "AND r.cartao_id = '{$request->cartao_id}'" : "")."
+        ");
 
         $total = DB::select("SELECT
         COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
         COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
-        FROM reembolsos r");
-
-        if ($request->has('datainicio') && $request->has('datafim') && !empty($request->datainicio) && !empty($request->datafim)) {
-            $dataInicio = $request->datainicio;
-            $dataFim = $request->datafim;
-
-            $reembolsos->whereBetween('data', [$dataInicio, $dataFim]);
-
-            $somaEntrada = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somaentrada
-            FROM reembolsos r
-            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
-
-            $somaSaida = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somasaida
-            FROM reembolsos r
-            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
-
-            $total = DB::select("SELECT
-            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
-            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
-            FROM reembolsos r
-            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
-        }
-
-        if ($request->has('centrocusto_id') && !empty($request->centrocusto_id)) {
-            $centroCustoId = $request->centrocusto_id;
-            $reembolsos->where('centrocusto_id', $centroCustoId);
-        }
-
-        if ($request->has('status') && !empty($request->status)) {
-            $status = $request->status;
-            $reembolsos->where('status', $status);
-        }
-
-        if ($request->has('corporativo') && !empty($request->corporativo)) {
-            $corporativo = $request->corporativo;
-            $reembolsos->where('corporativo', $corporativo);
-        }
-
-        if ($request->has('movimento') && !empty($request->movimento)) {
-            $movimento = $request->movimento;
-            $reembolsos->where('movimento', $movimento);
-        }
-
-        if ($request->has('usuario_id') && !empty($request->usuario_id)) {
-            $usuarioId = $request->usuario_id;
-            $reembolsos->where('usuario_id', $usuarioId);
-        }
-
-        if ($request->has('cartao_id') && !empty($request->cartao_id)) {
-            $cartaoId = $request->cartao_id;
-            $reembolsos->where('cartao_id', $cartaoId);
-        }
-
+        FROM reembolsos r
+        WHERE 1=1
+        ".($request->has('datainicio') && $request->has('datafim') && !empty($request->datainicio) && !empty($request->datafim) ? "AND r.data BETWEEN '{$request->datainicio}' AND '{$request->datafim}'" : "")."
+        ".($request->has('centrocusto_id') && !empty($request->centrocusto_id) ? "AND r.centrocusto_id = '{$request->centrocusto_id}'" : "")."
+        ".($request->has('status') && !empty($request->status) ? "AND r.status = '{$request->status}'" : "")."
+        ".($request->has('corporativo') && !empty($request->corporativo) ? "AND r.corporativo = '{$request->corporativo}'" : "")."
+        ".($request->has('movimento') && !empty($request->movimento) ? "AND r.movimento = '{$request->movimento}'" : "")."
+        ".($request->has('usuario_id') && !empty($request->usuario_id) ? "AND r.usuario_id = '{$request->usuario_id}'" : "")."
+        ".($request->has('cartao_id') && !empty($request->cartao_id) ? "AND r.cartao_id = '{$request->cartao_id}'" : "")."
+        ");
 
         return view('relatorio.relatorioDetalhado', compact('reembolsos', 'somaEntrada', 'somaSaida', 'total','usuarios', 'cartaos', 'centrocustos'));
     }
 
     public function gerarPDF(Request $request)
     {
-        $centrocustos = CentroCusto::get();
-        $usuarios = User::get();
-        $cartaos = Cartao::get();
-        $reembolsos = Reembolso::all();
+        // Chame a função 'relatorio' para obter os dados necessários
+        $data = $this->relatorio($request);
 
-        $somaEntrada = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somaentrada
-        FROM reembolsos r");
+        // Extraia os dados retornados pela função 'relatorio'
+        $reembolsos = $data['reembolsos'];
+        $somaEntrada = $data['somaEntrada'];
+        $somaSaida = $data['somaSaida'];
+        $total = $data['total'];
+        $usuarios = $data['usuarios'];
+        $cartaos = $data['cartaos'];
+        $centrocustos = $data['centrocustos'];
 
-        $somaSaida = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somasaida
-        FROM reembolsos r");
+        // Renderize a visualização em HTML
+        $html = view('relatorio.relatorioDetalhado_pdf', compact('reembolsos', 'somaEntrada', 'somaSaida', 'total', 'usuarios', 'cartaos', 'centrocustos'))->render();
 
-        $total = DB::select("SELECT
-        COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
-        COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
-        FROM reembolsos r");
-
-        if ($request->has('datainicio') && $request->has('datafim') && !empty($request->datainicio) && !empty($request->datafim)) {
-            $dataInicio = $request->datainicio;
-            $dataFim = $request->datafim;
-
-            $reembolsos->whereBetween('data', [$dataInicio, $dataFim]);
-
-            $somaEntrada = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somaentrada
-            FROM reembolsos r
-            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
-
-            $somaSaida = DB::select("SELECT COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS somasaida
-            FROM reembolsos r
-            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
-
-            $total = DB::select("SELECT
-            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Entrada' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) -
-            COALESCE(SUM(CAST(CASE WHEN r.movimento = 'Saida' THEN REPLACE(REPLACE(r.valor, '.', ''), ',', '.')::DECIMAL(12, 2) ELSE 0 END AS DECIMAL(12, 2))), 0) AS total
-            FROM reembolsos r
-            WHERE r.data BETWEEN '$dataInicio' AND '$dataFim'");
-        }
-
-        if ($request->has('centrocusto_id') && !empty($request->centrocusto_id)) {
-            $centroCustoId = $request->centrocusto_id;
-            $reembolsos->where('centrocusto_id', $centroCustoId);
-        }
-
-        if ($request->has('status') && !empty($request->status)) {
-            $status = $request->status;
-            $reembolsos->where('status', $status);
-        }
-
-        if ($request->has('corporativo') && !empty($request->corporativo)) {
-            $corporativo = $request->corporativo;
-            $reembolsos->where('corporativo', $corporativo);
-        }
-
-        if ($request->has('movimento') && !empty($request->movimento)) {
-            $movimento = $request->movimento;
-            $reembolsos->where('movimento', $movimento);
-        }
-
-        if ($request->has('usuario_id') && !empty($request->usuario_id)) {
-            $usuarioId = $request->usuario_id;
-            $reembolsos->where('usuario_id', $usuarioId);
-        }
-
-        if ($request->has('cartao_id') && !empty($request->cartao_id)) {
-            $cartaoId = $request->cartao_id;
-            $reembolsos->where('cartao_id', $cartaoId);
-        }
-
-        $dompdf = new Dompdf();
-
-       // Carregue o conteúdo HTML da view
-        $view = View::make('relatorio.relatorioDetalhado_pdf',compact('reembolsos', 'somaEntrada', 'somaSaida', 'total','usuarios', 'cartaos', 'centrocustos'));
-        $html = $view->render();
-
+        // Instancie o Dompdf
         $dompdf = new Dompdf();
 
         // Carregue o HTML no Dompdf
@@ -276,21 +195,23 @@ class GraficosRelatoriosController extends Controller
         // Renderize o PDF
         $dompdf->render();
 
-        // Obtenha o canvas do PDF
-        $canvas = $dompdf->getCanvas();
+        // Defina o nome do arquivo PDF gerado
+        $filename = 'relatorioDetalhado.pdf';
 
-        // Caminho absoluto para a imagem
-        $imagePath = public_path('images/logo.png');
+        // Obtenha o conteúdo do PDF gerado
+        $pdfContent = $dompdf->output();
 
-        // // Verifique se a imagem existe
-        // if (file_exists($imagePath)) {
-        //     // Adicione a imagem ao canvas
-        //     $canvas->image($imagePath, 20, 20, 70, 50);
-        // }
+        // Defina o cabeçalho Content-Type como PDF
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ];
 
-        // Salve o PDF em um arquivo ou envie para o navegador
-        $dompdf->stream('relatorioDetalhado.pdf');
+        // Crie uma resposta HTTP com o conteúdo do PDF e os cabeçalhos
+        $response = response($pdfContent, 200, $headers);
 
+        // Envie a resposta para download
+        return $response;
     }
 
     public function graficosADM()

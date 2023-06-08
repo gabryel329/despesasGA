@@ -27,7 +27,7 @@
                         <form action="{{ route('relatorioDetalhado.relatorio') }}" method="get">
                             @csrf
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div class="form-group">
                                         <label class="form-label">Centro de Custo</label>
                                         <select class="select2 form-control" id="centrocusto_id" name="centrocusto_id">
@@ -38,24 +38,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Status</label>
-                                        <select class="form-control" id="status" name="status">
-                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
-                                            <option value="Em Aberto">Em Aberto</option>
-                                            <option value="Reembolsada">Reembolsada</option>
-                                            <option value="Glosada">Glosada</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-3">
+
+                                <div class="col-4">
                                     <div class="form-group">
                                         <label for="datainicio">Data de Início:</label>
                                         <input type="date" class="form-control" id="datainicio1" name="datainicio" value="{{ request('datainicio') }}">
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div class="form-group">
                                         <label for="datafim">Data de Término:</label>
                                         <input type="date" class="form-control" id="datafim1" name="datafim" value="{{ request('datafim') }}">
@@ -71,6 +61,17 @@
                                             @foreach ($usuarios as $usuario)
                                                 <option value="{{$usuario->name}}">{{$usuario->name}}</option>
                                             @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Status</label>
+                                        <select class="form-control" id="status" name="status">
+                                            <option disabled selected style="font-size:18px;color: black;">Escolha</option>
+                                            <option value="Em Aberto">Em Aberto</option>
+                                            <option value="Reembolsada">Reembolsada</option>
+                                            <option value="Glosada">Glosada</option>
                                         </select>
                                     </div>
                                 </div>
@@ -90,10 +91,6 @@
                                         <option value="Entrada">Entrada</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">Digite o cartão</label>
-                                    <input id="search" class="form-control input-md" type="text" name="search" placeholder="">
-                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Filtrar</button>
                             <a class="btn btn-danger" type="button" href="{{ route('relatorioDetalhado.relatorio') }}">Resetar</a>
@@ -104,7 +101,7 @@
         </div>
         <form action="{{ route('gerar.pdf') }}" method="GET" target="_blank">
             @csrf
-            <button type="submit" class="btn btn-primary">Gerar PDF</button>
+            <button type="submit" class="btn btn-primary" disabled>Gerar PDF</button>
         </form>
         <div class="row">
             <div class="col-12">
