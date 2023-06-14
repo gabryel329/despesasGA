@@ -90,7 +90,7 @@ Route::get('/Buscar/mostrarReembolsos/{id}', [BuscarReembolsoController::class, 
 Route::get('/Buscar/editarReembolsos/{id}',[BuscarReembolsoController::class, 'edit'])->name('editarreembolsos.edit')->middleware('admin');
 Route::put('/Buscar/atualizarReembolsos/{id}',[BuscarReembolsoController::class, 'update'])->name('atualizarreembolsos.update')->middleware('admin');
 
-#ROTA BUSCAR REEMBOLSO
+#ROTA BUSCAR USUARIO
 Route::get('/Buscar/buscarUsuarios', [BuscarUsuarioController::class, 'index'])->name('buscarusuarios.index')->middleware('admin');
 Route::delete('/Buscar/deletarUsuarios/{id}',[BuscarUsuarioController::class, 'destroy'])->name('buscarusuarios.destroy');
 Route::post('/Buscar/pesquisarUsuarios', [BuscarUsuarioController::class, 'search'])->name('pesquisarusuarios.search');
