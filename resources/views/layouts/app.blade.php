@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Despesas GA</title>
+    <title>Despesas</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +55,7 @@
     }
     </style>
 
-    <script>
+    {{-- <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
                 .then(function(registration) {
@@ -65,7 +65,7 @@
                     console.log('Falha ao registrar o Service Worker:', error);
                 });
         }
-    </script>
+    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     @stack('css')

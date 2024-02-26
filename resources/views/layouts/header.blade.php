@@ -1,6 +1,6 @@
 
 <header class="app-header" style="background-color: #12589e">
-    <a class="app-header__logo" style="background-color: #12589e" href="/home">Despesas GA</a>
+    <a class="app-header__logo" style="background-color: #12589e" href="/home">Despesas</a>
     <!-- Sidebar toggle button -->
     <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu -->

@@ -60,9 +60,9 @@
                                     <th>
                                         Valor
                                     </th>
-                                    <th>
+                                    {{-- <th>
                                         Centro de Custo
-                                    </th>
+                                    </th> --}}
                                     <th>
                                         Observação
                                     </th>
@@ -88,7 +88,7 @@
                                         <td>{{ $reembolso->data }}</td>
                                         <td>{{ $reembolso->gasto_id }}</td>
                                         <td>R${{ $reembolso->valor }}</td>
-                                        <td>{{ $reembolso->centrocusto_id }}</td>
+                                        {{-- <td>{{ $reembolso->centrocusto_id }}</td> --}}
                                         <td>{{ $reembolso->observacao }}</td>
                                         <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>
                                         <td>{{ $reembolso->status }}</td>

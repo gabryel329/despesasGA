@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="form-group">
                                         <label class="form-label">Centro de Custo</label>
@@ -54,7 +54,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
                                 <div class="col-6 col-md-3">
                                     <div class="form-group">
@@ -136,9 +136,9 @@
                                 <th>
                                     Status
                                 </th>
-                                <th>
+                                {{-- <th>
                                     Centro de Custo
-                                </th>
+                                </th> --}}
                                 <th>
                                     Corporativo
                                 </th>
@@ -161,7 +161,7 @@
                                     <td>{{ $reembolso->data }}</td>
                                     <td>{{ $reembolso->gasto_id }}</td>
                                     <td>{{ $reembolso->status }}</td>
-                                    <td>{{ $reembolso->centrocusto_id }}</td>
+                                    {{-- <td>{{ $reembolso->centrocusto_id }}</td> --}}
                                     <td>{{ $reembolso->corporativo }}</td>
                                     <td>{{ $reembolso->cartao_id}}
                                     <td class="{{ $reembolso->movimento == 'Entrada' ? 'entrada' : 'saida' }}"><strong>{{ $reembolso->movimento }}</strong></td>

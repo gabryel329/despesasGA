@@ -27,19 +27,19 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <span class="input-group-addon" for="valor">Valor  da Visita</span>
+                                    <span class="input-group-addon" for="valor">Valor</span>
                                     <input id="valor" name="valor" placeholder="" class="form-control input-md"
                                          type="text" onKeyPress="return(moeda(this,'.',',',event))" value="{{$reembolsos->valor}}">
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="input-group-addon">Data  da Visita</span>
+                                    <span class="input-group-addon">Data</span>
                                     <input id="data1" name="data" placeholder="" class="form-control input-md"
                                          type="date" value="{{$reembolsos->data}}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Nutureza Operação da Visita</Label>
+                                    <Label class="form-check-label">Nutureza Operação</Label>
                                     <select class="form-control select2" id="gasto_id" name="gasto_id">
                                         <option selected >{{$reembolsos->gasto_id}}
                                         </option>
@@ -49,7 +49,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Responsavel da Visita</Label>
+                                    <Label class="form-check-label">Responsavel</Label>
                                     <select class="form-control select2" id="usuario_id" name="usuario_id">
                                         <option selected>{{$reembolsos->usuario_id}}
                                         </option>
@@ -59,7 +59,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-12">
                                     <Label class="form-check-label">Centro de Custo da Visita</Label>
                                     <select class="form-control select2" id="centrocusto_id" name="centrocusto_id">
@@ -70,9 +70,9 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
-                                <div class="col-md-4">
+                                {{-- <div class="col-md-4">
                                     <Label class="form-check-label">Tipo da Visita</Label>
                                     <select class="form-control select2" id="tipo" name="tipo">
                                         <option selected>{{$reembolsos->tipo}}
@@ -84,9 +84,9 @@
                                         <option value="Apresentacao do Sistema">Apresentação do Sistema</option>
                                         <option value="Reuniao">Reunião</option>
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-4" id="parcelas3">
-                                    <label class="form-check-label">Cartão Corporativo da Visita</label>
+                                    <label class="form-check-label">Cartão Corporativo</label>
                                     <select onchange="atualizarCampos(this.value)" class="form-control" id="corporativo" name="corporativo" required>
                                         <option selected value="{{$reembolsos->corporativo}}">{{$reembolsos->corporativo}}</option>
                                         <option value="Sim">Sim</option>
@@ -94,7 +94,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <Label class="form-check-label">Tipo de Movimento da Visita</Label>
+                                    <Label class="form-check-label">Tipo de Movimento</Label>
                                     <select class="form-control" id="movimento" onchange="adicionarcampo4(this.value)" name="movimento">
                                         <option  selected value="{{$reembolsos->movimento}}">{{$reembolsos->movimento}}
                                         </option>
@@ -102,10 +102,8 @@
                                         <option value="Saida">Saida</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6" id="parcelas4" hidden>
-                                    <label class="control-label">Qual cartão: da Visita</label>
+                                <div class="col-md-4" id="parcelas4" hidden>
+                                    <label class="control-label">Qual cartão:</label>
                                     <select class="form-control" id="cartao_id" name="cartao_id">
                                         <option selected>{{$reembolsos->cartao_id}}
                                         @foreach ($cartaos as $cartao)
@@ -116,11 +114,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Comprovante da Visita</Label>
+                                    <Label class="form-check-label">Comprovante</Label>
                                     <input class="form-control" type="file" name="image">
                                 </div>
                                 <div class="col-md-6">
-                                    <Label class="form-check-label">Status da Visita</Label>
+                                    <Label class="form-check-label">Status</Label>
                                     <select class="form-control" id="status" name="status" required>
                                         <option  value="{{$reembolsos->status}}">{{$reembolsos->status}}
                                         </option>

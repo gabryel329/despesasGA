@@ -52,18 +52,18 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-12">
                                     <h6 class="form-check-label">Centro de Custo</h6>
                                     <input class="form-control" id="centrocusto_id" name="centrocusto_id" value="{{ $reembolsos->centrocusto_id }}" disabled style="font-size:18px;color: black;">
                                 </div>
-                            </div>
+                            </div> --}}
                             <br>
                             <div class="row">
-                                <div class="col-md-4">
+                                {{-- <div class="col-md-4">
                                     <h6 class="form-check-label">Tipo da Visita</h6>
                                     <input class="form-control" id="tipo" name="tipo" value="{{ $reembolsos->tipo }}" disabled style="font-size:18px;color: black;">
-                                </div>
+                                </div> --}}
                                 <div class="col-md-4">
                                     <h6 class="form-check-label">Tipo Movimento</h6>
                                     <input class="form-control" id="movimento" name="movimento" value="{{ $reembolsos->movimento }}" disabled style="font-size:18px;color: black;">
@@ -72,11 +72,8 @@
                                     <h6 class="form-check-label">Cartão Corporativo</h6>
                                     <input class="form-control" id="corporativo" name="corporativo" value="{{ $reembolsos->corporativo }}" disabled style="font-size:18px;color: black;">
                                 </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6" id="parcelas3">
-                                    <h6 class="control-label">Cartão</h6>
+                                <div class="col-md-4" id="parcelas3">
+                                    <h6 class="form-check-label">Cartão</h6>
                                     <input class="form-control" id="cartao_id" name="cartao_id" required value="{{ $reembolsos->cartao_id }}" disabled style="font-size:18px;color: black;">
                                 </div>
                             </div>

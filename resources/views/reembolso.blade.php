@@ -54,7 +54,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-12">
                                     <label class="form-check-label">Centro de Custo<h11>*</h11></label>
                                     <select class="form-control select2" id="centrocusto_id" name="centrocusto_id" required>
@@ -64,9 +64,9 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
-                                <div class="col-md-4">
+                                {{-- <div class="col-md-4">
                                     <Label class="form-check-label">Tipo de Visita<h11>*</h11></Label>
                                     <select class="form-control select2" id="tipo" name="tipo">
                                         <option disabled selected style="font-size:18px;color: black;" required>Escolha
@@ -78,7 +78,7 @@
                                         <option value="Apresentação do Sistema">Apresentacão do Sistema</option>
                                         <option value="Reunião">Reunião</option>
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-4" id="parcelas3" >
                                     <label class="form-check-label">Cartão Corporativo<h11>*</h11></label>
                                     <select onchange="atualizarCampos(this.value)"  class="form-control" id="corporativo" name="corporativo" required>
@@ -94,10 +94,8 @@
                                         <option value="Saida">Saida</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6" id="parcelas4" hidden>
-                                    <label class="control-label">Qual cartão:<h11>*</h11></label>
+                                <div class="col-md-4" id="parcelas4" hidden>
+                                    <label class="form-check-label">Qual cartão:<h11>*</h11></label>
                                     <select class="form-control" id="cartao_id" name="cartao_id" required>
                                         <option disabled selected style="font-size:18px;color: black;">Escolha
                                         </option>
@@ -140,10 +138,8 @@
 
        if ((document.getElementById("gasto_id").value!='Escolha'))
        {
-            if ((document.getElementById("centrocusto_id").value!='Escolha'))
-            {
-                if ((document.getElementById("tipo").value!='Escolha'))
-                {
+
+
                     if ((document.getElementById("movimento").value!='Escolha'))
                         {
                         if ((document.getElementById("corporativo").value!='Escolha'))
@@ -167,24 +163,8 @@
                                 timer: 1500
                                 });
                     }
-                }else{
-                    Swal.fire({
-                            position: 'top',
-                            icon: 'error',
-                            title: 'Por favor preencher o Tipo da Visita.',
-                            showConfirmButton: false,
-                            timer: 1500
-                            });
-                }
-            }else{
-                Swal.fire({
-                        position: 'top',
-                        icon: 'error',
-                        title: 'Por favor preencher o Centro de Custo.',
-                        showConfirmButton: false,
-                        timer: 1500
-                        });
-            }
+
+
        }else{
             Swal.fire({
                         position: 'top',
